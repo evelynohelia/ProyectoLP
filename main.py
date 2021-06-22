@@ -26,7 +26,7 @@ reserved = {
     'bool' : 'BOOL',
     'new' : 'NEW',
     'class': 'CLASS',
-    'return: 'RETURN',
+    'return': 'RETURN',
 }
 
 tokens = tokens + list(reserved.values())
