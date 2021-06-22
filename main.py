@@ -13,6 +13,8 @@ reserved = {
     'char': 'CHAR',
     'void': 'VOID',
     'public': 'PUBLIC',
+    'private':'PRIVATE',
+    'protected':'PROTECTED',
     'static' :'STATIC',
     'struct': 'STRUCT',
     'true': 'TRUE',
@@ -33,7 +35,7 @@ def t_IDENTIFICADOR(t):
     t.type = reserved.get(t.value,'IDENTIFICADOR') 
     return t
 t_CHARACTER = r'\'[a-zA-z]\''
-t_STRING = r'(\"[a-zA-z0-9\s]*\"|\'[a-zA-z0-9\s]*\')'
+t_STRING = r'\"[a-zA-z0-9\s]*\"'
 
 def t_FLOTANTE(t):
     r'\d+\.\d+'
@@ -60,7 +62,7 @@ def t_error(t):
 #BUILDER
 lexer = lex.lex()
 
-data = "*hola identificador1 _identificador2 2.5 786 /*comentario*/ true false \"Esto es una prueba\""
+data = "*hola identificador1 _identificador2 2.5 786 /*comentario*/ true false \"Esto es una prueba\" int \'c\'"
 lexer.input(data)
 
 while True:
