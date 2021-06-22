@@ -1,6 +1,8 @@
 import ply.lex as lex
 
-tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','STRING','COMENTARIO','PUNTERO','EXCLAMACION','PORCENTAJE','CIRCUNFLEJO','AND','ASTERISCO','MENOS','MAS','IGUAL','LLAVEL','LLAVER','PIPE','VIRGUILA']
+tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','STRING','COMENTARIO','PUNTERO','EXCLAMACION','PORCENTAJE','CIRCUNFLEJO','AND','ASTERISCO','MENOS','MAS','IGUAL','LLAVEL','LLAVER','PIPE','VIRGUILA',
+         'CORCHETEL','CORCHETER','BACKSLASH','PUNTOCOMA','COMASIMPLE','DOBLEPUNTO','COMADOBLE','MENOR','MAYOR','INTERROGACION','COMMA','PUNTO','SLASH','NUMERAL']
+
 reserved = {
     'if' : 'IF',
     'then' : 'THEN',
@@ -23,9 +25,10 @@ reserved = {
     'auto' :'AUTO',
     'bool' : 'BOOL',
     'new' : 'NEW',
-    'print': 'PRINT',
-
+    'class': 'CLASS',
+    'return: 'RETURN',
 }
+
 tokens = tokens + list(reserved.values())
 
 #TOKENS
@@ -42,6 +45,21 @@ t_LLAVER = r'\}'
 t_PIPE = r'\|'
 t_VIRGUILA = r'~'
 t_PUNTERO = r'\*[a-zA-Z_][A-Za-z0-9_]*'
+t_CORCHETER = r'\['
+t_CORCHETEL = r'\]'
+t_BACKSLASH = r'\\'
+t_PUNTOCOMA = r';'
+t_COMASIMPLE= r'\''
+t_DOBLEPUNTO = r':'
+t_COMADOBLE = r'\"'
+t_MENOR = r'<'
+t_MAYOR = r'>'
+t_INTERROGACION = r'\?'
+t_COMMA = r','
+t_PUNTO = r'\.'
+t_SLASH = r'/'
+t_NUMERAL = r'\#'
+
 def t_IDENTIFICADOR(t):
     r'[a-zA-Z_][A-Za-z0-9_]*'
     t.type = reserved.get(t.value,'IDENTIFICADOR') 
