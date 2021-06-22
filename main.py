@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','STRING','COMENTARIO','PUNTERO'] 
+tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','STRING','COMENTARIO','PUNTERO','EXCLAMACION','PORCENTAJE','CIRCUNFLEJO','AND','ASTERISCO','MENOS','MAS','IGUAL','LLAVEL','LLAVER','PIPE','VIRGUILA']
 reserved = {
     'if' : 'IF',
     'then' : 'THEN',
@@ -29,6 +29,18 @@ reserved = {
 tokens = tokens + list(reserved.values())
 
 #TOKENS
+t_EXCLAMACION = r'!'
+t_PORCENTAJE = r'%'
+t_CIRCUNFLEJO = r'\^'
+t_AND = r'&'
+t_ASTERISCO = r'\*'
+t_MENOS = r'\-'
+t_MAS = r'\+'
+t_IGUAL = r'='
+t_LLAVEL = r'\{'
+t_LLAVER = r'\}'
+t_PIPE = r'\|'
+t_VIRGUILA = r'~'
 t_PUNTERO = r'\*[a-zA-Z_][A-Za-z0-9_]*'
 def t_IDENTIFICADOR(t):
     r'[a-zA-Z_][A-Za-z0-9_]*'
