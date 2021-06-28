@@ -91,12 +91,3 @@ def t_error(t):
 
 #BUILDER
 lexer = lex.lex()
-
-data = "*hola identificador1 _identificador2 2.5 786 /*comentario*/ true false \"Esto es una prueba\" int \'c\' []{}?,.:;"
-lexer.input(data)
-
-while True:
-    tok = lexer.token()
-    if not tok:
-        break
-    print(tok)

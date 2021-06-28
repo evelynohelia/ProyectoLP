@@ -1,0 +1,281 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    ASTERISCO
+    BACKSLASH
+    BOOL
+    CIRCUNFLEJO
+    CLASS
+    COMADOBLE
+    COMASIMPLE
+    COMENTARIO
+    COMMA
+    CORCHETEL
+    CORCHETER
+    DOBLEPUNTO
+    ELSE
+    EXCLAMACION
+    FALSE
+    FOR
+    IF
+    INTERROGACION
+    LLAVEL
+    LLAVER
+    MAS
+    MAYOR
+    MENOR
+    MENOS
+    NEW
+    NULLPOINTER
+    NUMERAL
+    PIPE
+    PORCENTAJE
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    PUNTERO
+    PUNTO
+    RETURN
+    SLASH
+    STATIC
+    STRUCT
+    THEN
+    TRUE
+    VIRGUILA
+    WHILE
+
+Grammar
+
+Rule 0     S' -> body
+Rule 1     body -> variable
+Rule 2     variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
+Rule 3     tipo -> INT
+Rule 4     tipo -> FLOAT
+Rule 5     tipo -> LONG
+Rule 6     tipo -> AUTO
+Rule 7     tipo -> CHAR
+Rule 8     tipo -> VOID
+Rule 9     valor -> ENTERO
+Rule 10    valor -> FLOTANTE
+Rule 11    valor -> CHARACTER
+Rule 12    valor -> STRING
+
+Terminals, with rules where they appear
+
+AND                  : 
+ASTERISCO            : 
+AUTO                 : 6
+BACKSLASH            : 
+BOOL                 : 
+CHAR                 : 7
+CHARACTER            : 11
+CIRCUNFLEJO          : 
+CLASS                : 
+COMADOBLE            : 
+COMASIMPLE           : 
+COMENTARIO           : 
+COMMA                : 
+CORCHETEL            : 
+CORCHETER            : 
+DOBLEPUNTO           : 
+ELSE                 : 
+ENTERO               : 9
+EXCLAMACION          : 
+FALSE                : 
+FLOAT                : 4
+FLOTANTE             : 10
+FOR                  : 
+IDENTIFICADOR        : 2
+IF                   : 
+IGUAL                : 2
+INT                  : 3
+INTERROGACION        : 
+LLAVEL               : 
+LLAVER               : 
+LONG                 : 5
+MAS                  : 
+MAYOR                : 
+MENOR                : 
+MENOS                : 
+NEW                  : 
+NULLPOINTER          : 
+NUMERAL              : 
+PIPE                 : 
+PORCENTAJE           : 
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
+PUNTERO              : 
+PUNTO                : 
+PUNTOCOMA            : 2
+RETURN               : 
+SLASH                : 
+STATIC               : 
+STRING               : 12
+STRUCT               : 
+THEN                 : 
+TRUE                 : 
+VIRGUILA             : 
+VOID                 : 8
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+body                 : 0
+tipo                 : 2
+valor                : 2
+variable             : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . body
+    (1) body -> . variable
+    (2) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (3) tipo -> . INT
+    (4) tipo -> . FLOAT
+    (5) tipo -> . LONG
+    (6) tipo -> . AUTO
+    (7) tipo -> . CHAR
+    (8) tipo -> . VOID
+
+    INT             shift and go to state 4
+    FLOAT           shift and go to state 5
+    LONG            shift and go to state 6
+    AUTO            shift and go to state 7
+    CHAR            shift and go to state 8
+    VOID            shift and go to state 9
+
+    body                           shift and go to state 1
+    variable                       shift and go to state 2
+    tipo                           shift and go to state 3
+
+state 1
+
+    (0) S' -> body .
+
+
+
+state 2
+
+    (1) body -> variable .
+
+    $end            reduce using rule 1 (body -> variable .)
+
+
+state 3
+
+    (2) variable -> tipo . IDENTIFICADOR IGUAL valor PUNTOCOMA
+
+    IDENTIFICADOR   shift and go to state 10
+
+
+state 4
+
+    (3) tipo -> INT .
+
+    IDENTIFICADOR   reduce using rule 3 (tipo -> INT .)
+
+
+state 5
+
+    (4) tipo -> FLOAT .
+
+    IDENTIFICADOR   reduce using rule 4 (tipo -> FLOAT .)
+
+
+state 6
+
+    (5) tipo -> LONG .
+
+    IDENTIFICADOR   reduce using rule 5 (tipo -> LONG .)
+
+
+state 7
+
+    (6) tipo -> AUTO .
+
+    IDENTIFICADOR   reduce using rule 6 (tipo -> AUTO .)
+
+
+state 8
+
+    (7) tipo -> CHAR .
+
+    IDENTIFICADOR   reduce using rule 7 (tipo -> CHAR .)
+
+
+state 9
+
+    (8) tipo -> VOID .
+
+    IDENTIFICADOR   reduce using rule 8 (tipo -> VOID .)
+
+
+state 10
+
+    (2) variable -> tipo IDENTIFICADOR . IGUAL valor PUNTOCOMA
+
+    IGUAL           shift and go to state 11
+
+
+state 11
+
+    (2) variable -> tipo IDENTIFICADOR IGUAL . valor PUNTOCOMA
+    (9) valor -> . ENTERO
+    (10) valor -> . FLOTANTE
+    (11) valor -> . CHARACTER
+    (12) valor -> . STRING
+
+    ENTERO          shift and go to state 13
+    FLOTANTE        shift and go to state 14
+    CHARACTER       shift and go to state 15
+    STRING          shift and go to state 16
+
+    valor                          shift and go to state 12
+
+state 12
+
+    (2) variable -> tipo IDENTIFICADOR IGUAL valor . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 17
+
+
+state 13
+
+    (9) valor -> ENTERO .
+
+    PUNTOCOMA       reduce using rule 9 (valor -> ENTERO .)
+
+
+state 14
+
+    (10) valor -> FLOTANTE .
+
+    PUNTOCOMA       reduce using rule 10 (valor -> FLOTANTE .)
+
+
+state 15
+
+    (11) valor -> CHARACTER .
+
+    PUNTOCOMA       reduce using rule 11 (valor -> CHARACTER .)
+
+
+state 16
+
+    (12) valor -> STRING .
+
+    PUNTOCOMA       reduce using rule 12 (valor -> STRING .)
+
+
+state 17
+
+    (2) variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .
+
+    $end            reduce using rule 2 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+
