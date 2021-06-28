@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ASTERISCO AUTO BACKSLASH BOOL CHAR CHARACTER CIRCUNFLEJO CLASS COMADOBLE COMASIMPLE COMENTARIO COMMA CORCHETEL CORCHETER DOBLEPUNTO ELSE ENTERO EXCLAMACION FALSE FLOAT FLOTANTE FOR IDENTIFICADOR IF IGUAL INT INTERROGACION LLAVEL LLAVER LONG MAS MAYOR MENOR MENOS NEW NULLPOINTER NUMERAL PIPE PORCENTAJE PRIVATE PROTECTED PUBLIC PUNTERO PUNTO PUNTOCOMA RETURN SLASH STATIC STRING STRUCT THEN TRUE VIRGUILA VOID WHILEbody : variablevariable : tipo IDENTIFICADOR IGUAL valor PUNTOCOMAtipo : INT \n            | FLOAT\n            | LONG\n            | AUTO\n            | CHAR\n            | VOIDvalor : ENTERO \n            | FLOTANTE\n            | CHARACTER\n            | STRING'
+_lr_signature = 'AND ASTERISCO AUTO BACKSLASH BOOL CHAR CHARACTER CIRCUNFLEJO CLASS COMADOBLE COMASIMPLE COMENTARIO COMMA CORCHETEL CORCHETER DOBLEPUNTO ELSE ENTERO EXCLAMACION FALSE FLOAT FLOTANTE FOR IDENTIFICADOR IF IGUAL INT INTERROGACION LLAVEL LLAVER LONG LPAR MAS MAYOR MENOR MENOS NEW NULLPOINTER NUMERAL PIPE PORCENTAJE PRIVATE PROTECTED PUBLIC PUNTERO PUNTO PUNTOCOMA RETURN RPAR SLASH STATIC STRING STRUCT THEN TRUE VIRGUILA VOID WHILEbody : variable\n            | while\n            |variable : tipo IDENTIFICADOR IGUAL valor PUNTOCOMA\n                | tipo IDENTIFICADOR PUNTOCOMAtipo : INT \n            | FLOAT\n            | LONG\n            | AUTO\n            | CHAR\n            | VOIDvalor : ENTERO \n            | FLOTANTE\n            | CHARACTER\n            | STRING\n            | TRUE\n            | FALSEwhile : WHILE LPAR expresion RPAR LLAVEL body LLAVERexpresion : expresion MAYOR expresion                \n                | expresion MAYOR IGUAL expresion\n                | expresion MENOR expresion\n                | expresion MENOR IGUAL expresion\n                | expresion IGUAL IGUAL expresion\n                | expresion EXCLAMACION IGUAL expresionexpresion : valor'
     
-_lr_action_items = {'INT':([0,],[4,]),'FLOAT':([0,],[5,]),'LONG':([0,],[6,]),'AUTO':([0,],[7,]),'CHAR':([0,],[8,]),'VOID':([0,],[9,]),'$end':([1,2,17,],[0,-1,-2,]),'IDENTIFICADOR':([3,4,5,6,7,8,9,],[10,-3,-4,-5,-6,-7,-8,]),'IGUAL':([10,],[11,]),'ENTERO':([11,],[13,]),'FLOTANTE':([11,],[14,]),'CHARACTER':([11,],[15,]),'STRING':([11,],[16,]),'PUNTOCOMA':([12,13,14,15,16,],[17,-9,-10,-11,-12,]),}
+_lr_action_items = {'$end':([0,1,2,3,15,30,43,],[-3,0,-1,-2,-5,-4,-18,]),'WHILE':([0,31,],[5,5,]),'INT':([0,31,],[6,6,]),'FLOAT':([0,31,],[7,7,]),'LONG':([0,31,],[8,8,]),'AUTO':([0,31,],[9,9,]),'CHAR':([0,31,],[10,10,]),'VOID':([0,31,],[11,11,]),'LLAVER':([2,3,15,30,31,38,43,],[-1,-2,-5,-4,-3,43,-18,]),'IDENTIFICADOR':([4,6,7,8,9,10,11,],[12,-6,-7,-8,-9,-10,-11,]),'LPAR':([5,],[13,]),'IGUAL':([12,16,17,18,19,20,21,22,23,26,27,28,29,32,35,39,40,41,42,],[14,27,-25,-12,-13,-14,-15,-16,-17,33,34,36,37,27,27,27,27,27,27,]),'PUNTOCOMA':([12,18,19,20,21,22,23,24,],[15,-12,-13,-14,-15,-16,-17,30,]),'ENTERO':([13,14,26,28,33,34,36,37,],[18,18,18,18,18,18,18,18,]),'FLOTANTE':([13,14,26,28,33,34,36,37,],[19,19,19,19,19,19,19,19,]),'CHARACTER':([13,14,26,28,33,34,36,37,],[20,20,20,20,20,20,20,20,]),'STRING':([13,14,26,28,33,34,36,37,],[21,21,21,21,21,21,21,21,]),'TRUE':([13,14,26,28,33,34,36,37,],[22,22,22,22,22,22,22,22,]),'FALSE':([13,14,26,28,33,34,36,37,],[23,23,23,23,23,23,23,23,]),'RPAR':([16,17,18,19,20,21,22,23,32,35,39,40,41,42,],[25,-25,-12,-13,-14,-15,-16,-17,-19,-21,-20,-23,-22,-24,]),'MAYOR':([16,17,18,19,20,21,22,23,32,35,39,40,41,42,],[26,-25,-12,-13,-14,-15,-16,-17,26,26,26,26,26,26,]),'MENOR':([16,17,18,19,20,21,22,23,32,35,39,40,41,42,],[28,-25,-12,-13,-14,-15,-16,-17,28,28,28,28,28,28,]),'EXCLAMACION':([16,17,18,19,20,21,22,23,32,35,39,40,41,42,],[29,-25,-12,-13,-14,-15,-16,-17,29,29,29,29,29,29,]),'LLAVEL':([25,],[31,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'body':([0,],[1,]),'variable':([0,],[2,]),'tipo':([0,],[3,]),'valor':([11,],[12,]),}
+_lr_goto_items = {'body':([0,31,],[1,38,]),'variable':([0,31,],[2,2,]),'while':([0,31,],[3,3,]),'tipo':([0,31,],[4,4,]),'expresion':([13,26,28,33,34,36,37,],[16,32,35,39,40,41,42,]),'valor':([13,14,26,28,33,34,36,37,],[17,24,17,17,17,17,17,17,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,15 +28,28 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> body","S'",1,None,None,None),
   ('body -> variable','body',1,'p_body','sintactico.py',6),
-  ('variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA','variable',5,'p_variable','sintactico.py',9),
-  ('tipo -> INT','tipo',1,'p_tipo','sintactico.py',12),
-  ('tipo -> FLOAT','tipo',1,'p_tipo','sintactico.py',13),
-  ('tipo -> LONG','tipo',1,'p_tipo','sintactico.py',14),
-  ('tipo -> AUTO','tipo',1,'p_tipo','sintactico.py',15),
-  ('tipo -> CHAR','tipo',1,'p_tipo','sintactico.py',16),
-  ('tipo -> VOID','tipo',1,'p_tipo','sintactico.py',17),
-  ('valor -> ENTERO','valor',1,'p_valor','sintactico.py',20),
-  ('valor -> FLOTANTE','valor',1,'p_valor','sintactico.py',21),
-  ('valor -> CHARACTER','valor',1,'p_valor','sintactico.py',22),
-  ('valor -> STRING','valor',1,'p_valor','sintactico.py',23),
+  ('body -> while','body',1,'p_body','sintactico.py',7),
+  ('body -> <empty>','body',0,'p_body','sintactico.py',8),
+  ('variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA','variable',5,'p_variable','sintactico.py',11),
+  ('variable -> tipo IDENTIFICADOR PUNTOCOMA','variable',3,'p_variable','sintactico.py',12),
+  ('tipo -> INT','tipo',1,'p_tipo','sintactico.py',15),
+  ('tipo -> FLOAT','tipo',1,'p_tipo','sintactico.py',16),
+  ('tipo -> LONG','tipo',1,'p_tipo','sintactico.py',17),
+  ('tipo -> AUTO','tipo',1,'p_tipo','sintactico.py',18),
+  ('tipo -> CHAR','tipo',1,'p_tipo','sintactico.py',19),
+  ('tipo -> VOID','tipo',1,'p_tipo','sintactico.py',20),
+  ('valor -> ENTERO','valor',1,'p_valor','sintactico.py',23),
+  ('valor -> FLOTANTE','valor',1,'p_valor','sintactico.py',24),
+  ('valor -> CHARACTER','valor',1,'p_valor','sintactico.py',25),
+  ('valor -> STRING','valor',1,'p_valor','sintactico.py',26),
+  ('valor -> TRUE','valor',1,'p_valor','sintactico.py',27),
+  ('valor -> FALSE','valor',1,'p_valor','sintactico.py',28),
+  ('while -> WHILE LPAR expresion RPAR LLAVEL body LLAVER','while',7,'p_while','sintactico.py',32),
+  ('expresion -> expresion MAYOR expresion','expresion',3,'p_expresion_comparacion','sintactico.py',36),
+  ('expresion -> expresion MAYOR IGUAL expresion','expresion',4,'p_expresion_comparacion','sintactico.py',37),
+  ('expresion -> expresion MENOR expresion','expresion',3,'p_expresion_comparacion','sintactico.py',38),
+  ('expresion -> expresion MENOR IGUAL expresion','expresion',4,'p_expresion_comparacion','sintactico.py',39),
+  ('expresion -> expresion IGUAL IGUAL expresion','expresion',4,'p_expresion_comparacion','sintactico.py',40),
+  ('expresion -> expresion EXCLAMACION IGUAL expresion','expresion',4,'p_expresion_comparacion','sintactico.py',41),
+  ('expresion -> valor','expresion',1,'p_expresion','sintactico.py',44),
 ]

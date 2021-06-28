@@ -16,16 +16,10 @@ Unused terminals:
     CORCHETER
     DOBLEPUNTO
     ELSE
-    EXCLAMACION
-    FALSE
     FOR
     IF
     INTERROGACION
-    LLAVEL
-    LLAVER
     MAS
-    MAYOR
-    MENOR
     MENOS
     NEW
     NULLPOINTER
@@ -42,35 +36,46 @@ Unused terminals:
     STATIC
     STRUCT
     THEN
-    TRUE
     VIRGUILA
-    WHILE
 
 Grammar
 
 Rule 0     S' -> body
 Rule 1     body -> variable
-Rule 2     variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-Rule 3     tipo -> INT
-Rule 4     tipo -> FLOAT
-Rule 5     tipo -> LONG
-Rule 6     tipo -> AUTO
-Rule 7     tipo -> CHAR
-Rule 8     tipo -> VOID
-Rule 9     valor -> ENTERO
-Rule 10    valor -> FLOTANTE
-Rule 11    valor -> CHARACTER
-Rule 12    valor -> STRING
+Rule 2     body -> while
+Rule 3     body -> <empty>
+Rule 4     variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
+Rule 5     variable -> tipo IDENTIFICADOR PUNTOCOMA
+Rule 6     tipo -> INT
+Rule 7     tipo -> FLOAT
+Rule 8     tipo -> LONG
+Rule 9     tipo -> AUTO
+Rule 10    tipo -> CHAR
+Rule 11    tipo -> VOID
+Rule 12    valor -> ENTERO
+Rule 13    valor -> FLOTANTE
+Rule 14    valor -> CHARACTER
+Rule 15    valor -> STRING
+Rule 16    valor -> TRUE
+Rule 17    valor -> FALSE
+Rule 18    while -> WHILE LPAR expresion RPAR LLAVEL body LLAVER
+Rule 19    expresion -> expresion MAYOR expresion
+Rule 20    expresion -> expresion MAYOR IGUAL expresion
+Rule 21    expresion -> expresion MENOR expresion
+Rule 22    expresion -> expresion MENOR IGUAL expresion
+Rule 23    expresion -> expresion IGUAL IGUAL expresion
+Rule 24    expresion -> expresion EXCLAMACION IGUAL expresion
+Rule 25    expresion -> valor
 
 Terminals, with rules where they appear
 
 AND                  : 
 ASTERISCO            : 
-AUTO                 : 6
+AUTO                 : 9
 BACKSLASH            : 
 BOOL                 : 
-CHAR                 : 7
-CHARACTER            : 11
+CHAR                 : 10
+CHARACTER            : 14
 CIRCUNFLEJO          : 
 CLASS                : 
 COMADOBLE            : 
@@ -81,23 +86,24 @@ CORCHETEL            :
 CORCHETER            : 
 DOBLEPUNTO           : 
 ELSE                 : 
-ENTERO               : 9
-EXCLAMACION          : 
-FALSE                : 
-FLOAT                : 4
-FLOTANTE             : 10
+ENTERO               : 12
+EXCLAMACION          : 24
+FALSE                : 17
+FLOAT                : 7
+FLOTANTE             : 13
 FOR                  : 
-IDENTIFICADOR        : 2
+IDENTIFICADOR        : 4 5
 IF                   : 
-IGUAL                : 2
-INT                  : 3
+IGUAL                : 4 20 22 23 23 24
+INT                  : 6
 INTERROGACION        : 
-LLAVEL               : 
-LLAVER               : 
-LONG                 : 5
+LLAVEL               : 18
+LLAVER               : 18
+LONG                 : 8
+LPAR                 : 18
 MAS                  : 
-MAYOR                : 
-MENOR                : 
+MAYOR                : 19 20
+MENOR                : 21 22
 MENOS                : 
 NEW                  : 
 NULLPOINTER          : 
@@ -109,25 +115,28 @@ PROTECTED            :
 PUBLIC               : 
 PUNTERO              : 
 PUNTO                : 
-PUNTOCOMA            : 2
+PUNTOCOMA            : 4 5
 RETURN               : 
+RPAR                 : 18
 SLASH                : 
 STATIC               : 
-STRING               : 12
+STRING               : 15
 STRUCT               : 
 THEN                 : 
-TRUE                 : 
+TRUE                 : 16
 VIRGUILA             : 
-VOID                 : 8
-WHILE                : 
+VOID                 : 11
+WHILE                : 18
 error                : 
 
 Nonterminals, with rules where they appear
 
-body                 : 0
-tipo                 : 2
-valor                : 2
+body                 : 18 0
+expresion            : 18 19 19 20 20 21 21 22 22 23 23 24 24
+tipo                 : 4 5
+valor                : 4 25
 variable             : 1
+while                : 2
 
 Parsing method: LALR
 
@@ -135,24 +144,31 @@ state 0
 
     (0) S' -> . body
     (1) body -> . variable
-    (2) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (3) tipo -> . INT
-    (4) tipo -> . FLOAT
-    (5) tipo -> . LONG
-    (6) tipo -> . AUTO
-    (7) tipo -> . CHAR
-    (8) tipo -> . VOID
+    (2) body -> . while
+    (3) body -> .
+    (4) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (5) variable -> . tipo IDENTIFICADOR PUNTOCOMA
+    (18) while -> . WHILE LPAR expresion RPAR LLAVEL body LLAVER
+    (6) tipo -> . INT
+    (7) tipo -> . FLOAT
+    (8) tipo -> . LONG
+    (9) tipo -> . AUTO
+    (10) tipo -> . CHAR
+    (11) tipo -> . VOID
 
-    INT             shift and go to state 4
-    FLOAT           shift and go to state 5
-    LONG            shift and go to state 6
-    AUTO            shift and go to state 7
-    CHAR            shift and go to state 8
-    VOID            shift and go to state 9
+    $end            reduce using rule 3 (body -> .)
+    WHILE           shift and go to state 5
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+    LONG            shift and go to state 8
+    AUTO            shift and go to state 9
+    CHAR            shift and go to state 10
+    VOID            shift and go to state 11
 
     body                           shift and go to state 1
     variable                       shift and go to state 2
-    tipo                           shift and go to state 3
+    while                          shift and go to state 3
+    tipo                           shift and go to state 4
 
 state 1
 
@@ -165,117 +181,663 @@ state 2
     (1) body -> variable .
 
     $end            reduce using rule 1 (body -> variable .)
+    LLAVER          reduce using rule 1 (body -> variable .)
 
 
 state 3
 
-    (2) variable -> tipo . IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (2) body -> while .
 
-    IDENTIFICADOR   shift and go to state 10
+    $end            reduce using rule 2 (body -> while .)
+    LLAVER          reduce using rule 2 (body -> while .)
 
 
 state 4
 
-    (3) tipo -> INT .
+    (4) variable -> tipo . IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (5) variable -> tipo . IDENTIFICADOR PUNTOCOMA
 
-    IDENTIFICADOR   reduce using rule 3 (tipo -> INT .)
+    IDENTIFICADOR   shift and go to state 12
 
 
 state 5
 
-    (4) tipo -> FLOAT .
+    (18) while -> WHILE . LPAR expresion RPAR LLAVEL body LLAVER
 
-    IDENTIFICADOR   reduce using rule 4 (tipo -> FLOAT .)
+    LPAR            shift and go to state 13
 
 
 state 6
 
-    (5) tipo -> LONG .
+    (6) tipo -> INT .
 
-    IDENTIFICADOR   reduce using rule 5 (tipo -> LONG .)
+    IDENTIFICADOR   reduce using rule 6 (tipo -> INT .)
 
 
 state 7
 
-    (6) tipo -> AUTO .
+    (7) tipo -> FLOAT .
 
-    IDENTIFICADOR   reduce using rule 6 (tipo -> AUTO .)
+    IDENTIFICADOR   reduce using rule 7 (tipo -> FLOAT .)
 
 
 state 8
 
-    (7) tipo -> CHAR .
+    (8) tipo -> LONG .
 
-    IDENTIFICADOR   reduce using rule 7 (tipo -> CHAR .)
+    IDENTIFICADOR   reduce using rule 8 (tipo -> LONG .)
 
 
 state 9
 
-    (8) tipo -> VOID .
+    (9) tipo -> AUTO .
 
-    IDENTIFICADOR   reduce using rule 8 (tipo -> VOID .)
+    IDENTIFICADOR   reduce using rule 9 (tipo -> AUTO .)
 
 
 state 10
 
-    (2) variable -> tipo IDENTIFICADOR . IGUAL valor PUNTOCOMA
+    (10) tipo -> CHAR .
 
-    IGUAL           shift and go to state 11
+    IDENTIFICADOR   reduce using rule 10 (tipo -> CHAR .)
 
 
 state 11
 
-    (2) variable -> tipo IDENTIFICADOR IGUAL . valor PUNTOCOMA
-    (9) valor -> . ENTERO
-    (10) valor -> . FLOTANTE
-    (11) valor -> . CHARACTER
-    (12) valor -> . STRING
+    (11) tipo -> VOID .
 
-    ENTERO          shift and go to state 13
-    FLOTANTE        shift and go to state 14
-    CHARACTER       shift and go to state 15
-    STRING          shift and go to state 16
+    IDENTIFICADOR   reduce using rule 11 (tipo -> VOID .)
 
-    valor                          shift and go to state 12
 
 state 12
 
-    (2) variable -> tipo IDENTIFICADOR IGUAL valor . PUNTOCOMA
+    (4) variable -> tipo IDENTIFICADOR . IGUAL valor PUNTOCOMA
+    (5) variable -> tipo IDENTIFICADOR . PUNTOCOMA
 
-    PUNTOCOMA       shift and go to state 17
+    IGUAL           shift and go to state 14
+    PUNTOCOMA       shift and go to state 15
 
 
 state 13
 
-    (9) valor -> ENTERO .
+    (18) while -> WHILE LPAR . expresion RPAR LLAVEL body LLAVER
+    (19) expresion -> . expresion MAYOR expresion
+    (20) expresion -> . expresion MAYOR IGUAL expresion
+    (21) expresion -> . expresion MENOR expresion
+    (22) expresion -> . expresion MENOR IGUAL expresion
+    (23) expresion -> . expresion IGUAL IGUAL expresion
+    (24) expresion -> . expresion EXCLAMACION IGUAL expresion
+    (25) expresion -> . valor
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
 
-    PUNTOCOMA       reduce using rule 9 (valor -> ENTERO .)
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    expresion                      shift and go to state 16
+    valor                          shift and go to state 17
 
 state 14
 
-    (10) valor -> FLOTANTE .
+    (4) variable -> tipo IDENTIFICADOR IGUAL . valor PUNTOCOMA
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
 
-    PUNTOCOMA       reduce using rule 10 (valor -> FLOTANTE .)
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
+    valor                          shift and go to state 24
 
 state 15
 
-    (11) valor -> CHARACTER .
+    (5) variable -> tipo IDENTIFICADOR PUNTOCOMA .
 
-    PUNTOCOMA       reduce using rule 11 (valor -> CHARACTER .)
+    $end            reduce using rule 5 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
+    LLAVER          reduce using rule 5 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
 
 
 state 16
 
-    (12) valor -> STRING .
+    (18) while -> WHILE LPAR expresion . RPAR LLAVEL body LLAVER
+    (19) expresion -> expresion . MAYOR expresion
+    (20) expresion -> expresion . MAYOR IGUAL expresion
+    (21) expresion -> expresion . MENOR expresion
+    (22) expresion -> expresion . MENOR IGUAL expresion
+    (23) expresion -> expresion . IGUAL IGUAL expresion
+    (24) expresion -> expresion . EXCLAMACION IGUAL expresion
 
-    PUNTOCOMA       reduce using rule 12 (valor -> STRING .)
+    RPAR            shift and go to state 25
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 28
+    IGUAL           shift and go to state 27
+    EXCLAMACION     shift and go to state 29
 
 
 state 17
 
-    (2) variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .
+    (25) expresion -> valor .
 
-    $end            reduce using rule 2 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    RPAR            reduce using rule 25 (expresion -> valor .)
+    MAYOR           reduce using rule 25 (expresion -> valor .)
+    MENOR           reduce using rule 25 (expresion -> valor .)
+    IGUAL           reduce using rule 25 (expresion -> valor .)
+    EXCLAMACION     reduce using rule 25 (expresion -> valor .)
 
+
+state 18
+
+    (12) valor -> ENTERO .
+
+    RPAR            reduce using rule 12 (valor -> ENTERO .)
+    MAYOR           reduce using rule 12 (valor -> ENTERO .)
+    MENOR           reduce using rule 12 (valor -> ENTERO .)
+    IGUAL           reduce using rule 12 (valor -> ENTERO .)
+    EXCLAMACION     reduce using rule 12 (valor -> ENTERO .)
+    PUNTOCOMA       reduce using rule 12 (valor -> ENTERO .)
+
+
+state 19
+
+    (13) valor -> FLOTANTE .
+
+    RPAR            reduce using rule 13 (valor -> FLOTANTE .)
+    MAYOR           reduce using rule 13 (valor -> FLOTANTE .)
+    MENOR           reduce using rule 13 (valor -> FLOTANTE .)
+    IGUAL           reduce using rule 13 (valor -> FLOTANTE .)
+    EXCLAMACION     reduce using rule 13 (valor -> FLOTANTE .)
+    PUNTOCOMA       reduce using rule 13 (valor -> FLOTANTE .)
+
+
+state 20
+
+    (14) valor -> CHARACTER .
+
+    RPAR            reduce using rule 14 (valor -> CHARACTER .)
+    MAYOR           reduce using rule 14 (valor -> CHARACTER .)
+    MENOR           reduce using rule 14 (valor -> CHARACTER .)
+    IGUAL           reduce using rule 14 (valor -> CHARACTER .)
+    EXCLAMACION     reduce using rule 14 (valor -> CHARACTER .)
+    PUNTOCOMA       reduce using rule 14 (valor -> CHARACTER .)
+
+
+state 21
+
+    (15) valor -> STRING .
+
+    RPAR            reduce using rule 15 (valor -> STRING .)
+    MAYOR           reduce using rule 15 (valor -> STRING .)
+    MENOR           reduce using rule 15 (valor -> STRING .)
+    IGUAL           reduce using rule 15 (valor -> STRING .)
+    EXCLAMACION     reduce using rule 15 (valor -> STRING .)
+    PUNTOCOMA       reduce using rule 15 (valor -> STRING .)
+
+
+state 22
+
+    (16) valor -> TRUE .
+
+    RPAR            reduce using rule 16 (valor -> TRUE .)
+    MAYOR           reduce using rule 16 (valor -> TRUE .)
+    MENOR           reduce using rule 16 (valor -> TRUE .)
+    IGUAL           reduce using rule 16 (valor -> TRUE .)
+    EXCLAMACION     reduce using rule 16 (valor -> TRUE .)
+    PUNTOCOMA       reduce using rule 16 (valor -> TRUE .)
+
+
+state 23
+
+    (17) valor -> FALSE .
+
+    RPAR            reduce using rule 17 (valor -> FALSE .)
+    MAYOR           reduce using rule 17 (valor -> FALSE .)
+    MENOR           reduce using rule 17 (valor -> FALSE .)
+    IGUAL           reduce using rule 17 (valor -> FALSE .)
+    EXCLAMACION     reduce using rule 17 (valor -> FALSE .)
+    PUNTOCOMA       reduce using rule 17 (valor -> FALSE .)
+
+
+state 24
+
+    (4) variable -> tipo IDENTIFICADOR IGUAL valor . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 30
+
+
+state 25
+
+    (18) while -> WHILE LPAR expresion RPAR . LLAVEL body LLAVER
+
+    LLAVEL          shift and go to state 31
+
+
+state 26
+
+    (19) expresion -> expresion MAYOR . expresion
+    (20) expresion -> expresion MAYOR . IGUAL expresion
+    (19) expresion -> . expresion MAYOR expresion
+    (20) expresion -> . expresion MAYOR IGUAL expresion
+    (21) expresion -> . expresion MENOR expresion
+    (22) expresion -> . expresion MENOR IGUAL expresion
+    (23) expresion -> . expresion IGUAL IGUAL expresion
+    (24) expresion -> . expresion EXCLAMACION IGUAL expresion
+    (25) expresion -> . valor
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
+
+    IGUAL           shift and go to state 33
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 32
+    valor                          shift and go to state 17
+
+state 27
+
+    (23) expresion -> expresion IGUAL . IGUAL expresion
+
+    IGUAL           shift and go to state 34
+
+
+state 28
+
+    (21) expresion -> expresion MENOR . expresion
+    (22) expresion -> expresion MENOR . IGUAL expresion
+    (19) expresion -> . expresion MAYOR expresion
+    (20) expresion -> . expresion MAYOR IGUAL expresion
+    (21) expresion -> . expresion MENOR expresion
+    (22) expresion -> . expresion MENOR IGUAL expresion
+    (23) expresion -> . expresion IGUAL IGUAL expresion
+    (24) expresion -> . expresion EXCLAMACION IGUAL expresion
+    (25) expresion -> . valor
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
+
+    IGUAL           shift and go to state 36
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 35
+    valor                          shift and go to state 17
+
+state 29
+
+    (24) expresion -> expresion EXCLAMACION . IGUAL expresion
+
+    IGUAL           shift and go to state 37
+
+
+state 30
+
+    (4) variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .
+
+    $end            reduce using rule 4 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    LLAVER          reduce using rule 4 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+
+
+state 31
+
+    (18) while -> WHILE LPAR expresion RPAR LLAVEL . body LLAVER
+    (1) body -> . variable
+    (2) body -> . while
+    (3) body -> .
+    (4) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (5) variable -> . tipo IDENTIFICADOR PUNTOCOMA
+    (18) while -> . WHILE LPAR expresion RPAR LLAVEL body LLAVER
+    (6) tipo -> . INT
+    (7) tipo -> . FLOAT
+    (8) tipo -> . LONG
+    (9) tipo -> . AUTO
+    (10) tipo -> . CHAR
+    (11) tipo -> . VOID
+
+    LLAVER          reduce using rule 3 (body -> .)
+    WHILE           shift and go to state 5
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+    LONG            shift and go to state 8
+    AUTO            shift and go to state 9
+    CHAR            shift and go to state 10
+    VOID            shift and go to state 11
+
+    body                           shift and go to state 38
+    variable                       shift and go to state 2
+    while                          shift and go to state 3
+    tipo                           shift and go to state 4
+
+state 32
+
+    (19) expresion -> expresion MAYOR expresion .
+    (19) expresion -> expresion . MAYOR expresion
+    (20) expresion -> expresion . MAYOR IGUAL expresion
+    (21) expresion -> expresion . MENOR expresion
+    (22) expresion -> expresion . MENOR IGUAL expresion
+    (23) expresion -> expresion . IGUAL IGUAL expresion
+    (24) expresion -> expresion . EXCLAMACION IGUAL expresion
+
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for IGUAL resolved as shift
+  ! shift/reduce conflict for EXCLAMACION resolved as shift
+    RPAR            reduce using rule 19 (expresion -> expresion MAYOR expresion .)
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 28
+    IGUAL           shift and go to state 27
+    EXCLAMACION     shift and go to state 29
+
+  ! MAYOR           [ reduce using rule 19 (expresion -> expresion MAYOR expresion .) ]
+  ! MENOR           [ reduce using rule 19 (expresion -> expresion MAYOR expresion .) ]
+  ! IGUAL           [ reduce using rule 19 (expresion -> expresion MAYOR expresion .) ]
+  ! EXCLAMACION     [ reduce using rule 19 (expresion -> expresion MAYOR expresion .) ]
+
+
+state 33
+
+    (20) expresion -> expresion MAYOR IGUAL . expresion
+    (19) expresion -> . expresion MAYOR expresion
+    (20) expresion -> . expresion MAYOR IGUAL expresion
+    (21) expresion -> . expresion MENOR expresion
+    (22) expresion -> . expresion MENOR IGUAL expresion
+    (23) expresion -> . expresion IGUAL IGUAL expresion
+    (24) expresion -> . expresion EXCLAMACION IGUAL expresion
+    (25) expresion -> . valor
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
+
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 39
+    valor                          shift and go to state 17
+
+state 34
+
+    (23) expresion -> expresion IGUAL IGUAL . expresion
+    (19) expresion -> . expresion MAYOR expresion
+    (20) expresion -> . expresion MAYOR IGUAL expresion
+    (21) expresion -> . expresion MENOR expresion
+    (22) expresion -> . expresion MENOR IGUAL expresion
+    (23) expresion -> . expresion IGUAL IGUAL expresion
+    (24) expresion -> . expresion EXCLAMACION IGUAL expresion
+    (25) expresion -> . valor
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
+
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 40
+    valor                          shift and go to state 17
+
+state 35
+
+    (21) expresion -> expresion MENOR expresion .
+    (19) expresion -> expresion . MAYOR expresion
+    (20) expresion -> expresion . MAYOR IGUAL expresion
+    (21) expresion -> expresion . MENOR expresion
+    (22) expresion -> expresion . MENOR IGUAL expresion
+    (23) expresion -> expresion . IGUAL IGUAL expresion
+    (24) expresion -> expresion . EXCLAMACION IGUAL expresion
+
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for IGUAL resolved as shift
+  ! shift/reduce conflict for EXCLAMACION resolved as shift
+    RPAR            reduce using rule 21 (expresion -> expresion MENOR expresion .)
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 28
+    IGUAL           shift and go to state 27
+    EXCLAMACION     shift and go to state 29
+
+  ! MAYOR           [ reduce using rule 21 (expresion -> expresion MENOR expresion .) ]
+  ! MENOR           [ reduce using rule 21 (expresion -> expresion MENOR expresion .) ]
+  ! IGUAL           [ reduce using rule 21 (expresion -> expresion MENOR expresion .) ]
+  ! EXCLAMACION     [ reduce using rule 21 (expresion -> expresion MENOR expresion .) ]
+
+
+state 36
+
+    (22) expresion -> expresion MENOR IGUAL . expresion
+    (19) expresion -> . expresion MAYOR expresion
+    (20) expresion -> . expresion MAYOR IGUAL expresion
+    (21) expresion -> . expresion MENOR expresion
+    (22) expresion -> . expresion MENOR IGUAL expresion
+    (23) expresion -> . expresion IGUAL IGUAL expresion
+    (24) expresion -> . expresion EXCLAMACION IGUAL expresion
+    (25) expresion -> . valor
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
+
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 41
+    valor                          shift and go to state 17
+
+state 37
+
+    (24) expresion -> expresion EXCLAMACION IGUAL . expresion
+    (19) expresion -> . expresion MAYOR expresion
+    (20) expresion -> . expresion MAYOR IGUAL expresion
+    (21) expresion -> . expresion MENOR expresion
+    (22) expresion -> . expresion MENOR IGUAL expresion
+    (23) expresion -> . expresion IGUAL IGUAL expresion
+    (24) expresion -> . expresion EXCLAMACION IGUAL expresion
+    (25) expresion -> . valor
+    (12) valor -> . ENTERO
+    (13) valor -> . FLOTANTE
+    (14) valor -> . CHARACTER
+    (15) valor -> . STRING
+    (16) valor -> . TRUE
+    (17) valor -> . FALSE
+
+    ENTERO          shift and go to state 18
+    FLOTANTE        shift and go to state 19
+    CHARACTER       shift and go to state 20
+    STRING          shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 42
+    valor                          shift and go to state 17
+
+state 38
+
+    (18) while -> WHILE LPAR expresion RPAR LLAVEL body . LLAVER
+
+    LLAVER          shift and go to state 43
+
+
+state 39
+
+    (20) expresion -> expresion MAYOR IGUAL expresion .
+    (19) expresion -> expresion . MAYOR expresion
+    (20) expresion -> expresion . MAYOR IGUAL expresion
+    (21) expresion -> expresion . MENOR expresion
+    (22) expresion -> expresion . MENOR IGUAL expresion
+    (23) expresion -> expresion . IGUAL IGUAL expresion
+    (24) expresion -> expresion . EXCLAMACION IGUAL expresion
+
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for IGUAL resolved as shift
+  ! shift/reduce conflict for EXCLAMACION resolved as shift
+    RPAR            reduce using rule 20 (expresion -> expresion MAYOR IGUAL expresion .)
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 28
+    IGUAL           shift and go to state 27
+    EXCLAMACION     shift and go to state 29
+
+  ! MAYOR           [ reduce using rule 20 (expresion -> expresion MAYOR IGUAL expresion .) ]
+  ! MENOR           [ reduce using rule 20 (expresion -> expresion MAYOR IGUAL expresion .) ]
+  ! IGUAL           [ reduce using rule 20 (expresion -> expresion MAYOR IGUAL expresion .) ]
+  ! EXCLAMACION     [ reduce using rule 20 (expresion -> expresion MAYOR IGUAL expresion .) ]
+
+
+state 40
+
+    (23) expresion -> expresion IGUAL IGUAL expresion .
+    (19) expresion -> expresion . MAYOR expresion
+    (20) expresion -> expresion . MAYOR IGUAL expresion
+    (21) expresion -> expresion . MENOR expresion
+    (22) expresion -> expresion . MENOR IGUAL expresion
+    (23) expresion -> expresion . IGUAL IGUAL expresion
+    (24) expresion -> expresion . EXCLAMACION IGUAL expresion
+
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for IGUAL resolved as shift
+  ! shift/reduce conflict for EXCLAMACION resolved as shift
+    RPAR            reduce using rule 23 (expresion -> expresion IGUAL IGUAL expresion .)
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 28
+    IGUAL           shift and go to state 27
+    EXCLAMACION     shift and go to state 29
+
+  ! MAYOR           [ reduce using rule 23 (expresion -> expresion IGUAL IGUAL expresion .) ]
+  ! MENOR           [ reduce using rule 23 (expresion -> expresion IGUAL IGUAL expresion .) ]
+  ! IGUAL           [ reduce using rule 23 (expresion -> expresion IGUAL IGUAL expresion .) ]
+  ! EXCLAMACION     [ reduce using rule 23 (expresion -> expresion IGUAL IGUAL expresion .) ]
+
+
+state 41
+
+    (22) expresion -> expresion MENOR IGUAL expresion .
+    (19) expresion -> expresion . MAYOR expresion
+    (20) expresion -> expresion . MAYOR IGUAL expresion
+    (21) expresion -> expresion . MENOR expresion
+    (22) expresion -> expresion . MENOR IGUAL expresion
+    (23) expresion -> expresion . IGUAL IGUAL expresion
+    (24) expresion -> expresion . EXCLAMACION IGUAL expresion
+
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for IGUAL resolved as shift
+  ! shift/reduce conflict for EXCLAMACION resolved as shift
+    RPAR            reduce using rule 22 (expresion -> expresion MENOR IGUAL expresion .)
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 28
+    IGUAL           shift and go to state 27
+    EXCLAMACION     shift and go to state 29
+
+  ! MAYOR           [ reduce using rule 22 (expresion -> expresion MENOR IGUAL expresion .) ]
+  ! MENOR           [ reduce using rule 22 (expresion -> expresion MENOR IGUAL expresion .) ]
+  ! IGUAL           [ reduce using rule 22 (expresion -> expresion MENOR IGUAL expresion .) ]
+  ! EXCLAMACION     [ reduce using rule 22 (expresion -> expresion MENOR IGUAL expresion .) ]
+
+
+state 42
+
+    (24) expresion -> expresion EXCLAMACION IGUAL expresion .
+    (19) expresion -> expresion . MAYOR expresion
+    (20) expresion -> expresion . MAYOR IGUAL expresion
+    (21) expresion -> expresion . MENOR expresion
+    (22) expresion -> expresion . MENOR IGUAL expresion
+    (23) expresion -> expresion . IGUAL IGUAL expresion
+    (24) expresion -> expresion . EXCLAMACION IGUAL expresion
+
+  ! shift/reduce conflict for MAYOR resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for IGUAL resolved as shift
+  ! shift/reduce conflict for EXCLAMACION resolved as shift
+    RPAR            reduce using rule 24 (expresion -> expresion EXCLAMACION IGUAL expresion .)
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 28
+    IGUAL           shift and go to state 27
+    EXCLAMACION     shift and go to state 29
+
+  ! MAYOR           [ reduce using rule 24 (expresion -> expresion EXCLAMACION IGUAL expresion .) ]
+  ! MENOR           [ reduce using rule 24 (expresion -> expresion EXCLAMACION IGUAL expresion .) ]
+  ! IGUAL           [ reduce using rule 24 (expresion -> expresion EXCLAMACION IGUAL expresion .) ]
+  ! EXCLAMACION     [ reduce using rule 24 (expresion -> expresion EXCLAMACION IGUAL expresion .) ]
+
+
+state 43
+
+    (18) while -> WHILE LPAR expresion RPAR LLAVEL body LLAVER .
+
+    $end            reduce using rule 18 (while -> WHILE LPAR expresion RPAR LLAVEL body LLAVER .)
+    LLAVER          reduce using rule 18 (while -> WHILE LPAR expresion RPAR LLAVEL body LLAVER .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for MAYOR in state 32 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 32 resolved as shift
+WARNING: shift/reduce conflict for IGUAL in state 32 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 32 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 35 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 35 resolved as shift
+WARNING: shift/reduce conflict for IGUAL in state 35 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 35 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 39 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 39 resolved as shift
+WARNING: shift/reduce conflict for IGUAL in state 39 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 39 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 40 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 40 resolved as shift
+WARNING: shift/reduce conflict for IGUAL in state 40 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 40 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 41 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 41 resolved as shift
+WARNING: shift/reduce conflict for IGUAL in state 41 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 41 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 42 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 42 resolved as shift
+WARNING: shift/reduce conflict for IGUAL in state 42 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 42 resolved as shift
