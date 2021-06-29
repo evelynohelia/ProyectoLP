@@ -9,19 +9,51 @@ def p_body(p):
             | claseimplementacion
             | for
             | arraydeclaration
+            | funcionclaseimpl
+            | creacionobjeto
+            | asignarvalorobjeto
+            | usarfuncionobjeto
+            | struct
             |'''
+
+def p_impirmir(p):
+    '''imprimir : PRINT LPAR valor RPAR'''
+    print(p[3])
 
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
                     |  bodyblock while
-                    | expresionif
+                    | bodyblock expresionif
                     | '''
+def p_funcionblock(p):
+    ''' funcionblock : bodyblock variable
+                    |  bodyblock while
+                    | bodyblock expresionif
+                    | RETURN statement
+                    | '''
+
 def p_varblock(p):
     '''varblock : varblock variable
                 | '''
 def p_variable(p):
-    '''variable : tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-                | tipo IDENTIFICADOR PUNTOCOMA'''
+    '''variable : AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+                | AUTO IDENTIFICADOR PUNTOCOMA'''
+
+def p_variable_numero(p):
+    '''variable : numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+                | numerotipo IDENTIFICADOR PUNTOCOMA'''
+
+def p_variable_char(p):
+    '''variable : CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA'''
+
+def p_numero_tipo(p):
+    '''numerotipo : INT
+              | FLOAT
+              | LONG'''
+
+def p_numero(p):
+    '''numero : ENTERO
+              | FLOTANTE'''
 
 def p_tipo(p):
     '''tipo : INT 
@@ -39,6 +71,7 @@ def p_valor(p):
             | TRUE
             | FALSE
             | IDENTIFICADOR'''
+    p[0] = p[1]
 
 
 def p_while(p):
@@ -48,6 +81,11 @@ def p_while(p):
 def p_expresion_comparacion(p):
     '''expresion : expresion comparador expresion'''
 
+def p_struct(p):
+    '''struct : STRUCT IDENTIFICADOR LLAVEL  LLAVER IDENTIFICADOR PUNTOCOMA'''
+
+def p_struct(p):
+    '''struct : STRUCT IDENTIFICADOR LLAVEL varblock LLAVER IDENTIFICADOR PUNTOCOMA'''
 
 
 #Ricardo Villacis IF
@@ -143,20 +181,50 @@ def p_arraydata(p):
 def p_claseimplementacion(p):
     ''' claseimplementacion : CLASS IDENTIFICADOR LLAVEL bloqueclase LLAVER'''
 def p_bloqueclase(p):
-    ''' bloqueclase : definicion definicion
+    ''' bloqueclase : bloqueclase definicion
+                    |  bloqueclase funcionclaseimpl
                     | '''
 def p_definicion(p):
     '''definicion : tipo IDENTIFICADOR PUNTOCOMA
                     | '''
+
+def p_funcionclaseimpl(p):
+    ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL funcionblock LLAVER
+                        | VOID IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock LLAVER
+                        |'''
+def p_parametrosimplementacion(p):
+    '''parametrosimplementacion :  tipo IDENTIFICADOR masparametrosimplementacion
+                                | '''
+def p_parametrosfuncion(p):
+    ''' parametrosfuncion : IDENTIFICADOR masparametrosfuncion
+                            | '''
+def p_masparametrosimplementacion(p):
+    '''masparametrosimplementacion :  COMMA parametrosimplementacion
+                                    | '''
+def p_masparametrosfuncion(p):
+    ''' masparametrosfuncion : COMMA parametrosfuncion
+                            | '''
+def p_creacionobjeto(p):
+    ''' creacionobjeto : IDENTIFICADOR IDENTIFICADOR PUNTOCOMA'''
+def p_asignarvalores(p):
+    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor
+                            | LPAR expresion RPAR
+                            | LPAR statement RPAR
+                            | EXCLAMACION  LPAR statement RPAR'''
+def p_usarfuncionesobjeto(p):
+    ''' usarfuncionobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR LPAR parametrosfuncion RPAR PUNTOCOMA '''
 
 #errors
 def p_error(p):
     print('Syntax error')
 
 parser = yacc.yacc()
-
-
-
+test = '''
+    struct hola {
+        int hol;
+    } hola;
+'''
+parser.parse(test)
 
 while True:
     try:
