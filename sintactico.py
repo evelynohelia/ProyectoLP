@@ -6,7 +6,12 @@ def p_body(p):
     '''body : variable
             | while
             | expresionif
-            | imprimir 
+            | claseimplementacion
+            | funcionclaseimpl
+            | creacionobjeto
+            | asignarvalorobjeto
+            | usarfuncionobjeto
+            | struct
             |'''
 
 def p_impirmir(p):
@@ -16,8 +21,15 @@ def p_impirmir(p):
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
                     |  bodyblock while
-                    | expresionif
+                    | bodyblock expresionif
                     | '''
+def p_funcionblock(p):
+    ''' funcionblock : bodyblock variable
+                    |  bodyblock while
+                    | bodyblock expresionif
+                    | RETURN statement
+                    | '''
+
 def p_varblock(p):
     '''varblock : varblock variable
                 | '''
@@ -67,6 +79,11 @@ def p_while(p):
 def p_expresion_comparacion(p):
     '''expresion : expresion comparador expresion'''
 
+def p_struct(p):
+    '''struct : STRUCT IDENTIFICADOR LLAVEL  LLAVER IDENTIFICADOR PUNTOCOMA'''
+
+def p_struct(p):
+    '''struct : STRUCT IDENTIFICADOR LLAVEL varblock LLAVER IDENTIFICADOR PUNTOCOMA'''
 
 
 #Ricardo Villacis IF
@@ -97,6 +114,7 @@ def p_condicionif(p):
 
 def p_initcondicion(p):
     '''initcondicion : varblock statement'''
+
 def p_statement(p):
     '''statement : expresion
                 | EXCLAMACION boolean
@@ -117,6 +135,75 @@ def p_comparacion(p):
                 | MAYOR IGUAL
                 | EXCLAMACION IGUAL'''
 
+#Evelyn Mejia 
+# FOR
+
+
+def p_initfor(p):
+    '''initfor : tipo IDENTIFICADOR IGUAL valor '''
+
+def p_condfor(p):
+    '''initfor : IDENTIFICADOR comparador valor '''
+
+
+def p_loopfor(p):
+    '''loopfor : asign 
+                | unaryexp '''
+
+def p_mathasign(p):
+    '''asign :  IDENTIFICADOR MAS valor
+                | IDENTIFICADOR MENOS valor 
+                | IDENTIFICADOR ASTERISCO valor
+                | IDENTIFICADOR SLASH valor''' 
+
+def p_unaryexp(p):
+    '''unaryexp : IDENTIFICADOR MAS MAS
+                | IDENTIFICADOR MENOS MENOS '''
+
+def p_for(p):
+    '''for : FOR LPAR initfor PUNTOCOMA initfor PUNTOCOMA loopfor RPAR LLAVEL bodyblock LLAVER'''
+
+# ARRAY
+
+def p_array(p):
+    '''array_declaration : tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER PUNTOCOMA'''
+
+#Ricardo Villacis Clase
+def p_claseimplementacion(p):
+    ''' claseimplementacion : CLASS IDENTIFICADOR LLAVEL bloqueclase LLAVER'''
+def p_bloqueclase(p):
+    ''' bloqueclase : bloqueclase definicion
+                    |  bloqueclase funcionclaseimpl
+                    | '''
+def p_definicion(p):
+    '''definicion : tipo IDENTIFICADOR PUNTOCOMA
+                    | '''
+
+def p_funcionclaseimpl(p):
+    ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL funcionblock LLAVER
+                        | VOID IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock LLAVER
+                        |'''
+def p_parametrosimplementacion(p):
+    '''parametrosimplementacion :  tipo IDENTIFICADOR masparametrosimplementacion
+                                | '''
+def p_parametrosfuncion(p):
+    ''' parametrosfuncion : IDENTIFICADOR masparametrosfuncion
+                            | '''
+def p_masparametrosimplementacion(p):
+    '''masparametrosimplementacion :  COMMA parametrosimplementacion
+                                    | '''
+def p_masparametrosfuncion(p):
+    ''' masparametrosfuncion : COMMA parametrosfuncion
+                            | '''
+def p_creacionobjeto(p):
+    ''' creacionobjeto : IDENTIFICADOR IDENTIFICADOR PUNTOCOMA'''
+def p_asignarvalores(p):
+    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor
+                            | LPAR expresion RPAR
+                            | LPAR statement RPAR
+                            | EXCLAMACION  LPAR statement RPAR'''
+def p_usarfuncionesobjeto(p):
+    ''' usarfuncionobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR LPAR parametrosfuncion RPAR PUNTOCOMA '''
 
 #errors
 def p_error(p):
@@ -124,12 +211,9 @@ def p_error(p):
 
 parser = yacc.yacc()
 test = '''
-    while(1){
-        auto var = "hola mundo";
-        while(true != false){
-            auto hola;
-        }
-    }
+    struct hola {
+        int hol;
+    } hola;
 '''
 parser.parse(test)
 while True:
