@@ -6,7 +6,13 @@ def p_body(p):
     '''body : variable
             | while
             | expresionif
+            | imprimir 
             |'''
+
+def p_impirmir(p):
+    '''imprimir : PRINT LPAR valor RPAR'''
+    print(p[3])
+
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
                     |  bodyblock while
@@ -16,8 +22,24 @@ def p_varblock(p):
     '''varblock : varblock variable
                 | '''
 def p_variable(p):
-    '''variable : tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-                | tipo IDENTIFICADOR PUNTOCOMA'''
+    '''variable : AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+                | AUTO IDENTIFICADOR PUNTOCOMA'''
+
+def p_variable_numero(p):
+    '''variable : numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+                | numerotipo IDENTIFICADOR PUNTOCOMA'''
+
+def p_variable_char(p):
+    '''variable : CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA'''
+
+def p_numero_tipo(p):
+    '''numerotipo : INT
+              | FLOAT
+              | LONG'''
+
+def p_numero(p):
+    '''numero : ENTERO
+              | FLOTANTE'''
 
 def p_tipo(p):
     '''tipo : INT 
@@ -35,6 +57,7 @@ def p_valor(p):
             | TRUE
             | FALSE
             | IDENTIFICADOR'''
+    p[0] = p[1]
 
 
 def p_while(p):
@@ -100,7 +123,15 @@ def p_error(p):
     print('Syntax error')
 
 parser = yacc.yacc()
-
+test = '''
+    while(1){
+        auto var = "hola mundo";
+        while(true != false){
+            auto hola;
+        }
+    }
+'''
+parser.parse(test)
 while True:
     try:
         s = input('C++ > ')

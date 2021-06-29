@@ -27,6 +27,7 @@ reserved = {
     'new' : 'NEW',
     'class': 'CLASS',
     'return': 'RETURN',
+    'print' : 'PRINT'
 }
 
 tokens = tokens + list(reserved.values())
@@ -70,11 +71,11 @@ t_CHARACTER = r'\'[a-zA-z]\''
 t_STRING = r'\"[a-zA-z0-9\s]*\"'
 
 def t_FLOTANTE(t):
-    r'\d+\.\d+'
+    r'-?\d+\.\d+'
     t.value = float(t.value)
     return t
 def t_ENTERO(t):
-    r'[0-9]+'
+    r'-?[0-9]+'
     t.value = int(t.value)
     return t
 

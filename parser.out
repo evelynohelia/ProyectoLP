@@ -42,69 +42,79 @@ Rule 0     S' -> body
 Rule 1     body -> variable
 Rule 2     body -> while
 Rule 3     body -> expresionif
-Rule 4     body -> <empty>
-Rule 5     bodyblock -> bodyblock variable
-Rule 6     bodyblock -> bodyblock while
-Rule 7     bodyblock -> expresionif
-Rule 8     bodyblock -> <empty>
-Rule 9     varblock -> varblock variable
-Rule 10    varblock -> <empty>
-Rule 11    variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-Rule 12    variable -> tipo IDENTIFICADOR PUNTOCOMA
-Rule 13    tipo -> INT
-Rule 14    tipo -> FLOAT
-Rule 15    tipo -> LONG
-Rule 16    tipo -> AUTO
-Rule 17    tipo -> CHAR
-Rule 18    tipo -> VOID
-Rule 19    valor -> ENTERO
-Rule 20    valor -> FLOTANTE
-Rule 21    valor -> CHARACTER
-Rule 22    valor -> STRING
-Rule 23    valor -> TRUE
-Rule 24    valor -> FALSE
-Rule 25    valor -> IDENTIFICADOR
-Rule 26    while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-Rule 27    expresion -> expresion comparador expresion
-Rule 28    expresionif -> IF LPAR condicionif RPAR conllaves expresionpos
-Rule 29    expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos
-Rule 30    expresionpos -> else
-Rule 31    expresionpos -> elseif
-Rule 32    expresionpos -> <empty>
-Rule 33    elseif -> ELSE IF LPAR condicionif RPAR conllaves else
-Rule 34    elseif -> ELSE IF LPAR condicionif RPAR sinllaves else
-Rule 35    elseif -> <empty>
-Rule 36    else -> ELSE conllaves
-Rule 37    else -> ELSE sinllaves
-Rule 38    sinllaves -> while
-Rule 39    sinllaves -> variable
-Rule 40    conllaves -> LLAVEL bodyblock LLAVER
-Rule 41    condicionif -> initcondicion
-Rule 42    condicionif -> statement
-Rule 43    initcondicion -> varblock statement
-Rule 44    statement -> expresion
-Rule 45    statement -> EXCLAMACION boolean
-Rule 46    statement -> EXCLAMACION LPAR expresion RPAR
-Rule 47    statement -> EXCLAMACION IDENTIFICADOR
-Rule 48    boolean -> TRUE
-Rule 49    boolean -> FALSE
-Rule 50    expresion -> valor
-Rule 51    comparador -> IGUAL IGUAL
-Rule 52    comparador -> MENOR
-Rule 53    comparador -> MAYOR
-Rule 54    comparador -> MENOR IGUAL
-Rule 55    comparador -> MAYOR IGUAL
-Rule 56    comparador -> EXCLAMACION IGUAL
+Rule 4     body -> imprimir
+Rule 5     body -> <empty>
+Rule 6     imprimir -> PRINT LPAR valor RPAR
+Rule 7     bodyblock -> bodyblock variable
+Rule 8     bodyblock -> bodyblock while
+Rule 9     bodyblock -> expresionif
+Rule 10    bodyblock -> <empty>
+Rule 11    varblock -> varblock variable
+Rule 12    varblock -> <empty>
+Rule 13    variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+Rule 14    variable -> AUTO IDENTIFICADOR PUNTOCOMA
+Rule 15    variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+Rule 16    variable -> numerotipo IDENTIFICADOR PUNTOCOMA
+Rule 17    variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+Rule 18    numerotipo -> INT
+Rule 19    numerotipo -> FLOAT
+Rule 20    numerotipo -> LONG
+Rule 21    numero -> ENTERO
+Rule 22    numero -> FLOTANTE
+Rule 23    tipo -> INT
+Rule 24    tipo -> FLOAT
+Rule 25    tipo -> LONG
+Rule 26    tipo -> AUTO
+Rule 27    tipo -> CHAR
+Rule 28    tipo -> VOID
+Rule 29    valor -> ENTERO
+Rule 30    valor -> FLOTANTE
+Rule 31    valor -> CHARACTER
+Rule 32    valor -> STRING
+Rule 33    valor -> TRUE
+Rule 34    valor -> FALSE
+Rule 35    valor -> IDENTIFICADOR
+Rule 36    while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+Rule 37    expresion -> expresion comparador expresion
+Rule 38    expresionif -> IF LPAR condicionif RPAR conllaves expresionpos
+Rule 39    expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos
+Rule 40    expresionpos -> else
+Rule 41    expresionpos -> elseif
+Rule 42    expresionpos -> <empty>
+Rule 43    elseif -> ELSE IF LPAR condicionif RPAR conllaves else
+Rule 44    elseif -> ELSE IF LPAR condicionif RPAR sinllaves else
+Rule 45    elseif -> <empty>
+Rule 46    else -> ELSE conllaves
+Rule 47    else -> ELSE sinllaves
+Rule 48    sinllaves -> while
+Rule 49    sinllaves -> variable
+Rule 50    conllaves -> LLAVEL bodyblock LLAVER
+Rule 51    condicionif -> initcondicion
+Rule 52    condicionif -> statement
+Rule 53    initcondicion -> varblock statement
+Rule 54    statement -> expresion
+Rule 55    statement -> EXCLAMACION boolean
+Rule 56    statement -> EXCLAMACION LPAR expresion RPAR
+Rule 57    statement -> EXCLAMACION IDENTIFICADOR
+Rule 58    boolean -> TRUE
+Rule 59    boolean -> FALSE
+Rule 60    expresion -> valor
+Rule 61    comparador -> IGUAL IGUAL
+Rule 62    comparador -> MENOR
+Rule 63    comparador -> MAYOR
+Rule 64    comparador -> MENOR IGUAL
+Rule 65    comparador -> MAYOR IGUAL
+Rule 66    comparador -> EXCLAMACION IGUAL
 
 Terminals, with rules where they appear
 
 AND                  : 
 ASTERISCO            : 
-AUTO                 : 16
+AUTO                 : 13 14 26
 BACKSLASH            : 
 BOOL                 : 
-CHAR                 : 17
-CHARACTER            : 21
+CHAR                 : 17 27
+CHARACTER            : 17 31
 CIRCUNFLEJO          : 
 CLASS                : 
 COMADOBLE            : 
@@ -114,71 +124,75 @@ COMMA                :
 CORCHETEL            : 
 CORCHETER            : 
 DOBLEPUNTO           : 
-ELSE                 : 33 34 36 37
-ENTERO               : 19
-EXCLAMACION          : 45 46 47 56
-FALSE                : 24 49
-FLOAT                : 14
-FLOTANTE             : 20
+ELSE                 : 43 44 46 47
+ENTERO               : 21 29
+EXCLAMACION          : 55 56 57 66
+FALSE                : 34 59
+FLOAT                : 19 24
+FLOTANTE             : 22 30
 FOR                  : 
-IDENTIFICADOR        : 11 12 25 47
-IF                   : 28 29 33 34
-IGUAL                : 11 51 51 54 55 56
-INT                  : 13
+IDENTIFICADOR        : 13 14 15 16 17 35 57
+IF                   : 38 39 43 44
+IGUAL                : 13 15 17 61 61 64 65 66
+INT                  : 18 23
 INTERROGACION        : 
-LLAVEL               : 26 40
-LLAVER               : 26 40
-LONG                 : 15
-LPAR                 : 26 28 29 33 34 46
+LLAVEL               : 36 50
+LLAVER               : 36 50
+LONG                 : 20 25
+LPAR                 : 6 36 38 39 43 44 56
 MAS                  : 
-MAYOR                : 53 55
-MENOR                : 52 54
+MAYOR                : 63 65
+MENOR                : 62 64
 MENOS                : 
 NEW                  : 
 NULLPOINTER          : 
 NUMERAL              : 
 PIPE                 : 
 PORCENTAJE           : 
+PRINT                : 6
 PRIVATE              : 
 PROTECTED            : 
 PUBLIC               : 
 PUNTERO              : 
 PUNTO                : 
-PUNTOCOMA            : 11 12
+PUNTOCOMA            : 13 14 15 16 17
 RETURN               : 
-RPAR                 : 26 28 29 33 34 46
+RPAR                 : 6 36 38 39 43 44 56
 SLASH                : 
 STATIC               : 
-STRING               : 22
+STRING               : 32
 STRUCT               : 
 THEN                 : 
-TRUE                 : 23 48
+TRUE                 : 33 58
 VIRGUILA             : 
-VOID                 : 18
-WHILE                : 26
+VOID                 : 28
+WHILE                : 36
 error                : 
 
 Nonterminals, with rules where they appear
 
 body                 : 0
-bodyblock            : 5 6 26 40
-boolean              : 45
-comparador           : 27
-condicionif          : 28 29 33 34
-conllaves            : 28 33 36
-else                 : 30 33 34
-elseif               : 31
-expresion            : 27 27 44 46
-expresionif          : 3 7
-expresionpos         : 28 29
-initcondicion        : 41
-sinllaves            : 29 34 37
-statement            : 26 42 43
-tipo                 : 11 12
-valor                : 11 50
-varblock             : 9 43
-variable             : 1 5 9 39
-while                : 2 6 38
+bodyblock            : 7 8 36 50
+boolean              : 55
+comparador           : 37
+condicionif          : 38 39 43 44
+conllaves            : 38 43 46
+else                 : 40 43 44
+elseif               : 41
+expresion            : 37 37 54 56
+expresionif          : 3 9
+expresionpos         : 38 39
+imprimir             : 4
+initcondicion        : 51
+numero               : 15
+numerotipo           : 15 16
+sinllaves            : 39 44 47
+statement            : 36 52 53
+tipo                 : 
+valor                : 6 13 60
+varblock             : 11 53
+variable             : 1 7 11 49
+while                : 2 8 48
 
 Parsing method: LALR
 
@@ -188,34 +202,37 @@ state 0
     (1) body -> . variable
     (2) body -> . while
     (3) body -> . expresionif
-    (4) body -> .
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (26) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (28) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
-    (29) expresionif -> . IF LPAR condicionif RPAR sinllaves expresionpos
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
+    (4) body -> . imprimir
+    (5) body -> .
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (36) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (38) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
+    (39) expresionif -> . IF LPAR condicionif RPAR sinllaves expresionpos
+    (6) imprimir -> . PRINT LPAR valor RPAR
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
 
-    $end            reduce using rule 4 (body -> .)
-    WHILE           shift and go to state 6
-    IF              shift and go to state 7
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
+    $end            reduce using rule 5 (body -> .)
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    WHILE           shift and go to state 9
+    IF              shift and go to state 10
+    PRINT           shift and go to state 11
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
 
     body                           shift and go to state 1
     variable                       shift and go to state 2
     while                          shift and go to state 3
     expresionif                    shift and go to state 4
-    tipo                           shift and go to state 5
+    imprimir                       shift and go to state 5
+    numerotipo                     shift and go to state 7
 
 state 1
 
@@ -246,130 +263,154 @@ state 4
 
 state 5
 
-    (11) variable -> tipo . IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> tipo . IDENTIFICADOR PUNTOCOMA
+    (4) body -> imprimir .
 
-    IDENTIFICADOR   shift and go to state 14
+    $end            reduce using rule 4 (body -> imprimir .)
 
 
 state 6
 
-    (26) while -> WHILE . LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (13) variable -> AUTO . IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> AUTO . IDENTIFICADOR PUNTOCOMA
 
-    LPAR            shift and go to state 15
+    IDENTIFICADOR   shift and go to state 15
 
 
 state 7
 
-    (28) expresionif -> IF . LPAR condicionif RPAR conllaves expresionpos
-    (29) expresionif -> IF . LPAR condicionif RPAR sinllaves expresionpos
+    (15) variable -> numerotipo . IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> numerotipo . IDENTIFICADOR PUNTOCOMA
 
-    LPAR            shift and go to state 16
+    IDENTIFICADOR   shift and go to state 16
 
 
 state 8
 
-    (13) tipo -> INT .
+    (17) variable -> CHAR . IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
 
-    IDENTIFICADOR   reduce using rule 13 (tipo -> INT .)
+    IDENTIFICADOR   shift and go to state 17
 
 
 state 9
 
-    (14) tipo -> FLOAT .
+    (36) while -> WHILE . LPAR statement RPAR LLAVEL bodyblock LLAVER
 
-    IDENTIFICADOR   reduce using rule 14 (tipo -> FLOAT .)
+    LPAR            shift and go to state 18
 
 
 state 10
 
-    (15) tipo -> LONG .
+    (38) expresionif -> IF . LPAR condicionif RPAR conllaves expresionpos
+    (39) expresionif -> IF . LPAR condicionif RPAR sinllaves expresionpos
 
-    IDENTIFICADOR   reduce using rule 15 (tipo -> LONG .)
+    LPAR            shift and go to state 19
 
 
 state 11
 
-    (16) tipo -> AUTO .
+    (6) imprimir -> PRINT . LPAR valor RPAR
 
-    IDENTIFICADOR   reduce using rule 16 (tipo -> AUTO .)
+    LPAR            shift and go to state 20
 
 
 state 12
 
-    (17) tipo -> CHAR .
+    (18) numerotipo -> INT .
 
-    IDENTIFICADOR   reduce using rule 17 (tipo -> CHAR .)
+    IDENTIFICADOR   reduce using rule 18 (numerotipo -> INT .)
 
 
 state 13
 
-    (18) tipo -> VOID .
+    (19) numerotipo -> FLOAT .
 
-    IDENTIFICADOR   reduce using rule 18 (tipo -> VOID .)
+    IDENTIFICADOR   reduce using rule 19 (numerotipo -> FLOAT .)
 
 
 state 14
 
-    (11) variable -> tipo IDENTIFICADOR . IGUAL valor PUNTOCOMA
-    (12) variable -> tipo IDENTIFICADOR . PUNTOCOMA
+    (20) numerotipo -> LONG .
 
-    IGUAL           shift and go to state 17
-    PUNTOCOMA       shift and go to state 18
+    IDENTIFICADOR   reduce using rule 20 (numerotipo -> LONG .)
 
 
 state 15
 
-    (26) while -> WHILE LPAR . statement RPAR LLAVEL bodyblock LLAVER
-    (44) statement -> . expresion
-    (45) statement -> . EXCLAMACION boolean
-    (46) statement -> . EXCLAMACION LPAR expresion RPAR
-    (47) statement -> . EXCLAMACION IDENTIFICADOR
-    (27) expresion -> . expresion comparador expresion
-    (50) expresion -> . valor
-    (19) valor -> . ENTERO
-    (20) valor -> . FLOTANTE
-    (21) valor -> . CHARACTER
-    (22) valor -> . STRING
-    (23) valor -> . TRUE
-    (24) valor -> . FALSE
-    (25) valor -> . IDENTIFICADOR
+    (13) variable -> AUTO IDENTIFICADOR . IGUAL valor PUNTOCOMA
+    (14) variable -> AUTO IDENTIFICADOR . PUNTOCOMA
 
-    EXCLAMACION     shift and go to state 21
-    ENTERO          shift and go to state 24
-    FLOTANTE        shift and go to state 25
-    CHARACTER       shift and go to state 26
-    STRING          shift and go to state 27
-    TRUE            shift and go to state 28
-    FALSE           shift and go to state 29
-    IDENTIFICADOR   shift and go to state 22
+    IGUAL           shift and go to state 21
+    PUNTOCOMA       shift and go to state 22
 
-    statement                      shift and go to state 19
-    expresion                      shift and go to state 20
-    valor                          shift and go to state 23
 
 state 16
 
-    (28) expresionif -> IF LPAR . condicionif RPAR conllaves expresionpos
-    (29) expresionif -> IF LPAR . condicionif RPAR sinllaves expresionpos
-    (41) condicionif -> . initcondicion
-    (42) condicionif -> . statement
-    (43) initcondicion -> . varblock statement
-    (44) statement -> . expresion
-    (45) statement -> . EXCLAMACION boolean
-    (46) statement -> . EXCLAMACION LPAR expresion RPAR
-    (47) statement -> . EXCLAMACION IDENTIFICADOR
-    (9) varblock -> . varblock variable
-    (10) varblock -> .
-    (27) expresion -> . expresion comparador expresion
-    (50) expresion -> . valor
-    (19) valor -> . ENTERO
-    (20) valor -> . FLOTANTE
-    (21) valor -> . CHARACTER
-    (22) valor -> . STRING
-    (23) valor -> . TRUE
-    (24) valor -> . FALSE
-    (25) valor -> . IDENTIFICADOR
+    (15) variable -> numerotipo IDENTIFICADOR . IGUAL numero PUNTOCOMA
+    (16) variable -> numerotipo IDENTIFICADOR . PUNTOCOMA
+
+    IGUAL           shift and go to state 23
+    PUNTOCOMA       shift and go to state 24
+
+
+state 17
+
+    (17) variable -> CHAR IDENTIFICADOR . IGUAL CHARACTER PUNTOCOMA
+
+    IGUAL           shift and go to state 25
+
+
+state 18
+
+    (36) while -> WHILE LPAR . statement RPAR LLAVEL bodyblock LLAVER
+    (54) statement -> . expresion
+    (55) statement -> . EXCLAMACION boolean
+    (56) statement -> . EXCLAMACION LPAR expresion RPAR
+    (57) statement -> . EXCLAMACION IDENTIFICADOR
+    (37) expresion -> . expresion comparador expresion
+    (60) expresion -> . valor
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
+
+    EXCLAMACION     shift and go to state 28
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
+
+    statement                      shift and go to state 26
+    expresion                      shift and go to state 27
+    valor                          shift and go to state 30
+
+state 19
+
+    (38) expresionif -> IF LPAR . condicionif RPAR conllaves expresionpos
+    (39) expresionif -> IF LPAR . condicionif RPAR sinllaves expresionpos
+    (51) condicionif -> . initcondicion
+    (52) condicionif -> . statement
+    (53) initcondicion -> . varblock statement
+    (54) statement -> . expresion
+    (55) statement -> . EXCLAMACION boolean
+    (56) statement -> . EXCLAMACION LPAR expresion RPAR
+    (57) statement -> . EXCLAMACION IDENTIFICADOR
+    (11) varblock -> . varblock variable
+    (12) varblock -> .
+    (37) expresion -> . expresion comparador expresion
+    (60) expresion -> . valor
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
 
   ! shift/reduce conflict for EXCLAMACION resolved as shift
   ! shift/reduce conflict for ENTERO resolved as shift
@@ -379,1065 +420,1185 @@ state 16
   ! shift/reduce conflict for TRUE resolved as shift
   ! shift/reduce conflict for FALSE resolved as shift
   ! shift/reduce conflict for IDENTIFICADOR resolved as shift
-    EXCLAMACION     shift and go to state 21
-    INT             reduce using rule 10 (varblock -> .)
-    FLOAT           reduce using rule 10 (varblock -> .)
-    LONG            reduce using rule 10 (varblock -> .)
-    AUTO            reduce using rule 10 (varblock -> .)
-    CHAR            reduce using rule 10 (varblock -> .)
-    VOID            reduce using rule 10 (varblock -> .)
-    ENTERO          shift and go to state 24
-    FLOTANTE        shift and go to state 25
-    CHARACTER       shift and go to state 26
-    STRING          shift and go to state 27
-    TRUE            shift and go to state 28
-    FALSE           shift and go to state 29
-    IDENTIFICADOR   shift and go to state 22
+    EXCLAMACION     shift and go to state 28
+    AUTO            reduce using rule 12 (varblock -> .)
+    CHAR            reduce using rule 12 (varblock -> .)
+    INT             reduce using rule 12 (varblock -> .)
+    FLOAT           reduce using rule 12 (varblock -> .)
+    LONG            reduce using rule 12 (varblock -> .)
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
 
-  ! EXCLAMACION     [ reduce using rule 10 (varblock -> .) ]
-  ! ENTERO          [ reduce using rule 10 (varblock -> .) ]
-  ! FLOTANTE        [ reduce using rule 10 (varblock -> .) ]
-  ! CHARACTER       [ reduce using rule 10 (varblock -> .) ]
-  ! STRING          [ reduce using rule 10 (varblock -> .) ]
-  ! TRUE            [ reduce using rule 10 (varblock -> .) ]
-  ! FALSE           [ reduce using rule 10 (varblock -> .) ]
-  ! IDENTIFICADOR   [ reduce using rule 10 (varblock -> .) ]
+  ! EXCLAMACION     [ reduce using rule 12 (varblock -> .) ]
+  ! ENTERO          [ reduce using rule 12 (varblock -> .) ]
+  ! FLOTANTE        [ reduce using rule 12 (varblock -> .) ]
+  ! CHARACTER       [ reduce using rule 12 (varblock -> .) ]
+  ! STRING          [ reduce using rule 12 (varblock -> .) ]
+  ! TRUE            [ reduce using rule 12 (varblock -> .) ]
+  ! FALSE           [ reduce using rule 12 (varblock -> .) ]
+  ! IDENTIFICADOR   [ reduce using rule 12 (varblock -> .) ]
 
-    condicionif                    shift and go to state 30
-    initcondicion                  shift and go to state 31
-    statement                      shift and go to state 32
-    varblock                       shift and go to state 33
-    expresion                      shift and go to state 20
-    valor                          shift and go to state 23
-
-state 17
-
-    (11) variable -> tipo IDENTIFICADOR IGUAL . valor PUNTOCOMA
-    (19) valor -> . ENTERO
-    (20) valor -> . FLOTANTE
-    (21) valor -> . CHARACTER
-    (22) valor -> . STRING
-    (23) valor -> . TRUE
-    (24) valor -> . FALSE
-    (25) valor -> . IDENTIFICADOR
-
-    ENTERO          shift and go to state 24
-    FLOTANTE        shift and go to state 25
-    CHARACTER       shift and go to state 26
-    STRING          shift and go to state 27
-    TRUE            shift and go to state 28
-    FALSE           shift and go to state 29
-    IDENTIFICADOR   shift and go to state 22
-
-    valor                          shift and go to state 34
-
-state 18
-
-    (12) variable -> tipo IDENTIFICADOR PUNTOCOMA .
-
-    $end            reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    EXCLAMACION     reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    INT             reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    FLOAT           reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    LONG            reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    AUTO            reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    CHAR            reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    VOID            reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    ENTERO          reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    FLOTANTE        reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    CHARACTER       reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    STRING          reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    TRUE            reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    FALSE           reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    IDENTIFICADOR   reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    ELSE            reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    LLAVER          reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-    WHILE           reduce using rule 12 (variable -> tipo IDENTIFICADOR PUNTOCOMA .)
-
-
-state 19
-
-    (26) while -> WHILE LPAR statement . RPAR LLAVEL bodyblock LLAVER
-
-    RPAR            shift and go to state 35
-
+    condicionif                    shift and go to state 37
+    initcondicion                  shift and go to state 38
+    statement                      shift and go to state 39
+    varblock                       shift and go to state 40
+    expresion                      shift and go to state 27
+    valor                          shift and go to state 30
 
 state 20
 
-    (44) statement -> expresion .
-    (27) expresion -> expresion . comparador expresion
-    (51) comparador -> . IGUAL IGUAL
-    (52) comparador -> . MENOR
-    (53) comparador -> . MAYOR
-    (54) comparador -> . MENOR IGUAL
-    (55) comparador -> . MAYOR IGUAL
-    (56) comparador -> . EXCLAMACION IGUAL
+    (6) imprimir -> PRINT LPAR . valor RPAR
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
 
-    RPAR            reduce using rule 44 (statement -> expresion .)
-    IGUAL           shift and go to state 37
-    MENOR           shift and go to state 38
-    MAYOR           shift and go to state 39
-    EXCLAMACION     shift and go to state 40
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
 
-    comparador                     shift and go to state 36
+    valor                          shift and go to state 41
 
 state 21
 
-    (45) statement -> EXCLAMACION . boolean
-    (46) statement -> EXCLAMACION . LPAR expresion RPAR
-    (47) statement -> EXCLAMACION . IDENTIFICADOR
-    (48) boolean -> . TRUE
-    (49) boolean -> . FALSE
+    (13) variable -> AUTO IDENTIFICADOR IGUAL . valor PUNTOCOMA
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
 
-    LPAR            shift and go to state 42
-    IDENTIFICADOR   shift and go to state 43
-    TRUE            shift and go to state 44
-    FALSE           shift and go to state 45
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
 
-    boolean                        shift and go to state 41
+    valor                          shift and go to state 42
 
 state 22
 
-    (25) valor -> IDENTIFICADOR .
+    (14) variable -> AUTO IDENTIFICADOR PUNTOCOMA .
 
-    IGUAL           reduce using rule 25 (valor -> IDENTIFICADOR .)
-    MENOR           reduce using rule 25 (valor -> IDENTIFICADOR .)
-    MAYOR           reduce using rule 25 (valor -> IDENTIFICADOR .)
-    EXCLAMACION     reduce using rule 25 (valor -> IDENTIFICADOR .)
-    RPAR            reduce using rule 25 (valor -> IDENTIFICADOR .)
-    PUNTOCOMA       reduce using rule 25 (valor -> IDENTIFICADOR .)
+    $end            reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    AUTO            reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    CHAR            reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    INT             reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    FLOAT           reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    LONG            reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    ENTERO          reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    FLOTANTE        reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    CHARACTER       reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    STRING          reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    TRUE            reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    FALSE           reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    ELSE            reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    LLAVER          reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    WHILE           reduce using rule 14 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
 
 
 state 23
 
-    (50) expresion -> valor .
+    (15) variable -> numerotipo IDENTIFICADOR IGUAL . numero PUNTOCOMA
+    (21) numero -> . ENTERO
+    (22) numero -> . FLOTANTE
 
-    IGUAL           reduce using rule 50 (expresion -> valor .)
-    MENOR           reduce using rule 50 (expresion -> valor .)
-    MAYOR           reduce using rule 50 (expresion -> valor .)
-    EXCLAMACION     reduce using rule 50 (expresion -> valor .)
-    RPAR            reduce using rule 50 (expresion -> valor .)
+    ENTERO          shift and go to state 44
+    FLOTANTE        shift and go to state 45
 
+    numero                         shift and go to state 43
 
 state 24
 
-    (19) valor -> ENTERO .
+    (16) variable -> numerotipo IDENTIFICADOR PUNTOCOMA .
 
-    IGUAL           reduce using rule 19 (valor -> ENTERO .)
-    MENOR           reduce using rule 19 (valor -> ENTERO .)
-    MAYOR           reduce using rule 19 (valor -> ENTERO .)
-    EXCLAMACION     reduce using rule 19 (valor -> ENTERO .)
-    RPAR            reduce using rule 19 (valor -> ENTERO .)
-    PUNTOCOMA       reduce using rule 19 (valor -> ENTERO .)
+    $end            reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    AUTO            reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    CHAR            reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    INT             reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    FLOAT           reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    LONG            reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    ENTERO          reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    FLOTANTE        reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    CHARACTER       reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    STRING          reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    TRUE            reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    FALSE           reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    ELSE            reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    LLAVER          reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    WHILE           reduce using rule 16 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
 
 
 state 25
 
-    (20) valor -> FLOTANTE .
+    (17) variable -> CHAR IDENTIFICADOR IGUAL . CHARACTER PUNTOCOMA
 
-    IGUAL           reduce using rule 20 (valor -> FLOTANTE .)
-    MENOR           reduce using rule 20 (valor -> FLOTANTE .)
-    MAYOR           reduce using rule 20 (valor -> FLOTANTE .)
-    EXCLAMACION     reduce using rule 20 (valor -> FLOTANTE .)
-    RPAR            reduce using rule 20 (valor -> FLOTANTE .)
-    PUNTOCOMA       reduce using rule 20 (valor -> FLOTANTE .)
+    CHARACTER       shift and go to state 46
 
 
 state 26
 
-    (21) valor -> CHARACTER .
+    (36) while -> WHILE LPAR statement . RPAR LLAVEL bodyblock LLAVER
 
-    IGUAL           reduce using rule 21 (valor -> CHARACTER .)
-    MENOR           reduce using rule 21 (valor -> CHARACTER .)
-    MAYOR           reduce using rule 21 (valor -> CHARACTER .)
-    EXCLAMACION     reduce using rule 21 (valor -> CHARACTER .)
-    RPAR            reduce using rule 21 (valor -> CHARACTER .)
-    PUNTOCOMA       reduce using rule 21 (valor -> CHARACTER .)
+    RPAR            shift and go to state 47
 
 
 state 27
 
-    (22) valor -> STRING .
+    (54) statement -> expresion .
+    (37) expresion -> expresion . comparador expresion
+    (61) comparador -> . IGUAL IGUAL
+    (62) comparador -> . MENOR
+    (63) comparador -> . MAYOR
+    (64) comparador -> . MENOR IGUAL
+    (65) comparador -> . MAYOR IGUAL
+    (66) comparador -> . EXCLAMACION IGUAL
 
-    IGUAL           reduce using rule 22 (valor -> STRING .)
-    MENOR           reduce using rule 22 (valor -> STRING .)
-    MAYOR           reduce using rule 22 (valor -> STRING .)
-    EXCLAMACION     reduce using rule 22 (valor -> STRING .)
-    RPAR            reduce using rule 22 (valor -> STRING .)
-    PUNTOCOMA       reduce using rule 22 (valor -> STRING .)
+    RPAR            reduce using rule 54 (statement -> expresion .)
+    IGUAL           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYOR           shift and go to state 51
+    EXCLAMACION     shift and go to state 52
 
+    comparador                     shift and go to state 48
 
 state 28
 
-    (23) valor -> TRUE .
+    (55) statement -> EXCLAMACION . boolean
+    (56) statement -> EXCLAMACION . LPAR expresion RPAR
+    (57) statement -> EXCLAMACION . IDENTIFICADOR
+    (58) boolean -> . TRUE
+    (59) boolean -> . FALSE
 
-    IGUAL           reduce using rule 23 (valor -> TRUE .)
-    MENOR           reduce using rule 23 (valor -> TRUE .)
-    MAYOR           reduce using rule 23 (valor -> TRUE .)
-    EXCLAMACION     reduce using rule 23 (valor -> TRUE .)
-    RPAR            reduce using rule 23 (valor -> TRUE .)
-    PUNTOCOMA       reduce using rule 23 (valor -> TRUE .)
+    LPAR            shift and go to state 54
+    IDENTIFICADOR   shift and go to state 55
+    TRUE            shift and go to state 56
+    FALSE           shift and go to state 57
 
+    boolean                        shift and go to state 53
 
 state 29
 
-    (24) valor -> FALSE .
+    (35) valor -> IDENTIFICADOR .
 
-    IGUAL           reduce using rule 24 (valor -> FALSE .)
-    MENOR           reduce using rule 24 (valor -> FALSE .)
-    MAYOR           reduce using rule 24 (valor -> FALSE .)
-    EXCLAMACION     reduce using rule 24 (valor -> FALSE .)
-    RPAR            reduce using rule 24 (valor -> FALSE .)
-    PUNTOCOMA       reduce using rule 24 (valor -> FALSE .)
+    IGUAL           reduce using rule 35 (valor -> IDENTIFICADOR .)
+    MENOR           reduce using rule 35 (valor -> IDENTIFICADOR .)
+    MAYOR           reduce using rule 35 (valor -> IDENTIFICADOR .)
+    EXCLAMACION     reduce using rule 35 (valor -> IDENTIFICADOR .)
+    RPAR            reduce using rule 35 (valor -> IDENTIFICADOR .)
+    PUNTOCOMA       reduce using rule 35 (valor -> IDENTIFICADOR .)
 
 
 state 30
 
-    (28) expresionif -> IF LPAR condicionif . RPAR conllaves expresionpos
-    (29) expresionif -> IF LPAR condicionif . RPAR sinllaves expresionpos
+    (60) expresion -> valor .
 
-    RPAR            shift and go to state 46
+    IGUAL           reduce using rule 60 (expresion -> valor .)
+    MENOR           reduce using rule 60 (expresion -> valor .)
+    MAYOR           reduce using rule 60 (expresion -> valor .)
+    EXCLAMACION     reduce using rule 60 (expresion -> valor .)
+    RPAR            reduce using rule 60 (expresion -> valor .)
 
 
 state 31
 
-    (41) condicionif -> initcondicion .
+    (29) valor -> ENTERO .
 
-    RPAR            reduce using rule 41 (condicionif -> initcondicion .)
+    IGUAL           reduce using rule 29 (valor -> ENTERO .)
+    MENOR           reduce using rule 29 (valor -> ENTERO .)
+    MAYOR           reduce using rule 29 (valor -> ENTERO .)
+    EXCLAMACION     reduce using rule 29 (valor -> ENTERO .)
+    RPAR            reduce using rule 29 (valor -> ENTERO .)
+    PUNTOCOMA       reduce using rule 29 (valor -> ENTERO .)
 
 
 state 32
 
-    (42) condicionif -> statement .
+    (30) valor -> FLOTANTE .
 
-    RPAR            reduce using rule 42 (condicionif -> statement .)
+    IGUAL           reduce using rule 30 (valor -> FLOTANTE .)
+    MENOR           reduce using rule 30 (valor -> FLOTANTE .)
+    MAYOR           reduce using rule 30 (valor -> FLOTANTE .)
+    EXCLAMACION     reduce using rule 30 (valor -> FLOTANTE .)
+    RPAR            reduce using rule 30 (valor -> FLOTANTE .)
+    PUNTOCOMA       reduce using rule 30 (valor -> FLOTANTE .)
 
 
 state 33
 
-    (43) initcondicion -> varblock . statement
-    (9) varblock -> varblock . variable
-    (44) statement -> . expresion
-    (45) statement -> . EXCLAMACION boolean
-    (46) statement -> . EXCLAMACION LPAR expresion RPAR
-    (47) statement -> . EXCLAMACION IDENTIFICADOR
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (27) expresion -> . expresion comparador expresion
-    (50) expresion -> . valor
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
-    (19) valor -> . ENTERO
-    (20) valor -> . FLOTANTE
-    (21) valor -> . CHARACTER
-    (22) valor -> . STRING
-    (23) valor -> . TRUE
-    (24) valor -> . FALSE
-    (25) valor -> . IDENTIFICADOR
+    (31) valor -> CHARACTER .
 
-    EXCLAMACION     shift and go to state 21
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
-    ENTERO          shift and go to state 24
-    FLOTANTE        shift and go to state 25
-    CHARACTER       shift and go to state 26
-    STRING          shift and go to state 27
-    TRUE            shift and go to state 28
-    FALSE           shift and go to state 29
-    IDENTIFICADOR   shift and go to state 22
+    IGUAL           reduce using rule 31 (valor -> CHARACTER .)
+    MENOR           reduce using rule 31 (valor -> CHARACTER .)
+    MAYOR           reduce using rule 31 (valor -> CHARACTER .)
+    EXCLAMACION     reduce using rule 31 (valor -> CHARACTER .)
+    RPAR            reduce using rule 31 (valor -> CHARACTER .)
+    PUNTOCOMA       reduce using rule 31 (valor -> CHARACTER .)
 
-    statement                      shift and go to state 47
-    variable                       shift and go to state 48
-    expresion                      shift and go to state 20
-    tipo                           shift and go to state 5
-    valor                          shift and go to state 23
 
 state 34
 
-    (11) variable -> tipo IDENTIFICADOR IGUAL valor . PUNTOCOMA
+    (32) valor -> STRING .
 
-    PUNTOCOMA       shift and go to state 49
+    IGUAL           reduce using rule 32 (valor -> STRING .)
+    MENOR           reduce using rule 32 (valor -> STRING .)
+    MAYOR           reduce using rule 32 (valor -> STRING .)
+    EXCLAMACION     reduce using rule 32 (valor -> STRING .)
+    RPAR            reduce using rule 32 (valor -> STRING .)
+    PUNTOCOMA       reduce using rule 32 (valor -> STRING .)
 
 
 state 35
 
-    (26) while -> WHILE LPAR statement RPAR . LLAVEL bodyblock LLAVER
+    (33) valor -> TRUE .
 
-    LLAVEL          shift and go to state 50
+    IGUAL           reduce using rule 33 (valor -> TRUE .)
+    MENOR           reduce using rule 33 (valor -> TRUE .)
+    MAYOR           reduce using rule 33 (valor -> TRUE .)
+    EXCLAMACION     reduce using rule 33 (valor -> TRUE .)
+    RPAR            reduce using rule 33 (valor -> TRUE .)
+    PUNTOCOMA       reduce using rule 33 (valor -> TRUE .)
 
 
 state 36
 
-    (27) expresion -> expresion comparador . expresion
-    (27) expresion -> . expresion comparador expresion
-    (50) expresion -> . valor
-    (19) valor -> . ENTERO
-    (20) valor -> . FLOTANTE
-    (21) valor -> . CHARACTER
-    (22) valor -> . STRING
-    (23) valor -> . TRUE
-    (24) valor -> . FALSE
-    (25) valor -> . IDENTIFICADOR
+    (34) valor -> FALSE .
 
-    ENTERO          shift and go to state 24
-    FLOTANTE        shift and go to state 25
-    CHARACTER       shift and go to state 26
-    STRING          shift and go to state 27
-    TRUE            shift and go to state 28
-    FALSE           shift and go to state 29
-    IDENTIFICADOR   shift and go to state 22
+    IGUAL           reduce using rule 34 (valor -> FALSE .)
+    MENOR           reduce using rule 34 (valor -> FALSE .)
+    MAYOR           reduce using rule 34 (valor -> FALSE .)
+    EXCLAMACION     reduce using rule 34 (valor -> FALSE .)
+    RPAR            reduce using rule 34 (valor -> FALSE .)
+    PUNTOCOMA       reduce using rule 34 (valor -> FALSE .)
 
-    expresion                      shift and go to state 51
-    valor                          shift and go to state 23
 
 state 37
 
-    (51) comparador -> IGUAL . IGUAL
+    (38) expresionif -> IF LPAR condicionif . RPAR conllaves expresionpos
+    (39) expresionif -> IF LPAR condicionif . RPAR sinllaves expresionpos
 
-    IGUAL           shift and go to state 52
+    RPAR            shift and go to state 58
 
 
 state 38
 
-    (52) comparador -> MENOR .
-    (54) comparador -> MENOR . IGUAL
+    (51) condicionif -> initcondicion .
 
-    ENTERO          reduce using rule 52 (comparador -> MENOR .)
-    FLOTANTE        reduce using rule 52 (comparador -> MENOR .)
-    CHARACTER       reduce using rule 52 (comparador -> MENOR .)
-    STRING          reduce using rule 52 (comparador -> MENOR .)
-    TRUE            reduce using rule 52 (comparador -> MENOR .)
-    FALSE           reduce using rule 52 (comparador -> MENOR .)
-    IDENTIFICADOR   reduce using rule 52 (comparador -> MENOR .)
-    IGUAL           shift and go to state 53
+    RPAR            reduce using rule 51 (condicionif -> initcondicion .)
 
 
 state 39
 
-    (53) comparador -> MAYOR .
-    (55) comparador -> MAYOR . IGUAL
+    (52) condicionif -> statement .
 
-    ENTERO          reduce using rule 53 (comparador -> MAYOR .)
-    FLOTANTE        reduce using rule 53 (comparador -> MAYOR .)
-    CHARACTER       reduce using rule 53 (comparador -> MAYOR .)
-    STRING          reduce using rule 53 (comparador -> MAYOR .)
-    TRUE            reduce using rule 53 (comparador -> MAYOR .)
-    FALSE           reduce using rule 53 (comparador -> MAYOR .)
-    IDENTIFICADOR   reduce using rule 53 (comparador -> MAYOR .)
-    IGUAL           shift and go to state 54
+    RPAR            reduce using rule 52 (condicionif -> statement .)
 
 
 state 40
 
-    (56) comparador -> EXCLAMACION . IGUAL
+    (53) initcondicion -> varblock . statement
+    (11) varblock -> varblock . variable
+    (54) statement -> . expresion
+    (55) statement -> . EXCLAMACION boolean
+    (56) statement -> . EXCLAMACION LPAR expresion RPAR
+    (57) statement -> . EXCLAMACION IDENTIFICADOR
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (37) expresion -> . expresion comparador expresion
+    (60) expresion -> . valor
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
 
-    IGUAL           shift and go to state 55
+    EXCLAMACION     shift and go to state 28
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
 
+    statement                      shift and go to state 59
+    variable                       shift and go to state 60
+    expresion                      shift and go to state 27
+    valor                          shift and go to state 30
+    numerotipo                     shift and go to state 7
 
 state 41
 
-    (45) statement -> EXCLAMACION boolean .
+    (6) imprimir -> PRINT LPAR valor . RPAR
 
-    RPAR            reduce using rule 45 (statement -> EXCLAMACION boolean .)
+    RPAR            shift and go to state 61
 
 
 state 42
 
-    (46) statement -> EXCLAMACION LPAR . expresion RPAR
-    (27) expresion -> . expresion comparador expresion
-    (50) expresion -> . valor
-    (19) valor -> . ENTERO
-    (20) valor -> . FLOTANTE
-    (21) valor -> . CHARACTER
-    (22) valor -> . STRING
-    (23) valor -> . TRUE
-    (24) valor -> . FALSE
-    (25) valor -> . IDENTIFICADOR
+    (13) variable -> AUTO IDENTIFICADOR IGUAL valor . PUNTOCOMA
 
-    ENTERO          shift and go to state 24
-    FLOTANTE        shift and go to state 25
-    CHARACTER       shift and go to state 26
-    STRING          shift and go to state 27
-    TRUE            shift and go to state 28
-    FALSE           shift and go to state 29
-    IDENTIFICADOR   shift and go to state 22
+    PUNTOCOMA       shift and go to state 62
 
-    expresion                      shift and go to state 56
-    valor                          shift and go to state 23
 
 state 43
 
-    (47) statement -> EXCLAMACION IDENTIFICADOR .
+    (15) variable -> numerotipo IDENTIFICADOR IGUAL numero . PUNTOCOMA
 
-    RPAR            reduce using rule 47 (statement -> EXCLAMACION IDENTIFICADOR .)
+    PUNTOCOMA       shift and go to state 63
 
 
 state 44
 
-    (48) boolean -> TRUE .
+    (21) numero -> ENTERO .
 
-    RPAR            reduce using rule 48 (boolean -> TRUE .)
+    PUNTOCOMA       reduce using rule 21 (numero -> ENTERO .)
 
 
 state 45
 
-    (49) boolean -> FALSE .
+    (22) numero -> FLOTANTE .
 
-    RPAR            reduce using rule 49 (boolean -> FALSE .)
+    PUNTOCOMA       reduce using rule 22 (numero -> FLOTANTE .)
 
 
 state 46
 
-    (28) expresionif -> IF LPAR condicionif RPAR . conllaves expresionpos
-    (29) expresionif -> IF LPAR condicionif RPAR . sinllaves expresionpos
-    (40) conllaves -> . LLAVEL bodyblock LLAVER
-    (38) sinllaves -> . while
-    (39) sinllaves -> . variable
-    (26) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
+    (17) variable -> CHAR IDENTIFICADOR IGUAL CHARACTER . PUNTOCOMA
 
-    LLAVEL          shift and go to state 59
-    WHILE           shift and go to state 6
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
+    PUNTOCOMA       shift and go to state 64
 
-    conllaves                      shift and go to state 57
-    sinllaves                      shift and go to state 58
-    while                          shift and go to state 60
-    variable                       shift and go to state 61
-    tipo                           shift and go to state 5
 
 state 47
 
-    (43) initcondicion -> varblock statement .
+    (36) while -> WHILE LPAR statement RPAR . LLAVEL bodyblock LLAVER
 
-    RPAR            reduce using rule 43 (initcondicion -> varblock statement .)
+    LLAVEL          shift and go to state 65
 
 
 state 48
 
-    (9) varblock -> varblock variable .
+    (37) expresion -> expresion comparador . expresion
+    (37) expresion -> . expresion comparador expresion
+    (60) expresion -> . valor
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
 
-    EXCLAMACION     reduce using rule 9 (varblock -> varblock variable .)
-    INT             reduce using rule 9 (varblock -> varblock variable .)
-    FLOAT           reduce using rule 9 (varblock -> varblock variable .)
-    LONG            reduce using rule 9 (varblock -> varblock variable .)
-    AUTO            reduce using rule 9 (varblock -> varblock variable .)
-    CHAR            reduce using rule 9 (varblock -> varblock variable .)
-    VOID            reduce using rule 9 (varblock -> varblock variable .)
-    ENTERO          reduce using rule 9 (varblock -> varblock variable .)
-    FLOTANTE        reduce using rule 9 (varblock -> varblock variable .)
-    CHARACTER       reduce using rule 9 (varblock -> varblock variable .)
-    STRING          reduce using rule 9 (varblock -> varblock variable .)
-    TRUE            reduce using rule 9 (varblock -> varblock variable .)
-    FALSE           reduce using rule 9 (varblock -> varblock variable .)
-    IDENTIFICADOR   reduce using rule 9 (varblock -> varblock variable .)
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
 
+    expresion                      shift and go to state 66
+    valor                          shift and go to state 30
 
 state 49
 
-    (11) variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .
+    (61) comparador -> IGUAL . IGUAL
 
-    $end            reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    EXCLAMACION     reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    INT             reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    FLOAT           reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    LONG            reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    AUTO            reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    CHAR            reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    VOID            reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    ENTERO          reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    FLOTANTE        reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    CHARACTER       reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    STRING          reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    TRUE            reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    FALSE           reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    IDENTIFICADOR   reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    ELSE            reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    LLAVER          reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    WHILE           reduce using rule 11 (variable -> tipo IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    IGUAL           shift and go to state 67
 
 
 state 50
 
-    (26) while -> WHILE LPAR statement RPAR LLAVEL . bodyblock LLAVER
-    (5) bodyblock -> . bodyblock variable
-    (6) bodyblock -> . bodyblock while
-    (7) bodyblock -> . expresionif
-    (8) bodyblock -> .
-    (28) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
-    (29) expresionif -> . IF LPAR condicionif RPAR sinllaves expresionpos
+    (62) comparador -> MENOR .
+    (64) comparador -> MENOR . IGUAL
 
-    LLAVER          reduce using rule 8 (bodyblock -> .)
-    WHILE           reduce using rule 8 (bodyblock -> .)
-    INT             reduce using rule 8 (bodyblock -> .)
-    FLOAT           reduce using rule 8 (bodyblock -> .)
-    LONG            reduce using rule 8 (bodyblock -> .)
-    AUTO            reduce using rule 8 (bodyblock -> .)
-    CHAR            reduce using rule 8 (bodyblock -> .)
-    VOID            reduce using rule 8 (bodyblock -> .)
-    IF              shift and go to state 7
+    ENTERO          reduce using rule 62 (comparador -> MENOR .)
+    FLOTANTE        reduce using rule 62 (comparador -> MENOR .)
+    CHARACTER       reduce using rule 62 (comparador -> MENOR .)
+    STRING          reduce using rule 62 (comparador -> MENOR .)
+    TRUE            reduce using rule 62 (comparador -> MENOR .)
+    FALSE           reduce using rule 62 (comparador -> MENOR .)
+    IDENTIFICADOR   reduce using rule 62 (comparador -> MENOR .)
+    IGUAL           shift and go to state 68
 
-    bodyblock                      shift and go to state 62
-    expresionif                    shift and go to state 63
 
 state 51
 
-    (27) expresion -> expresion comparador expresion .
-    (27) expresion -> expresion . comparador expresion
-    (51) comparador -> . IGUAL IGUAL
-    (52) comparador -> . MENOR
-    (53) comparador -> . MAYOR
-    (54) comparador -> . MENOR IGUAL
-    (55) comparador -> . MAYOR IGUAL
-    (56) comparador -> . EXCLAMACION IGUAL
+    (63) comparador -> MAYOR .
+    (65) comparador -> MAYOR . IGUAL
+
+    ENTERO          reduce using rule 63 (comparador -> MAYOR .)
+    FLOTANTE        reduce using rule 63 (comparador -> MAYOR .)
+    CHARACTER       reduce using rule 63 (comparador -> MAYOR .)
+    STRING          reduce using rule 63 (comparador -> MAYOR .)
+    TRUE            reduce using rule 63 (comparador -> MAYOR .)
+    FALSE           reduce using rule 63 (comparador -> MAYOR .)
+    IDENTIFICADOR   reduce using rule 63 (comparador -> MAYOR .)
+    IGUAL           shift and go to state 69
+
+
+state 52
+
+    (66) comparador -> EXCLAMACION . IGUAL
+
+    IGUAL           shift and go to state 70
+
+
+state 53
+
+    (55) statement -> EXCLAMACION boolean .
+
+    RPAR            reduce using rule 55 (statement -> EXCLAMACION boolean .)
+
+
+state 54
+
+    (56) statement -> EXCLAMACION LPAR . expresion RPAR
+    (37) expresion -> . expresion comparador expresion
+    (60) expresion -> . valor
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
+
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
+
+    expresion                      shift and go to state 71
+    valor                          shift and go to state 30
+
+state 55
+
+    (57) statement -> EXCLAMACION IDENTIFICADOR .
+
+    RPAR            reduce using rule 57 (statement -> EXCLAMACION IDENTIFICADOR .)
+
+
+state 56
+
+    (58) boolean -> TRUE .
+
+    RPAR            reduce using rule 58 (boolean -> TRUE .)
+
+
+state 57
+
+    (59) boolean -> FALSE .
+
+    RPAR            reduce using rule 59 (boolean -> FALSE .)
+
+
+state 58
+
+    (38) expresionif -> IF LPAR condicionif RPAR . conllaves expresionpos
+    (39) expresionif -> IF LPAR condicionif RPAR . sinllaves expresionpos
+    (50) conllaves -> . LLAVEL bodyblock LLAVER
+    (48) sinllaves -> . while
+    (49) sinllaves -> . variable
+    (36) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
+
+    LLAVEL          shift and go to state 74
+    WHILE           shift and go to state 9
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
+
+    conllaves                      shift and go to state 72
+    sinllaves                      shift and go to state 73
+    while                          shift and go to state 75
+    variable                       shift and go to state 76
+    numerotipo                     shift and go to state 7
+
+state 59
+
+    (53) initcondicion -> varblock statement .
+
+    RPAR            reduce using rule 53 (initcondicion -> varblock statement .)
+
+
+state 60
+
+    (11) varblock -> varblock variable .
+
+    EXCLAMACION     reduce using rule 11 (varblock -> varblock variable .)
+    AUTO            reduce using rule 11 (varblock -> varblock variable .)
+    CHAR            reduce using rule 11 (varblock -> varblock variable .)
+    INT             reduce using rule 11 (varblock -> varblock variable .)
+    FLOAT           reduce using rule 11 (varblock -> varblock variable .)
+    LONG            reduce using rule 11 (varblock -> varblock variable .)
+    ENTERO          reduce using rule 11 (varblock -> varblock variable .)
+    FLOTANTE        reduce using rule 11 (varblock -> varblock variable .)
+    CHARACTER       reduce using rule 11 (varblock -> varblock variable .)
+    STRING          reduce using rule 11 (varblock -> varblock variable .)
+    TRUE            reduce using rule 11 (varblock -> varblock variable .)
+    FALSE           reduce using rule 11 (varblock -> varblock variable .)
+    IDENTIFICADOR   reduce using rule 11 (varblock -> varblock variable .)
+
+
+state 61
+
+    (6) imprimir -> PRINT LPAR valor RPAR .
+
+    $end            reduce using rule 6 (imprimir -> PRINT LPAR valor RPAR .)
+
+
+state 62
+
+    (13) variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .
+
+    $end            reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    AUTO            reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    CHAR            reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    INT             reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    FLOAT           reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    LONG            reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    ENTERO          reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    FLOTANTE        reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    CHARACTER       reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    STRING          reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    TRUE            reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    FALSE           reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    ELSE            reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    LLAVER          reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    WHILE           reduce using rule 13 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+
+
+state 63
+
+    (15) variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .
+
+    $end            reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    AUTO            reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    CHAR            reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    INT             reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    FLOAT           reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    LONG            reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    ENTERO          reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    FLOTANTE        reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    CHARACTER       reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    STRING          reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    TRUE            reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    FALSE           reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    ELSE            reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    LLAVER          reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    WHILE           reduce using rule 15 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+
+
+state 64
+
+    (17) variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .
+
+    $end            reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    AUTO            reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    CHAR            reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    INT             reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    FLOAT           reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    LONG            reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    ENTERO          reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    FLOTANTE        reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    CHARACTER       reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    STRING          reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    TRUE            reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    FALSE           reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    ELSE            reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    LLAVER          reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+    WHILE           reduce using rule 17 (variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA .)
+
+
+state 65
+
+    (36) while -> WHILE LPAR statement RPAR LLAVEL . bodyblock LLAVER
+    (7) bodyblock -> . bodyblock variable
+    (8) bodyblock -> . bodyblock while
+    (9) bodyblock -> . expresionif
+    (10) bodyblock -> .
+    (38) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
+    (39) expresionif -> . IF LPAR condicionif RPAR sinllaves expresionpos
+
+    LLAVER          reduce using rule 10 (bodyblock -> .)
+    AUTO            reduce using rule 10 (bodyblock -> .)
+    CHAR            reduce using rule 10 (bodyblock -> .)
+    WHILE           reduce using rule 10 (bodyblock -> .)
+    INT             reduce using rule 10 (bodyblock -> .)
+    FLOAT           reduce using rule 10 (bodyblock -> .)
+    LONG            reduce using rule 10 (bodyblock -> .)
+    IF              shift and go to state 10
+
+    bodyblock                      shift and go to state 77
+    expresionif                    shift and go to state 78
+
+state 66
+
+    (37) expresion -> expresion comparador expresion .
+    (37) expresion -> expresion . comparador expresion
+    (61) comparador -> . IGUAL IGUAL
+    (62) comparador -> . MENOR
+    (63) comparador -> . MAYOR
+    (64) comparador -> . MENOR IGUAL
+    (65) comparador -> . MAYOR IGUAL
+    (66) comparador -> . EXCLAMACION IGUAL
 
   ! shift/reduce conflict for IGUAL resolved as shift
   ! shift/reduce conflict for MENOR resolved as shift
   ! shift/reduce conflict for MAYOR resolved as shift
   ! shift/reduce conflict for EXCLAMACION resolved as shift
-    RPAR            reduce using rule 27 (expresion -> expresion comparador expresion .)
-    IGUAL           shift and go to state 37
-    MENOR           shift and go to state 38
-    MAYOR           shift and go to state 39
-    EXCLAMACION     shift and go to state 40
-
-  ! IGUAL           [ reduce using rule 27 (expresion -> expresion comparador expresion .) ]
-  ! MENOR           [ reduce using rule 27 (expresion -> expresion comparador expresion .) ]
-  ! MAYOR           [ reduce using rule 27 (expresion -> expresion comparador expresion .) ]
-  ! EXCLAMACION     [ reduce using rule 27 (expresion -> expresion comparador expresion .) ]
-
-    comparador                     shift and go to state 36
-
-state 52
-
-    (51) comparador -> IGUAL IGUAL .
-
-    ENTERO          reduce using rule 51 (comparador -> IGUAL IGUAL .)
-    FLOTANTE        reduce using rule 51 (comparador -> IGUAL IGUAL .)
-    CHARACTER       reduce using rule 51 (comparador -> IGUAL IGUAL .)
-    STRING          reduce using rule 51 (comparador -> IGUAL IGUAL .)
-    TRUE            reduce using rule 51 (comparador -> IGUAL IGUAL .)
-    FALSE           reduce using rule 51 (comparador -> IGUAL IGUAL .)
-    IDENTIFICADOR   reduce using rule 51 (comparador -> IGUAL IGUAL .)
-
-
-state 53
-
-    (54) comparador -> MENOR IGUAL .
-
-    ENTERO          reduce using rule 54 (comparador -> MENOR IGUAL .)
-    FLOTANTE        reduce using rule 54 (comparador -> MENOR IGUAL .)
-    CHARACTER       reduce using rule 54 (comparador -> MENOR IGUAL .)
-    STRING          reduce using rule 54 (comparador -> MENOR IGUAL .)
-    TRUE            reduce using rule 54 (comparador -> MENOR IGUAL .)
-    FALSE           reduce using rule 54 (comparador -> MENOR IGUAL .)
-    IDENTIFICADOR   reduce using rule 54 (comparador -> MENOR IGUAL .)
-
-
-state 54
-
-    (55) comparador -> MAYOR IGUAL .
-
-    ENTERO          reduce using rule 55 (comparador -> MAYOR IGUAL .)
-    FLOTANTE        reduce using rule 55 (comparador -> MAYOR IGUAL .)
-    CHARACTER       reduce using rule 55 (comparador -> MAYOR IGUAL .)
-    STRING          reduce using rule 55 (comparador -> MAYOR IGUAL .)
-    TRUE            reduce using rule 55 (comparador -> MAYOR IGUAL .)
-    FALSE           reduce using rule 55 (comparador -> MAYOR IGUAL .)
-    IDENTIFICADOR   reduce using rule 55 (comparador -> MAYOR IGUAL .)
-
-
-state 55
-
-    (56) comparador -> EXCLAMACION IGUAL .
-
-    ENTERO          reduce using rule 56 (comparador -> EXCLAMACION IGUAL .)
-    FLOTANTE        reduce using rule 56 (comparador -> EXCLAMACION IGUAL .)
-    CHARACTER       reduce using rule 56 (comparador -> EXCLAMACION IGUAL .)
-    STRING          reduce using rule 56 (comparador -> EXCLAMACION IGUAL .)
-    TRUE            reduce using rule 56 (comparador -> EXCLAMACION IGUAL .)
-    FALSE           reduce using rule 56 (comparador -> EXCLAMACION IGUAL .)
-    IDENTIFICADOR   reduce using rule 56 (comparador -> EXCLAMACION IGUAL .)
-
-
-state 56
-
-    (46) statement -> EXCLAMACION LPAR expresion . RPAR
-    (27) expresion -> expresion . comparador expresion
-    (51) comparador -> . IGUAL IGUAL
-    (52) comparador -> . MENOR
-    (53) comparador -> . MAYOR
-    (54) comparador -> . MENOR IGUAL
-    (55) comparador -> . MAYOR IGUAL
-    (56) comparador -> . EXCLAMACION IGUAL
-
-    RPAR            shift and go to state 64
-    IGUAL           shift and go to state 37
-    MENOR           shift and go to state 38
-    MAYOR           shift and go to state 39
-    EXCLAMACION     shift and go to state 40
-
-    comparador                     shift and go to state 36
-
-state 57
-
-    (28) expresionif -> IF LPAR condicionif RPAR conllaves . expresionpos
-    (30) expresionpos -> . else
-    (31) expresionpos -> . elseif
-    (32) expresionpos -> .
-    (36) else -> . ELSE conllaves
-    (37) else -> . ELSE sinllaves
-    (33) elseif -> . ELSE IF LPAR condicionif RPAR conllaves else
-    (34) elseif -> . ELSE IF LPAR condicionif RPAR sinllaves else
-    (35) elseif -> .
-
-  ! reduce/reduce conflict for $end resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for LLAVER resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for WHILE resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for INT resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for FLOAT resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for LONG resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for AUTO resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for CHAR resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for VOID resolved using rule 32 (expresionpos -> .)
-    $end            reduce using rule 32 (expresionpos -> .)
-    LLAVER          reduce using rule 32 (expresionpos -> .)
-    WHILE           reduce using rule 32 (expresionpos -> .)
-    INT             reduce using rule 32 (expresionpos -> .)
-    FLOAT           reduce using rule 32 (expresionpos -> .)
-    LONG            reduce using rule 32 (expresionpos -> .)
-    AUTO            reduce using rule 32 (expresionpos -> .)
-    CHAR            reduce using rule 32 (expresionpos -> .)
-    VOID            reduce using rule 32 (expresionpos -> .)
-    ELSE            shift and go to state 68
-
-  ! $end            [ reduce using rule 35 (elseif -> .) ]
-  ! LLAVER          [ reduce using rule 35 (elseif -> .) ]
-  ! WHILE           [ reduce using rule 35 (elseif -> .) ]
-  ! INT             [ reduce using rule 35 (elseif -> .) ]
-  ! FLOAT           [ reduce using rule 35 (elseif -> .) ]
-  ! LONG            [ reduce using rule 35 (elseif -> .) ]
-  ! AUTO            [ reduce using rule 35 (elseif -> .) ]
-  ! CHAR            [ reduce using rule 35 (elseif -> .) ]
-  ! VOID            [ reduce using rule 35 (elseif -> .) ]
-
-    expresionpos                   shift and go to state 65
-    else                           shift and go to state 66
-    elseif                         shift and go to state 67
-
-state 58
-
-    (29) expresionif -> IF LPAR condicionif RPAR sinllaves . expresionpos
-    (30) expresionpos -> . else
-    (31) expresionpos -> . elseif
-    (32) expresionpos -> .
-    (36) else -> . ELSE conllaves
-    (37) else -> . ELSE sinllaves
-    (33) elseif -> . ELSE IF LPAR condicionif RPAR conllaves else
-    (34) elseif -> . ELSE IF LPAR condicionif RPAR sinllaves else
-    (35) elseif -> .
-
-  ! reduce/reduce conflict for $end resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for LLAVER resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for WHILE resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for INT resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for FLOAT resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for LONG resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for AUTO resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for CHAR resolved using rule 32 (expresionpos -> .)
-  ! reduce/reduce conflict for VOID resolved using rule 32 (expresionpos -> .)
-    $end            reduce using rule 32 (expresionpos -> .)
-    LLAVER          reduce using rule 32 (expresionpos -> .)
-    WHILE           reduce using rule 32 (expresionpos -> .)
-    INT             reduce using rule 32 (expresionpos -> .)
-    FLOAT           reduce using rule 32 (expresionpos -> .)
-    LONG            reduce using rule 32 (expresionpos -> .)
-    AUTO            reduce using rule 32 (expresionpos -> .)
-    CHAR            reduce using rule 32 (expresionpos -> .)
-    VOID            reduce using rule 32 (expresionpos -> .)
-    ELSE            shift and go to state 68
-
-  ! $end            [ reduce using rule 35 (elseif -> .) ]
-  ! LLAVER          [ reduce using rule 35 (elseif -> .) ]
-  ! WHILE           [ reduce using rule 35 (elseif -> .) ]
-  ! INT             [ reduce using rule 35 (elseif -> .) ]
-  ! FLOAT           [ reduce using rule 35 (elseif -> .) ]
-  ! LONG            [ reduce using rule 35 (elseif -> .) ]
-  ! AUTO            [ reduce using rule 35 (elseif -> .) ]
-  ! CHAR            [ reduce using rule 35 (elseif -> .) ]
-  ! VOID            [ reduce using rule 35 (elseif -> .) ]
-
-    expresionpos                   shift and go to state 69
-    else                           shift and go to state 66
-    elseif                         shift and go to state 67
-
-state 59
-
-    (40) conllaves -> LLAVEL . bodyblock LLAVER
-    (5) bodyblock -> . bodyblock variable
-    (6) bodyblock -> . bodyblock while
-    (7) bodyblock -> . expresionif
-    (8) bodyblock -> .
-    (28) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
-    (29) expresionif -> . IF LPAR condicionif RPAR sinllaves expresionpos
-
-    LLAVER          reduce using rule 8 (bodyblock -> .)
-    WHILE           reduce using rule 8 (bodyblock -> .)
-    INT             reduce using rule 8 (bodyblock -> .)
-    FLOAT           reduce using rule 8 (bodyblock -> .)
-    LONG            reduce using rule 8 (bodyblock -> .)
-    AUTO            reduce using rule 8 (bodyblock -> .)
-    CHAR            reduce using rule 8 (bodyblock -> .)
-    VOID            reduce using rule 8 (bodyblock -> .)
-    IF              shift and go to state 7
-
-    bodyblock                      shift and go to state 70
-    expresionif                    shift and go to state 63
-
-state 60
-
-    (38) sinllaves -> while .
-
-    ELSE            reduce using rule 38 (sinllaves -> while .)
-    $end            reduce using rule 38 (sinllaves -> while .)
-    LLAVER          reduce using rule 38 (sinllaves -> while .)
-    WHILE           reduce using rule 38 (sinllaves -> while .)
-    INT             reduce using rule 38 (sinllaves -> while .)
-    FLOAT           reduce using rule 38 (sinllaves -> while .)
-    LONG            reduce using rule 38 (sinllaves -> while .)
-    AUTO            reduce using rule 38 (sinllaves -> while .)
-    CHAR            reduce using rule 38 (sinllaves -> while .)
-    VOID            reduce using rule 38 (sinllaves -> while .)
-
-
-state 61
-
-    (39) sinllaves -> variable .
-
-    ELSE            reduce using rule 39 (sinllaves -> variable .)
-    $end            reduce using rule 39 (sinllaves -> variable .)
-    LLAVER          reduce using rule 39 (sinllaves -> variable .)
-    WHILE           reduce using rule 39 (sinllaves -> variable .)
-    INT             reduce using rule 39 (sinllaves -> variable .)
-    FLOAT           reduce using rule 39 (sinllaves -> variable .)
-    LONG            reduce using rule 39 (sinllaves -> variable .)
-    AUTO            reduce using rule 39 (sinllaves -> variable .)
-    CHAR            reduce using rule 39 (sinllaves -> variable .)
-    VOID            reduce using rule 39 (sinllaves -> variable .)
-
-
-state 62
-
-    (26) while -> WHILE LPAR statement RPAR LLAVEL bodyblock . LLAVER
-    (5) bodyblock -> bodyblock . variable
-    (6) bodyblock -> bodyblock . while
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (26) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
-
-    LLAVER          shift and go to state 71
-    WHILE           shift and go to state 6
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
-
-    variable                       shift and go to state 72
-    while                          shift and go to state 73
-    tipo                           shift and go to state 5
-
-state 63
-
-    (7) bodyblock -> expresionif .
-
-    LLAVER          reduce using rule 7 (bodyblock -> expresionif .)
-    WHILE           reduce using rule 7 (bodyblock -> expresionif .)
-    INT             reduce using rule 7 (bodyblock -> expresionif .)
-    FLOAT           reduce using rule 7 (bodyblock -> expresionif .)
-    LONG            reduce using rule 7 (bodyblock -> expresionif .)
-    AUTO            reduce using rule 7 (bodyblock -> expresionif .)
-    CHAR            reduce using rule 7 (bodyblock -> expresionif .)
-    VOID            reduce using rule 7 (bodyblock -> expresionif .)
-
-
-state 64
-
-    (46) statement -> EXCLAMACION LPAR expresion RPAR .
-
-    RPAR            reduce using rule 46 (statement -> EXCLAMACION LPAR expresion RPAR .)
-
-
-state 65
-
-    (28) expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .
-
-    $end            reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    LLAVER          reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    WHILE           reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    INT             reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    FLOAT           reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    LONG            reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    AUTO            reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    CHAR            reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-    VOID            reduce using rule 28 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
-
-
-state 66
-
-    (30) expresionpos -> else .
-
-    $end            reduce using rule 30 (expresionpos -> else .)
-    LLAVER          reduce using rule 30 (expresionpos -> else .)
-    WHILE           reduce using rule 30 (expresionpos -> else .)
-    INT             reduce using rule 30 (expresionpos -> else .)
-    FLOAT           reduce using rule 30 (expresionpos -> else .)
-    LONG            reduce using rule 30 (expresionpos -> else .)
-    AUTO            reduce using rule 30 (expresionpos -> else .)
-    CHAR            reduce using rule 30 (expresionpos -> else .)
-    VOID            reduce using rule 30 (expresionpos -> else .)
-
+    RPAR            reduce using rule 37 (expresion -> expresion comparador expresion .)
+    IGUAL           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYOR           shift and go to state 51
+    EXCLAMACION     shift and go to state 52
+
+  ! IGUAL           [ reduce using rule 37 (expresion -> expresion comparador expresion .) ]
+  ! MENOR           [ reduce using rule 37 (expresion -> expresion comparador expresion .) ]
+  ! MAYOR           [ reduce using rule 37 (expresion -> expresion comparador expresion .) ]
+  ! EXCLAMACION     [ reduce using rule 37 (expresion -> expresion comparador expresion .) ]
+
+    comparador                     shift and go to state 48
 
 state 67
 
-    (31) expresionpos -> elseif .
+    (61) comparador -> IGUAL IGUAL .
 
-    $end            reduce using rule 31 (expresionpos -> elseif .)
-    LLAVER          reduce using rule 31 (expresionpos -> elseif .)
-    WHILE           reduce using rule 31 (expresionpos -> elseif .)
-    INT             reduce using rule 31 (expresionpos -> elseif .)
-    FLOAT           reduce using rule 31 (expresionpos -> elseif .)
-    LONG            reduce using rule 31 (expresionpos -> elseif .)
-    AUTO            reduce using rule 31 (expresionpos -> elseif .)
-    CHAR            reduce using rule 31 (expresionpos -> elseif .)
-    VOID            reduce using rule 31 (expresionpos -> elseif .)
+    ENTERO          reduce using rule 61 (comparador -> IGUAL IGUAL .)
+    FLOTANTE        reduce using rule 61 (comparador -> IGUAL IGUAL .)
+    CHARACTER       reduce using rule 61 (comparador -> IGUAL IGUAL .)
+    STRING          reduce using rule 61 (comparador -> IGUAL IGUAL .)
+    TRUE            reduce using rule 61 (comparador -> IGUAL IGUAL .)
+    FALSE           reduce using rule 61 (comparador -> IGUAL IGUAL .)
+    IDENTIFICADOR   reduce using rule 61 (comparador -> IGUAL IGUAL .)
 
 
 state 68
 
-    (36) else -> ELSE . conllaves
-    (37) else -> ELSE . sinllaves
-    (33) elseif -> ELSE . IF LPAR condicionif RPAR conllaves else
-    (34) elseif -> ELSE . IF LPAR condicionif RPAR sinllaves else
-    (40) conllaves -> . LLAVEL bodyblock LLAVER
-    (38) sinllaves -> . while
-    (39) sinllaves -> . variable
-    (26) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
+    (64) comparador -> MENOR IGUAL .
 
-    IF              shift and go to state 76
-    LLAVEL          shift and go to state 59
-    WHILE           shift and go to state 6
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
+    ENTERO          reduce using rule 64 (comparador -> MENOR IGUAL .)
+    FLOTANTE        reduce using rule 64 (comparador -> MENOR IGUAL .)
+    CHARACTER       reduce using rule 64 (comparador -> MENOR IGUAL .)
+    STRING          reduce using rule 64 (comparador -> MENOR IGUAL .)
+    TRUE            reduce using rule 64 (comparador -> MENOR IGUAL .)
+    FALSE           reduce using rule 64 (comparador -> MENOR IGUAL .)
+    IDENTIFICADOR   reduce using rule 64 (comparador -> MENOR IGUAL .)
 
-    conllaves                      shift and go to state 74
-    sinllaves                      shift and go to state 75
-    while                          shift and go to state 60
-    variable                       shift and go to state 61
-    tipo                           shift and go to state 5
 
 state 69
 
-    (29) expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .
+    (65) comparador -> MAYOR IGUAL .
 
-    $end            reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    LLAVER          reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    WHILE           reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    INT             reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    FLOAT           reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    LONG            reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    AUTO            reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    CHAR            reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
-    VOID            reduce using rule 29 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    ENTERO          reduce using rule 65 (comparador -> MAYOR IGUAL .)
+    FLOTANTE        reduce using rule 65 (comparador -> MAYOR IGUAL .)
+    CHARACTER       reduce using rule 65 (comparador -> MAYOR IGUAL .)
+    STRING          reduce using rule 65 (comparador -> MAYOR IGUAL .)
+    TRUE            reduce using rule 65 (comparador -> MAYOR IGUAL .)
+    FALSE           reduce using rule 65 (comparador -> MAYOR IGUAL .)
+    IDENTIFICADOR   reduce using rule 65 (comparador -> MAYOR IGUAL .)
 
 
 state 70
 
-    (40) conllaves -> LLAVEL bodyblock . LLAVER
-    (5) bodyblock -> bodyblock . variable
-    (6) bodyblock -> bodyblock . while
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (26) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
+    (66) comparador -> EXCLAMACION IGUAL .
 
-    LLAVER          shift and go to state 77
-    WHILE           shift and go to state 6
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
+    ENTERO          reduce using rule 66 (comparador -> EXCLAMACION IGUAL .)
+    FLOTANTE        reduce using rule 66 (comparador -> EXCLAMACION IGUAL .)
+    CHARACTER       reduce using rule 66 (comparador -> EXCLAMACION IGUAL .)
+    STRING          reduce using rule 66 (comparador -> EXCLAMACION IGUAL .)
+    TRUE            reduce using rule 66 (comparador -> EXCLAMACION IGUAL .)
+    FALSE           reduce using rule 66 (comparador -> EXCLAMACION IGUAL .)
+    IDENTIFICADOR   reduce using rule 66 (comparador -> EXCLAMACION IGUAL .)
 
-    variable                       shift and go to state 72
-    while                          shift and go to state 73
-    tipo                           shift and go to state 5
 
 state 71
 
-    (26) while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .
+    (56) statement -> EXCLAMACION LPAR expresion . RPAR
+    (37) expresion -> expresion . comparador expresion
+    (61) comparador -> . IGUAL IGUAL
+    (62) comparador -> . MENOR
+    (63) comparador -> . MAYOR
+    (64) comparador -> . MENOR IGUAL
+    (65) comparador -> . MAYOR IGUAL
+    (66) comparador -> . EXCLAMACION IGUAL
 
-    $end            reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    ELSE            reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    LLAVER          reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    WHILE           reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    INT             reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    FLOAT           reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    LONG            reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    AUTO            reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    CHAR            reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
-    VOID            reduce using rule 26 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    RPAR            shift and go to state 79
+    IGUAL           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYOR           shift and go to state 51
+    EXCLAMACION     shift and go to state 52
 
+    comparador                     shift and go to state 48
 
 state 72
 
-    (5) bodyblock -> bodyblock variable .
+    (38) expresionif -> IF LPAR condicionif RPAR conllaves . expresionpos
+    (40) expresionpos -> . else
+    (41) expresionpos -> . elseif
+    (42) expresionpos -> .
+    (46) else -> . ELSE conllaves
+    (47) else -> . ELSE sinllaves
+    (43) elseif -> . ELSE IF LPAR condicionif RPAR conllaves else
+    (44) elseif -> . ELSE IF LPAR condicionif RPAR sinllaves else
+    (45) elseif -> .
 
-    LLAVER          reduce using rule 5 (bodyblock -> bodyblock variable .)
-    WHILE           reduce using rule 5 (bodyblock -> bodyblock variable .)
-    INT             reduce using rule 5 (bodyblock -> bodyblock variable .)
-    FLOAT           reduce using rule 5 (bodyblock -> bodyblock variable .)
-    LONG            reduce using rule 5 (bodyblock -> bodyblock variable .)
-    AUTO            reduce using rule 5 (bodyblock -> bodyblock variable .)
-    CHAR            reduce using rule 5 (bodyblock -> bodyblock variable .)
-    VOID            reduce using rule 5 (bodyblock -> bodyblock variable .)
+  ! reduce/reduce conflict for $end resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for LLAVER resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for AUTO resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for CHAR resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for WHILE resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for INT resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for FLOAT resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for LONG resolved using rule 42 (expresionpos -> .)
+    $end            reduce using rule 42 (expresionpos -> .)
+    LLAVER          reduce using rule 42 (expresionpos -> .)
+    AUTO            reduce using rule 42 (expresionpos -> .)
+    CHAR            reduce using rule 42 (expresionpos -> .)
+    WHILE           reduce using rule 42 (expresionpos -> .)
+    INT             reduce using rule 42 (expresionpos -> .)
+    FLOAT           reduce using rule 42 (expresionpos -> .)
+    LONG            reduce using rule 42 (expresionpos -> .)
+    ELSE            shift and go to state 83
 
+  ! $end            [ reduce using rule 45 (elseif -> .) ]
+  ! LLAVER          [ reduce using rule 45 (elseif -> .) ]
+  ! AUTO            [ reduce using rule 45 (elseif -> .) ]
+  ! CHAR            [ reduce using rule 45 (elseif -> .) ]
+  ! WHILE           [ reduce using rule 45 (elseif -> .) ]
+  ! INT             [ reduce using rule 45 (elseif -> .) ]
+  ! FLOAT           [ reduce using rule 45 (elseif -> .) ]
+  ! LONG            [ reduce using rule 45 (elseif -> .) ]
+
+    expresionpos                   shift and go to state 80
+    else                           shift and go to state 81
+    elseif                         shift and go to state 82
 
 state 73
 
-    (6) bodyblock -> bodyblock while .
+    (39) expresionif -> IF LPAR condicionif RPAR sinllaves . expresionpos
+    (40) expresionpos -> . else
+    (41) expresionpos -> . elseif
+    (42) expresionpos -> .
+    (46) else -> . ELSE conllaves
+    (47) else -> . ELSE sinllaves
+    (43) elseif -> . ELSE IF LPAR condicionif RPAR conllaves else
+    (44) elseif -> . ELSE IF LPAR condicionif RPAR sinllaves else
+    (45) elseif -> .
 
-    LLAVER          reduce using rule 6 (bodyblock -> bodyblock while .)
-    WHILE           reduce using rule 6 (bodyblock -> bodyblock while .)
-    INT             reduce using rule 6 (bodyblock -> bodyblock while .)
-    FLOAT           reduce using rule 6 (bodyblock -> bodyblock while .)
-    LONG            reduce using rule 6 (bodyblock -> bodyblock while .)
-    AUTO            reduce using rule 6 (bodyblock -> bodyblock while .)
-    CHAR            reduce using rule 6 (bodyblock -> bodyblock while .)
-    VOID            reduce using rule 6 (bodyblock -> bodyblock while .)
+  ! reduce/reduce conflict for $end resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for LLAVER resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for AUTO resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for CHAR resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for WHILE resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for INT resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for FLOAT resolved using rule 42 (expresionpos -> .)
+  ! reduce/reduce conflict for LONG resolved using rule 42 (expresionpos -> .)
+    $end            reduce using rule 42 (expresionpos -> .)
+    LLAVER          reduce using rule 42 (expresionpos -> .)
+    AUTO            reduce using rule 42 (expresionpos -> .)
+    CHAR            reduce using rule 42 (expresionpos -> .)
+    WHILE           reduce using rule 42 (expresionpos -> .)
+    INT             reduce using rule 42 (expresionpos -> .)
+    FLOAT           reduce using rule 42 (expresionpos -> .)
+    LONG            reduce using rule 42 (expresionpos -> .)
+    ELSE            shift and go to state 83
 
+  ! $end            [ reduce using rule 45 (elseif -> .) ]
+  ! LLAVER          [ reduce using rule 45 (elseif -> .) ]
+  ! AUTO            [ reduce using rule 45 (elseif -> .) ]
+  ! CHAR            [ reduce using rule 45 (elseif -> .) ]
+  ! WHILE           [ reduce using rule 45 (elseif -> .) ]
+  ! INT             [ reduce using rule 45 (elseif -> .) ]
+  ! FLOAT           [ reduce using rule 45 (elseif -> .) ]
+  ! LONG            [ reduce using rule 45 (elseif -> .) ]
+
+    expresionpos                   shift and go to state 84
+    else                           shift and go to state 81
+    elseif                         shift and go to state 82
 
 state 74
 
-    (36) else -> ELSE conllaves .
+    (50) conllaves -> LLAVEL . bodyblock LLAVER
+    (7) bodyblock -> . bodyblock variable
+    (8) bodyblock -> . bodyblock while
+    (9) bodyblock -> . expresionif
+    (10) bodyblock -> .
+    (38) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
+    (39) expresionif -> . IF LPAR condicionif RPAR sinllaves expresionpos
 
-    $end            reduce using rule 36 (else -> ELSE conllaves .)
-    LLAVER          reduce using rule 36 (else -> ELSE conllaves .)
-    WHILE           reduce using rule 36 (else -> ELSE conllaves .)
-    INT             reduce using rule 36 (else -> ELSE conllaves .)
-    FLOAT           reduce using rule 36 (else -> ELSE conllaves .)
-    LONG            reduce using rule 36 (else -> ELSE conllaves .)
-    AUTO            reduce using rule 36 (else -> ELSE conllaves .)
-    CHAR            reduce using rule 36 (else -> ELSE conllaves .)
-    VOID            reduce using rule 36 (else -> ELSE conllaves .)
+    LLAVER          reduce using rule 10 (bodyblock -> .)
+    AUTO            reduce using rule 10 (bodyblock -> .)
+    CHAR            reduce using rule 10 (bodyblock -> .)
+    WHILE           reduce using rule 10 (bodyblock -> .)
+    INT             reduce using rule 10 (bodyblock -> .)
+    FLOAT           reduce using rule 10 (bodyblock -> .)
+    LONG            reduce using rule 10 (bodyblock -> .)
+    IF              shift and go to state 10
 
+    bodyblock                      shift and go to state 85
+    expresionif                    shift and go to state 78
 
 state 75
 
-    (37) else -> ELSE sinllaves .
+    (48) sinllaves -> while .
 
-    $end            reduce using rule 37 (else -> ELSE sinllaves .)
-    LLAVER          reduce using rule 37 (else -> ELSE sinllaves .)
-    WHILE           reduce using rule 37 (else -> ELSE sinllaves .)
-    INT             reduce using rule 37 (else -> ELSE sinllaves .)
-    FLOAT           reduce using rule 37 (else -> ELSE sinllaves .)
-    LONG            reduce using rule 37 (else -> ELSE sinllaves .)
-    AUTO            reduce using rule 37 (else -> ELSE sinllaves .)
-    CHAR            reduce using rule 37 (else -> ELSE sinllaves .)
-    VOID            reduce using rule 37 (else -> ELSE sinllaves .)
+    ELSE            reduce using rule 48 (sinllaves -> while .)
+    $end            reduce using rule 48 (sinllaves -> while .)
+    LLAVER          reduce using rule 48 (sinllaves -> while .)
+    AUTO            reduce using rule 48 (sinllaves -> while .)
+    CHAR            reduce using rule 48 (sinllaves -> while .)
+    WHILE           reduce using rule 48 (sinllaves -> while .)
+    INT             reduce using rule 48 (sinllaves -> while .)
+    FLOAT           reduce using rule 48 (sinllaves -> while .)
+    LONG            reduce using rule 48 (sinllaves -> while .)
 
 
 state 76
 
-    (33) elseif -> ELSE IF . LPAR condicionif RPAR conllaves else
-    (34) elseif -> ELSE IF . LPAR condicionif RPAR sinllaves else
+    (49) sinllaves -> variable .
 
-    LPAR            shift and go to state 78
+    ELSE            reduce using rule 49 (sinllaves -> variable .)
+    $end            reduce using rule 49 (sinllaves -> variable .)
+    LLAVER          reduce using rule 49 (sinllaves -> variable .)
+    AUTO            reduce using rule 49 (sinllaves -> variable .)
+    CHAR            reduce using rule 49 (sinllaves -> variable .)
+    WHILE           reduce using rule 49 (sinllaves -> variable .)
+    INT             reduce using rule 49 (sinllaves -> variable .)
+    FLOAT           reduce using rule 49 (sinllaves -> variable .)
+    LONG            reduce using rule 49 (sinllaves -> variable .)
 
 
 state 77
 
-    (40) conllaves -> LLAVEL bodyblock LLAVER .
+    (36) while -> WHILE LPAR statement RPAR LLAVEL bodyblock . LLAVER
+    (7) bodyblock -> bodyblock . variable
+    (8) bodyblock -> bodyblock . while
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (36) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
 
-    ELSE            reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    $end            reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    LLAVER          reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    WHILE           reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    INT             reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    FLOAT           reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    LONG            reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    AUTO            reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    CHAR            reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
-    VOID            reduce using rule 40 (conllaves -> LLAVEL bodyblock LLAVER .)
+    LLAVER          shift and go to state 86
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    WHILE           shift and go to state 9
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
 
+    variable                       shift and go to state 87
+    while                          shift and go to state 88
+    numerotipo                     shift and go to state 7
 
 state 78
 
-    (33) elseif -> ELSE IF LPAR . condicionif RPAR conllaves else
-    (34) elseif -> ELSE IF LPAR . condicionif RPAR sinllaves else
-    (41) condicionif -> . initcondicion
-    (42) condicionif -> . statement
-    (43) initcondicion -> . varblock statement
-    (44) statement -> . expresion
-    (45) statement -> . EXCLAMACION boolean
-    (46) statement -> . EXCLAMACION LPAR expresion RPAR
-    (47) statement -> . EXCLAMACION IDENTIFICADOR
-    (9) varblock -> . varblock variable
-    (10) varblock -> .
-    (27) expresion -> . expresion comparador expresion
-    (50) expresion -> . valor
-    (19) valor -> . ENTERO
-    (20) valor -> . FLOTANTE
-    (21) valor -> . CHARACTER
-    (22) valor -> . STRING
-    (23) valor -> . TRUE
-    (24) valor -> . FALSE
-    (25) valor -> . IDENTIFICADOR
+    (9) bodyblock -> expresionif .
+
+    LLAVER          reduce using rule 9 (bodyblock -> expresionif .)
+    AUTO            reduce using rule 9 (bodyblock -> expresionif .)
+    CHAR            reduce using rule 9 (bodyblock -> expresionif .)
+    WHILE           reduce using rule 9 (bodyblock -> expresionif .)
+    INT             reduce using rule 9 (bodyblock -> expresionif .)
+    FLOAT           reduce using rule 9 (bodyblock -> expresionif .)
+    LONG            reduce using rule 9 (bodyblock -> expresionif .)
+
+
+state 79
+
+    (56) statement -> EXCLAMACION LPAR expresion RPAR .
+
+    RPAR            reduce using rule 56 (statement -> EXCLAMACION LPAR expresion RPAR .)
+
+
+state 80
+
+    (38) expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .
+
+    $end            reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+    LLAVER          reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+    AUTO            reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+    CHAR            reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+    WHILE           reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+    INT             reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+    FLOAT           reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+    LONG            reduce using rule 38 (expresionif -> IF LPAR condicionif RPAR conllaves expresionpos .)
+
+
+state 81
+
+    (40) expresionpos -> else .
+
+    $end            reduce using rule 40 (expresionpos -> else .)
+    LLAVER          reduce using rule 40 (expresionpos -> else .)
+    AUTO            reduce using rule 40 (expresionpos -> else .)
+    CHAR            reduce using rule 40 (expresionpos -> else .)
+    WHILE           reduce using rule 40 (expresionpos -> else .)
+    INT             reduce using rule 40 (expresionpos -> else .)
+    FLOAT           reduce using rule 40 (expresionpos -> else .)
+    LONG            reduce using rule 40 (expresionpos -> else .)
+
+
+state 82
+
+    (41) expresionpos -> elseif .
+
+    $end            reduce using rule 41 (expresionpos -> elseif .)
+    LLAVER          reduce using rule 41 (expresionpos -> elseif .)
+    AUTO            reduce using rule 41 (expresionpos -> elseif .)
+    CHAR            reduce using rule 41 (expresionpos -> elseif .)
+    WHILE           reduce using rule 41 (expresionpos -> elseif .)
+    INT             reduce using rule 41 (expresionpos -> elseif .)
+    FLOAT           reduce using rule 41 (expresionpos -> elseif .)
+    LONG            reduce using rule 41 (expresionpos -> elseif .)
+
+
+state 83
+
+    (46) else -> ELSE . conllaves
+    (47) else -> ELSE . sinllaves
+    (43) elseif -> ELSE . IF LPAR condicionif RPAR conllaves else
+    (44) elseif -> ELSE . IF LPAR condicionif RPAR sinllaves else
+    (50) conllaves -> . LLAVEL bodyblock LLAVER
+    (48) sinllaves -> . while
+    (49) sinllaves -> . variable
+    (36) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
+
+    IF              shift and go to state 91
+    LLAVEL          shift and go to state 74
+    WHILE           shift and go to state 9
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
+
+    conllaves                      shift and go to state 89
+    sinllaves                      shift and go to state 90
+    while                          shift and go to state 75
+    variable                       shift and go to state 76
+    numerotipo                     shift and go to state 7
+
+state 84
+
+    (39) expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .
+
+    $end            reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    LLAVER          reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    AUTO            reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    CHAR            reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    WHILE           reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    INT             reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    FLOAT           reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+    LONG            reduce using rule 39 (expresionif -> IF LPAR condicionif RPAR sinllaves expresionpos .)
+
+
+state 85
+
+    (50) conllaves -> LLAVEL bodyblock . LLAVER
+    (7) bodyblock -> bodyblock . variable
+    (8) bodyblock -> bodyblock . while
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (36) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
+
+    LLAVER          shift and go to state 92
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    WHILE           shift and go to state 9
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
+
+    variable                       shift and go to state 87
+    while                          shift and go to state 88
+    numerotipo                     shift and go to state 7
+
+state 86
+
+    (36) while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .
+
+    $end            reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    ELSE            reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    LLAVER          reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    AUTO            reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    CHAR            reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    WHILE           reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    INT             reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    FLOAT           reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+    LONG            reduce using rule 36 (while -> WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER .)
+
+
+state 87
+
+    (7) bodyblock -> bodyblock variable .
+
+    LLAVER          reduce using rule 7 (bodyblock -> bodyblock variable .)
+    AUTO            reduce using rule 7 (bodyblock -> bodyblock variable .)
+    CHAR            reduce using rule 7 (bodyblock -> bodyblock variable .)
+    WHILE           reduce using rule 7 (bodyblock -> bodyblock variable .)
+    INT             reduce using rule 7 (bodyblock -> bodyblock variable .)
+    FLOAT           reduce using rule 7 (bodyblock -> bodyblock variable .)
+    LONG            reduce using rule 7 (bodyblock -> bodyblock variable .)
+
+
+state 88
+
+    (8) bodyblock -> bodyblock while .
+
+    LLAVER          reduce using rule 8 (bodyblock -> bodyblock while .)
+    AUTO            reduce using rule 8 (bodyblock -> bodyblock while .)
+    CHAR            reduce using rule 8 (bodyblock -> bodyblock while .)
+    WHILE           reduce using rule 8 (bodyblock -> bodyblock while .)
+    INT             reduce using rule 8 (bodyblock -> bodyblock while .)
+    FLOAT           reduce using rule 8 (bodyblock -> bodyblock while .)
+    LONG            reduce using rule 8 (bodyblock -> bodyblock while .)
+
+
+state 89
+
+    (46) else -> ELSE conllaves .
+
+    $end            reduce using rule 46 (else -> ELSE conllaves .)
+    LLAVER          reduce using rule 46 (else -> ELSE conllaves .)
+    AUTO            reduce using rule 46 (else -> ELSE conllaves .)
+    CHAR            reduce using rule 46 (else -> ELSE conllaves .)
+    WHILE           reduce using rule 46 (else -> ELSE conllaves .)
+    INT             reduce using rule 46 (else -> ELSE conllaves .)
+    FLOAT           reduce using rule 46 (else -> ELSE conllaves .)
+    LONG            reduce using rule 46 (else -> ELSE conllaves .)
+
+
+state 90
+
+    (47) else -> ELSE sinllaves .
+
+    $end            reduce using rule 47 (else -> ELSE sinllaves .)
+    LLAVER          reduce using rule 47 (else -> ELSE sinllaves .)
+    AUTO            reduce using rule 47 (else -> ELSE sinllaves .)
+    CHAR            reduce using rule 47 (else -> ELSE sinllaves .)
+    WHILE           reduce using rule 47 (else -> ELSE sinllaves .)
+    INT             reduce using rule 47 (else -> ELSE sinllaves .)
+    FLOAT           reduce using rule 47 (else -> ELSE sinllaves .)
+    LONG            reduce using rule 47 (else -> ELSE sinllaves .)
+
+
+state 91
+
+    (43) elseif -> ELSE IF . LPAR condicionif RPAR conllaves else
+    (44) elseif -> ELSE IF . LPAR condicionif RPAR sinllaves else
+
+    LPAR            shift and go to state 93
+
+
+state 92
+
+    (50) conllaves -> LLAVEL bodyblock LLAVER .
+
+    ELSE            reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    $end            reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    LLAVER          reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    AUTO            reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    CHAR            reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    WHILE           reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    INT             reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    FLOAT           reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+    LONG            reduce using rule 50 (conllaves -> LLAVEL bodyblock LLAVER .)
+
+
+state 93
+
+    (43) elseif -> ELSE IF LPAR . condicionif RPAR conllaves else
+    (44) elseif -> ELSE IF LPAR . condicionif RPAR sinllaves else
+    (51) condicionif -> . initcondicion
+    (52) condicionif -> . statement
+    (53) initcondicion -> . varblock statement
+    (54) statement -> . expresion
+    (55) statement -> . EXCLAMACION boolean
+    (56) statement -> . EXCLAMACION LPAR expresion RPAR
+    (57) statement -> . EXCLAMACION IDENTIFICADOR
+    (11) varblock -> . varblock variable
+    (12) varblock -> .
+    (37) expresion -> . expresion comparador expresion
+    (60) expresion -> . valor
+    (29) valor -> . ENTERO
+    (30) valor -> . FLOTANTE
+    (31) valor -> . CHARACTER
+    (32) valor -> . STRING
+    (33) valor -> . TRUE
+    (34) valor -> . FALSE
+    (35) valor -> . IDENTIFICADOR
 
   ! shift/reduce conflict for EXCLAMACION resolved as shift
   ! shift/reduce conflict for ENTERO resolved as shift
@@ -1447,183 +1608,178 @@ state 78
   ! shift/reduce conflict for TRUE resolved as shift
   ! shift/reduce conflict for FALSE resolved as shift
   ! shift/reduce conflict for IDENTIFICADOR resolved as shift
-    EXCLAMACION     shift and go to state 21
-    INT             reduce using rule 10 (varblock -> .)
-    FLOAT           reduce using rule 10 (varblock -> .)
-    LONG            reduce using rule 10 (varblock -> .)
-    AUTO            reduce using rule 10 (varblock -> .)
-    CHAR            reduce using rule 10 (varblock -> .)
-    VOID            reduce using rule 10 (varblock -> .)
-    ENTERO          shift and go to state 24
-    FLOTANTE        shift and go to state 25
-    CHARACTER       shift and go to state 26
-    STRING          shift and go to state 27
-    TRUE            shift and go to state 28
-    FALSE           shift and go to state 29
-    IDENTIFICADOR   shift and go to state 22
+    EXCLAMACION     shift and go to state 28
+    AUTO            reduce using rule 12 (varblock -> .)
+    CHAR            reduce using rule 12 (varblock -> .)
+    INT             reduce using rule 12 (varblock -> .)
+    FLOAT           reduce using rule 12 (varblock -> .)
+    LONG            reduce using rule 12 (varblock -> .)
+    ENTERO          shift and go to state 31
+    FLOTANTE        shift and go to state 32
+    CHARACTER       shift and go to state 33
+    STRING          shift and go to state 34
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+    IDENTIFICADOR   shift and go to state 29
 
-  ! EXCLAMACION     [ reduce using rule 10 (varblock -> .) ]
-  ! ENTERO          [ reduce using rule 10 (varblock -> .) ]
-  ! FLOTANTE        [ reduce using rule 10 (varblock -> .) ]
-  ! CHARACTER       [ reduce using rule 10 (varblock -> .) ]
-  ! STRING          [ reduce using rule 10 (varblock -> .) ]
-  ! TRUE            [ reduce using rule 10 (varblock -> .) ]
-  ! FALSE           [ reduce using rule 10 (varblock -> .) ]
-  ! IDENTIFICADOR   [ reduce using rule 10 (varblock -> .) ]
+  ! EXCLAMACION     [ reduce using rule 12 (varblock -> .) ]
+  ! ENTERO          [ reduce using rule 12 (varblock -> .) ]
+  ! FLOTANTE        [ reduce using rule 12 (varblock -> .) ]
+  ! CHARACTER       [ reduce using rule 12 (varblock -> .) ]
+  ! STRING          [ reduce using rule 12 (varblock -> .) ]
+  ! TRUE            [ reduce using rule 12 (varblock -> .) ]
+  ! FALSE           [ reduce using rule 12 (varblock -> .) ]
+  ! IDENTIFICADOR   [ reduce using rule 12 (varblock -> .) ]
 
-    condicionif                    shift and go to state 79
-    initcondicion                  shift and go to state 31
-    statement                      shift and go to state 32
-    varblock                       shift and go to state 33
-    expresion                      shift and go to state 20
-    valor                          shift and go to state 23
+    condicionif                    shift and go to state 94
+    initcondicion                  shift and go to state 38
+    statement                      shift and go to state 39
+    varblock                       shift and go to state 40
+    expresion                      shift and go to state 27
+    valor                          shift and go to state 30
 
-state 79
+state 94
 
-    (33) elseif -> ELSE IF LPAR condicionif . RPAR conllaves else
-    (34) elseif -> ELSE IF LPAR condicionif . RPAR sinllaves else
+    (43) elseif -> ELSE IF LPAR condicionif . RPAR conllaves else
+    (44) elseif -> ELSE IF LPAR condicionif . RPAR sinllaves else
 
-    RPAR            shift and go to state 80
-
-
-state 80
-
-    (33) elseif -> ELSE IF LPAR condicionif RPAR . conllaves else
-    (34) elseif -> ELSE IF LPAR condicionif RPAR . sinllaves else
-    (40) conllaves -> . LLAVEL bodyblock LLAVER
-    (38) sinllaves -> . while
-    (39) sinllaves -> . variable
-    (26) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
-
-    LLAVEL          shift and go to state 59
-    WHILE           shift and go to state 6
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
-
-    conllaves                      shift and go to state 81
-    sinllaves                      shift and go to state 82
-    while                          shift and go to state 60
-    variable                       shift and go to state 61
-    tipo                           shift and go to state 5
-
-state 81
-
-    (33) elseif -> ELSE IF LPAR condicionif RPAR conllaves . else
-    (36) else -> . ELSE conllaves
-    (37) else -> . ELSE sinllaves
-
-    ELSE            shift and go to state 83
-
-    else                           shift and go to state 84
-
-state 82
-
-    (34) elseif -> ELSE IF LPAR condicionif RPAR sinllaves . else
-    (36) else -> . ELSE conllaves
-    (37) else -> . ELSE sinllaves
-
-    ELSE            shift and go to state 83
-
-    else                           shift and go to state 85
-
-state 83
-
-    (36) else -> ELSE . conllaves
-    (37) else -> ELSE . sinllaves
-    (40) conllaves -> . LLAVEL bodyblock LLAVER
-    (38) sinllaves -> . while
-    (39) sinllaves -> . variable
-    (26) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (11) variable -> . tipo IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (12) variable -> . tipo IDENTIFICADOR PUNTOCOMA
-    (13) tipo -> . INT
-    (14) tipo -> . FLOAT
-    (15) tipo -> . LONG
-    (16) tipo -> . AUTO
-    (17) tipo -> . CHAR
-    (18) tipo -> . VOID
-
-    LLAVEL          shift and go to state 59
-    WHILE           shift and go to state 6
-    INT             shift and go to state 8
-    FLOAT           shift and go to state 9
-    LONG            shift and go to state 10
-    AUTO            shift and go to state 11
-    CHAR            shift and go to state 12
-    VOID            shift and go to state 13
-
-    conllaves                      shift and go to state 74
-    sinllaves                      shift and go to state 75
-    while                          shift and go to state 60
-    variable                       shift and go to state 61
-    tipo                           shift and go to state 5
-
-state 84
-
-    (33) elseif -> ELSE IF LPAR condicionif RPAR conllaves else .
-
-    $end            reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    LLAVER          reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    WHILE           reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    INT             reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    FLOAT           reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    LONG            reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    AUTO            reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    CHAR            reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
-    VOID            reduce using rule 33 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    RPAR            shift and go to state 95
 
 
-state 85
+state 95
 
-    (34) elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .
+    (43) elseif -> ELSE IF LPAR condicionif RPAR . conllaves else
+    (44) elseif -> ELSE IF LPAR condicionif RPAR . sinllaves else
+    (50) conllaves -> . LLAVEL bodyblock LLAVER
+    (48) sinllaves -> . while
+    (49) sinllaves -> . variable
+    (36) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
 
-    $end            reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    LLAVER          reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    WHILE           reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    INT             reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    FLOAT           reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    LONG            reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    AUTO            reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    CHAR            reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
-    VOID            reduce using rule 34 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    LLAVEL          shift and go to state 74
+    WHILE           shift and go to state 9
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
+
+    conllaves                      shift and go to state 96
+    sinllaves                      shift and go to state 97
+    while                          shift and go to state 75
+    variable                       shift and go to state 76
+    numerotipo                     shift and go to state 7
+
+state 96
+
+    (43) elseif -> ELSE IF LPAR condicionif RPAR conllaves . else
+    (46) else -> . ELSE conllaves
+    (47) else -> . ELSE sinllaves
+
+    ELSE            shift and go to state 98
+
+    else                           shift and go to state 99
+
+state 97
+
+    (44) elseif -> ELSE IF LPAR condicionif RPAR sinllaves . else
+    (46) else -> . ELSE conllaves
+    (47) else -> . ELSE sinllaves
+
+    ELSE            shift and go to state 98
+
+    else                           shift and go to state 100
+
+state 98
+
+    (46) else -> ELSE . conllaves
+    (47) else -> ELSE . sinllaves
+    (50) conllaves -> . LLAVEL bodyblock LLAVER
+    (48) sinllaves -> . while
+    (49) sinllaves -> . variable
+    (36) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
+    (13) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (14) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
+    (15) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (16) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (17) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
+    (18) numerotipo -> . INT
+    (19) numerotipo -> . FLOAT
+    (20) numerotipo -> . LONG
+
+    LLAVEL          shift and go to state 74
+    WHILE           shift and go to state 9
+    AUTO            shift and go to state 6
+    CHAR            shift and go to state 8
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 13
+    LONG            shift and go to state 14
+
+    conllaves                      shift and go to state 89
+    sinllaves                      shift and go to state 90
+    while                          shift and go to state 75
+    variable                       shift and go to state 76
+    numerotipo                     shift and go to state 7
+
+state 99
+
+    (43) elseif -> ELSE IF LPAR condicionif RPAR conllaves else .
+
+    $end            reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    LLAVER          reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    AUTO            reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    CHAR            reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    WHILE           reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    INT             reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    FLOAT           reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+    LONG            reduce using rule 43 (elseif -> ELSE IF LPAR condicionif RPAR conllaves else .)
+
+
+state 100
+
+    (44) elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .
+
+    $end            reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    LLAVER          reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    AUTO            reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    CHAR            reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    WHILE           reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    INT             reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    FLOAT           reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
+    LONG            reduce using rule 44 (elseif -> ELSE IF LPAR condicionif RPAR sinllaves else .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for EXCLAMACION in state 16 resolved as shift
-WARNING: shift/reduce conflict for ENTERO in state 16 resolved as shift
-WARNING: shift/reduce conflict for FLOTANTE in state 16 resolved as shift
-WARNING: shift/reduce conflict for CHARACTER in state 16 resolved as shift
-WARNING: shift/reduce conflict for STRING in state 16 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 16 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 16 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFICADOR in state 16 resolved as shift
-WARNING: shift/reduce conflict for IGUAL in state 51 resolved as shift
-WARNING: shift/reduce conflict for MENOR in state 51 resolved as shift
-WARNING: shift/reduce conflict for MAYOR in state 51 resolved as shift
-WARNING: shift/reduce conflict for EXCLAMACION in state 51 resolved as shift
-WARNING: shift/reduce conflict for EXCLAMACION in state 78 resolved as shift
-WARNING: shift/reduce conflict for ENTERO in state 78 resolved as shift
-WARNING: shift/reduce conflict for FLOTANTE in state 78 resolved as shift
-WARNING: shift/reduce conflict for CHARACTER in state 78 resolved as shift
-WARNING: shift/reduce conflict for STRING in state 78 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 78 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 78 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFICADOR in state 78 resolved as shift
-WARNING: reduce/reduce conflict in state 57 resolved using rule (expresionpos -> <empty>)
-WARNING: rejected rule (elseif -> <empty>) in state 57
-WARNING: reduce/reduce conflict in state 58 resolved using rule (expresionpos -> <empty>)
-WARNING: rejected rule (elseif -> <empty>) in state 58
+WARNING: shift/reduce conflict for EXCLAMACION in state 19 resolved as shift
+WARNING: shift/reduce conflict for ENTERO in state 19 resolved as shift
+WARNING: shift/reduce conflict for FLOTANTE in state 19 resolved as shift
+WARNING: shift/reduce conflict for CHARACTER in state 19 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 19 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 19 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 19 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFICADOR in state 19 resolved as shift
+WARNING: shift/reduce conflict for IGUAL in state 66 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 66 resolved as shift
+WARNING: shift/reduce conflict for MAYOR in state 66 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 66 resolved as shift
+WARNING: shift/reduce conflict for EXCLAMACION in state 93 resolved as shift
+WARNING: shift/reduce conflict for ENTERO in state 93 resolved as shift
+WARNING: shift/reduce conflict for FLOTANTE in state 93 resolved as shift
+WARNING: shift/reduce conflict for CHARACTER in state 93 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 93 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 93 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 93 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFICADOR in state 93 resolved as shift
+WARNING: reduce/reduce conflict in state 72 resolved using rule (expresionpos -> <empty>)
+WARNING: rejected rule (elseif -> <empty>) in state 72
+WARNING: reduce/reduce conflict in state 73 resolved using rule (expresionpos -> <empty>)
+WARNING: rejected rule (elseif -> <empty>) in state 73
 WARNING: Rule (elseif -> <empty>) is never reduced
