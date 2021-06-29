@@ -6,6 +6,7 @@ def p_body(p):
     '''body : variable
             | while
             | expresionif
+            | claseimplementacion
             |'''
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
@@ -95,6 +96,17 @@ def p_comparacion(p):
                 | EXCLAMACION IGUAL'''
 
 
+#Ricardo Villacis Clase
+def p_claseimplementacion(p):
+    ''' claseimplementacion : CLASS IDENTIFICADOR LLAVEL bloqueclase LLAVER'''
+def p_bloqueclase(p):
+    ''' bloqueclase : definicion definicion
+                    | '''
+def p_definicion(p):
+    '''definicion : tipo IDENTIFICADOR PUNTOCOMA
+                    | '''
+def p_funcionesimplemtacionclase(p):
+    ''' funcionesimplementacion : tipo  | '''
 #errors
 def p_error(p):
     print('Syntax error')
