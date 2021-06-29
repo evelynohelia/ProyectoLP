@@ -14,6 +14,7 @@ def p_body(p):
             | asignarvalorobjeto
             | usarfuncionobjeto
             | struct
+            | imprimir
             |'''
 
 
@@ -30,17 +31,20 @@ def p_tipo(p):
 def p_impirmir(p):
     '''imprimir : PRINT LPAR valor RPAR'''
     print(p[3])
+
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
                     | bodyblock while
                     | bodyblock expresionif
                     | bodyblock for
+                    | bodyblock imprimir
                     | '''
 def p_funcionblock(p):
     ''' funcionblock : bodyblock variable
                     |  bodyblock while
                     | bodyblock expresionif
                     | bodyblock for
+                    | bodyblock imprimir
                     | RETURN statement
                     | '''
 
@@ -195,7 +199,7 @@ def p_definicion(p):
                     | '''
 
 def p_funcionclaseimpl(p):
-    ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL funcionblock LLAVER
+    ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock RETURN valor PUNTOCOMA LLAVER
                         | VOID IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock LLAVER
                         |'''
 def p_parametrosimplementacion(p):
@@ -233,6 +237,7 @@ test = '''
        for(int x = 0 ; x < 5 ; x++){
            auto s =  "hola";
        }
+       print("Ejecucion")
     }
 '''
 parser.parse(test)
@@ -246,10 +251,16 @@ test2 =  '''
 parser.parse(test2)
 
 
-test3 = "int var[2];"
+test3 = "int var[2] = {1,2};"
 
 parser.parse(test3)
 
+
+test4 = '''
+    int main(){
+        return 0;
+    }
+'''
 while True:
     try:
         s = input('C++ > ')
