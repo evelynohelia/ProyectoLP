@@ -16,19 +16,31 @@ def p_body(p):
             | struct
             |'''
 
+
+
+def p_tipo(p):
+    '''tipo : INT 
+            | FLOAT
+            | LONG
+            | AUTO
+            | CHAR
+            | VOID'''
+
+
 def p_impirmir(p):
     '''imprimir : PRINT LPAR valor RPAR'''
     print(p[3])
-
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
-                    |  bodyblock while
+                    | bodyblock while
                     | bodyblock expresionif
+                    | bodyblock for
                     | '''
 def p_funcionblock(p):
     ''' funcionblock : bodyblock variable
                     |  bodyblock while
                     | bodyblock expresionif
+                    | bodyblock for
                     | RETURN statement
                     | '''
 
@@ -55,13 +67,7 @@ def p_numero(p):
     '''numero : ENTERO
               | FLOTANTE'''
 
-def p_tipo(p):
-    '''tipo : INT 
-            | FLOAT
-            | LONG
-            | AUTO
-            | CHAR
-            | VOID'''
+
 
 def p_valor(p):
     '''valor : ENTERO 
@@ -220,11 +226,29 @@ def p_error(p):
 
 parser = yacc.yacc()
 test = '''
-    struct hola {
-        int hol;
-    } hola;
+    void main(){
+       while(1){
+           int var = 1;
+       }     
+       for(int x = 0 ; x < 5 ; x++){
+           auto s =  "hola";
+       }
+    }
 '''
 parser.parse(test)
+
+test2 =  '''
+    struct PERSONA{
+        int nombre;
+    } persona;
+'''
+
+parser.parse(test2)
+
+
+test3 = "int var[2];"
+
+parser.parse(test3)
 
 while True:
     try:
