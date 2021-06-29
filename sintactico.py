@@ -7,7 +7,10 @@ def p_body(p):
             | while
             | expresionif
             | claseimplementacion
+            | for
+            | arraydeclaration
             |'''
+
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
                     |  bodyblock while
@@ -101,33 +104,40 @@ def p_comparacion(p):
 
 
 def p_initfor(p):
-    '''initfor : tipo IDENTIFICADOR IGUAL valor '''
+    '''initfor : tipo IDENTIFICADOR IGUAL valor'''
 
 def p_condfor(p):
-    '''initfor : IDENTIFICADOR comparador valor '''
-
+    '''condfor : IDENTIFICADOR comparador valor'''
 
 def p_loopfor(p):
     '''loopfor : asign 
-                | unaryexp '''
+        | unaryexp'''
 
 def p_mathasign(p):
-    '''asign :  IDENTIFICADOR MAS valor
-                | IDENTIFICADOR MENOS valor 
-                | IDENTIFICADOR ASTERISCO valor
-                | IDENTIFICADOR SLASH valor''' 
+    '''asign : IDENTIFICADOR MAS valor 
+        | IDENTIFICADOR MENOS valor 
+        | IDENTIFICADOR ASTERISCO valor 
+        | IDENTIFICADOR SLASH valor''' 
 
 def p_unaryexp(p):
-    '''unaryexp : IDENTIFICADOR MAS MAS
-                | IDENTIFICADOR MENOS MENOS '''
+    '''unaryexp : IDENTIFICADOR MAS MAS 
+        | IDENTIFICADOR MENOS MENOS'''
 
 def p_for(p):
-    '''for : FOR LPAR initfor PUNTOCOMA initfor PUNTOCOMA loopfor RPAR LLAVEL bodyblock LLAVER'''
+    '''for : FOR LPAR initfor PUNTOCOMA condfor PUNTOCOMA loopfor RPAR LLAVEL bodyblock LLAVER'''
 
 # ARRAY
 
 def p_array(p):
-    '''array_declaration : tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER PUNTOCOMA'''
+    '''arraydeclaration : tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER PUNTOCOMA
+    | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL arraydata LLAVER PUNTOCOMA
+    | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL LLAVER PUNTOCOMA'''
+
+
+def p_arraydata(p):
+    '''arraydata : arraydata COMMA  valor 
+        | valor'''
+
 
 #Ricardo Villacis Clase
 def p_claseimplementacion(p):
@@ -138,14 +148,15 @@ def p_bloqueclase(p):
 def p_definicion(p):
     '''definicion : tipo IDENTIFICADOR PUNTOCOMA
                     | '''
-def p_funcionesimplemtacionclase(p):
-    ''' funcionesimplementacion : tipo  | '''
 
 #errors
 def p_error(p):
     print('Syntax error')
 
 parser = yacc.yacc()
+
+
+
 
 while True:
     try:
