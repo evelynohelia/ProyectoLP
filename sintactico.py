@@ -86,6 +86,7 @@ def p_condicionif(p):
 
 def p_initcondicion(p):
     '''initcondicion : varblock statement'''
+
 def p_statement(p):
     '''statement : expresion
                 | EXCLAMACION boolean
@@ -106,6 +107,38 @@ def p_comparacion(p):
                 | MAYOR IGUAL
                 | EXCLAMACION IGUAL'''
 
+#Evelyn Mejia 
+# FOR
+
+
+def p_initfor(p):
+    '''initfor : tipo IDENTIFICADOR IGUAL valor '''
+
+def p_condfor(p):
+    '''initfor : IDENTIFICADOR comparador valor '''
+
+
+def p_loopfor(p):
+    '''loopfor : asign 
+                | unaryexp '''
+
+def p_mathasign(p):
+    '''asign :  IDENTIFICADOR MAS valor
+                | IDENTIFICADOR MENOS valor 
+                | IDENTIFICADOR ASTERISCO valor
+                | IDENTIFICADOR SLASH valor''' 
+
+def p_unaryexp(p):
+    '''unaryexp : IDENTIFICADOR MAS MAS
+                | IDENTIFICADOR MENOS MENOS '''
+
+def p_for(p):
+    '''for : FOR LPAR initfor PUNTOCOMA initfor PUNTOCOMA loopfor RPAR LLAVEL bodyblock LLAVER'''
+
+# ARRAY
+
+def p_array(p):
+    '''array_declaration : tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER PUNTOCOMA'''
 
 #Ricardo Villacis Clase
 def p_claseimplementacion(p):
@@ -117,6 +150,7 @@ def p_bloqueclase(p):
 def p_definicion(p):
     '''definicion : tipo IDENTIFICADOR PUNTOCOMA
                     | '''
+
 def p_funcionclaseimpl(p):
     ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL funcionblock LLAVER
                         | VOID IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock LLAVER
@@ -142,6 +176,7 @@ def p_asignarvalores(p):
                             | EXCLAMACION  LPAR statement RPAR'''
 def p_usarfuncionesobjeto(p):
     ''' usarfuncionobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR LPAR parametrosfuncion RPAR PUNTOCOMA '''
+
 #errors
 def p_error(p):
     print('Syntax error')
