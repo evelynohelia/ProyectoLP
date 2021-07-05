@@ -14,6 +14,7 @@ def p_body(p):
             | asignarvalorobjeto
             | usarfuncionobjeto
             | struct
+            | asignarray
             |'''
 
 
@@ -177,6 +178,12 @@ def p_array(p):
     | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL arraydata LLAVER PUNTOCOMA
     | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL LLAVER PUNTOCOMA'''
 
+def p_asignarray(p):
+    '''asignarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL valor PUNTOCOMA''' 
+
+
+def p_asignarray(p):
+    '''asignarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL valor PUNTOCOMA''' 
 
 def p_arraydata(p):
     '''arraydata : arraydata COMMA  valor 
