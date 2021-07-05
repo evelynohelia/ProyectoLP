@@ -29,8 +29,13 @@ def p_tipo(p):
 
 
 def p_impirmir(p):
-    '''imprimir : PRINT LPAR valor RPAR'''
-    print(p[3])
+    '''imprimir : PRINT LPAR valor RPAR 
+                | COUT MENOR MENOR valor'''
+    if p[1] == "printf":
+        print(p[3])
+    else:
+        print(p[4])
+    
 
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
@@ -237,7 +242,7 @@ test = '''
        for(int x = 0 ; x < 5 ; x++){
            auto s =  "hola";
        }
-       print("Ejecucion")
+       printf("Ejecucion")
     }
 '''
 parser.parse(test)
@@ -258,6 +263,7 @@ parser.parse(test3)
 
 test4 = '''
     int main(){
+        int var =1;
         return 0;
     }
 '''

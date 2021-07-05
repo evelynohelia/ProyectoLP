@@ -27,7 +27,8 @@ reserved = {
     'new' : 'NEW',
     'class': 'CLASS',
     'return': 'RETURN',
-    'print' : 'PRINT'
+    'printf' : 'PRINT',
+    'cout':'COUT'
 }
 
 tokens = tokens + list(reserved.values())
