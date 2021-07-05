@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 
-from lexico import tokens
+from lexico import tokens,lexer
 
 def p_body(p):
     '''body : variable
@@ -56,13 +56,14 @@ def p_funcionblock(p):
 def p_varblock(p):
     '''varblock : varblock variable
                 | '''
+def p_variable_numero(p):
+    '''variable : numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+                | numerotipo IDENTIFICADOR PUNTOCOMA'''
+
 def p_variable(p):
     '''variable : AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
                 | AUTO IDENTIFICADOR PUNTOCOMA'''
 
-def p_variable_numero(p):
-    '''variable : numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-                | numerotipo IDENTIFICADOR PUNTOCOMA'''
 
 def p_variable_char(p):
     '''variable : CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA'''
@@ -231,8 +232,7 @@ def p_usarfuncionesobjeto(p):
 
 #errors
 def p_error(p):
-    print('Syntax error')
-
+    print(p)
 parser = yacc.yacc()
 test = '''
     void main(){
@@ -267,9 +267,15 @@ test4 = '''
         return 0;
     }
 '''
-while True:
-    try:
-        s = input('C++ > ')
-    except EOFError:
-        break
+
+def parsing(s):
     parser.parse(s)
+
+
+def inputLex(s):
+    lexer.input(s)
+    while True:
+        tok = lexer.token()
+        if not tok: 
+            break      # No more input
+        print(tok)  

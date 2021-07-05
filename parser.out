@@ -63,10 +63,10 @@ Rule 33    funcionblock -> RETURN statement
 Rule 34    funcionblock -> <empty>
 Rule 35    varblock -> varblock variable
 Rule 36    varblock -> <empty>
-Rule 37    variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-Rule 38    variable -> AUTO IDENTIFICADOR PUNTOCOMA
-Rule 39    variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-Rule 40    variable -> numerotipo IDENTIFICADOR PUNTOCOMA
+Rule 37    variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+Rule 38    variable -> numerotipo IDENTIFICADOR PUNTOCOMA
+Rule 39    variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+Rule 40    variable -> AUTO IDENTIFICADOR PUNTOCOMA
 Rule 41    variable -> CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
 Rule 42    numerotipo -> INT
 Rule 43    numerotipo -> FLOAT
@@ -156,7 +156,7 @@ Terminals, with rules where they appear
 
 AND                  : 
 ASTERISCO            : 92
-AUTO                 : 17 37 38
+AUTO                 : 17 39 40
 BACKSLASH            : 
 BOOL                 : 
 CHAR                 : 18 41
@@ -247,8 +247,8 @@ initfor              : 96
 loopfor              : 96
 masparametrosfuncion : 113
 masparametrosimplementacion : 111
-numero               : 39
-numerotipo           : 39 40
+numero               : 37
+numerotipo           : 37 38
 parametrosfuncion    : 117 124
 parametrosimplementacion : 108 109 115
 sinllaves            : 58 63 66
@@ -257,7 +257,7 @@ struct               : 11
 tipo                 : 86 97 98 99 106 108 111
 unaryexp             : 89
 usarfuncionobjeto    : 10
-valor                : 20 21 37 79 86 87 90 91 92 93 100 101 108 120
+valor                : 20 21 39 79 86 87 90 91 92 93 100 101 108 120
 varblock             : 35 56 72
 variable             : 1 22 28 35 68
 while                : 2 23 29 67
@@ -280,10 +280,10 @@ state 0
     (11) body -> . struct
     (12) body -> . imprimir
     (13) body -> .
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
     (57) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
@@ -317,7 +317,7 @@ state 0
 
   ! reduce/reduce conflict for $end resolved using rule 13 (body -> .)
     $end            reduce using rule 13 (body -> .)
-    AUTO            shift and go to state 14
+    AUTO            shift and go to state 16
     CHAR            shift and go to state 17
     WHILE           shift and go to state 18
     IF              shift and go to state 20
@@ -349,7 +349,7 @@ state 0
     usarfuncionobjeto              shift and go to state 11
     struct                         shift and go to state 12
     imprimir                       shift and go to state 13
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
     tipo                           shift and go to state 23
 
 state 1
@@ -444,14 +444,10 @@ state 13
 
 state 14
 
-    (37) variable -> AUTO . IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> AUTO . IDENTIFICADOR PUNTOCOMA
-    (17) tipo -> AUTO .
+    (37) variable -> numerotipo . IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> numerotipo . IDENTIFICADOR PUNTOCOMA
 
-  ! shift/reduce conflict for IDENTIFICADOR resolved as shift
     IDENTIFICADOR   shift and go to state 32
-
-  ! IDENTIFICADOR   [ reduce using rule 17 (tipo -> AUTO .) ]
 
 
 state 15
@@ -466,10 +462,14 @@ state 15
 
 state 16
 
-    (39) variable -> numerotipo . IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> numerotipo . IDENTIFICADOR PUNTOCOMA
+    (39) variable -> AUTO . IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> AUTO . IDENTIFICADOR PUNTOCOMA
+    (17) tipo -> AUTO .
 
+  ! shift/reduce conflict for IDENTIFICADOR resolved as shift
     IDENTIFICADOR   shift and go to state 35
+
+  ! IDENTIFICADOR   [ reduce using rule 17 (tipo -> AUTO .) ]
 
 
 state 17
@@ -627,8 +627,8 @@ state 31
 
 state 32
 
-    (37) variable -> AUTO IDENTIFICADOR . IGUAL valor PUNTOCOMA
-    (38) variable -> AUTO IDENTIFICADOR . PUNTOCOMA
+    (37) variable -> numerotipo IDENTIFICADOR . IGUAL numero PUNTOCOMA
+    (38) variable -> numerotipo IDENTIFICADOR . PUNTOCOMA
 
     IGUAL           shift and go to state 58
     PUNTOCOMA       shift and go to state 59
@@ -651,8 +651,8 @@ state 34
 
 state 35
 
-    (39) variable -> numerotipo IDENTIFICADOR . IGUAL numero PUNTOCOMA
-    (40) variable -> numerotipo IDENTIFICADOR . PUNTOCOMA
+    (39) variable -> AUTO IDENTIFICADOR . IGUAL valor PUNTOCOMA
+    (40) variable -> AUTO IDENTIFICADOR . PUNTOCOMA
 
     IGUAL           shift and go to state 62
     PUNTOCOMA       shift and go to state 63
@@ -1107,7 +1107,62 @@ state 57
 
 state 58
 
-    (37) variable -> AUTO IDENTIFICADOR IGUAL . valor PUNTOCOMA
+    (37) variable -> numerotipo IDENTIFICADOR IGUAL . numero PUNTOCOMA
+    (45) numero -> . ENTERO
+    (46) numero -> . FLOTANTE
+
+    ENTERO          shift and go to state 100
+    FLOTANTE        shift and go to state 101
+
+    numero                         shift and go to state 99
+
+state 59
+
+    (38) variable -> numerotipo IDENTIFICADOR PUNTOCOMA .
+
+    $end            reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    AUTO            reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    CHAR            reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    INT             reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    FLOAT           reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    LONG            reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    ENTERO          reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    FLOTANTE        reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    CHARACTER       reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    STRING          reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    TRUE            reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    FALSE           reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    ELSE            reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    LLAVER          reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    WHILE           reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    IF              reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    FOR             reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    PRINT           reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    COUT            reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    RETURN          reduce using rule 38 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+
+
+state 60
+
+    (119) creacionobjeto -> IDENTIFICADOR IDENTIFICADOR PUNTOCOMA .
+
+    $end            reduce using rule 119 (creacionobjeto -> IDENTIFICADOR IDENTIFICADOR PUNTOCOMA .)
+
+
+state 61
+
+    (120) asignarvalorobjeto -> IDENTIFICADOR PUNTO IDENTIFICADOR . IGUAL valor
+    (124) usarfuncionobjeto -> IDENTIFICADOR PUNTO IDENTIFICADOR . LPAR parametrosfuncion RPAR PUNTOCOMA
+
+    IGUAL           shift and go to state 102
+    LPAR            shift and go to state 103
+
+
+state 62
+
+    (39) variable -> AUTO IDENTIFICADOR IGUAL . valor PUNTOCOMA
     (47) valor -> . ENTERO
     (48) valor -> . FLOTANTE
     (49) valor -> . CHARACTER
@@ -1124,89 +1179,34 @@ state 58
     FALSE           shift and go to state 48
     IDENTIFICADOR   shift and go to state 42
 
-    valor                          shift and go to state 99
-
-state 59
-
-    (38) variable -> AUTO IDENTIFICADOR PUNTOCOMA .
-
-    $end            reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    EXCLAMACION     reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    AUTO            reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    CHAR            reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    INT             reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    FLOAT           reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    LONG            reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    ENTERO          reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    FLOTANTE        reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    CHARACTER       reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    STRING          reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    TRUE            reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    FALSE           reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    IDENTIFICADOR   reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    ELSE            reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    LLAVER          reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    WHILE           reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    IF              reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    FOR             reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    PRINT           reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    COUT            reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-    RETURN          reduce using rule 38 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
-
-
-state 60
-
-    (119) creacionobjeto -> IDENTIFICADOR IDENTIFICADOR PUNTOCOMA .
-
-    $end            reduce using rule 119 (creacionobjeto -> IDENTIFICADOR IDENTIFICADOR PUNTOCOMA .)
-
-
-state 61
-
-    (120) asignarvalorobjeto -> IDENTIFICADOR PUNTO IDENTIFICADOR . IGUAL valor
-    (124) usarfuncionobjeto -> IDENTIFICADOR PUNTO IDENTIFICADOR . LPAR parametrosfuncion RPAR PUNTOCOMA
-
-    IGUAL           shift and go to state 100
-    LPAR            shift and go to state 101
-
-
-state 62
-
-    (39) variable -> numerotipo IDENTIFICADOR IGUAL . numero PUNTOCOMA
-    (45) numero -> . ENTERO
-    (46) numero -> . FLOTANTE
-
-    ENTERO          shift and go to state 103
-    FLOTANTE        shift and go to state 104
-
-    numero                         shift and go to state 102
+    valor                          shift and go to state 104
 
 state 63
 
-    (40) variable -> numerotipo IDENTIFICADOR PUNTOCOMA .
+    (40) variable -> AUTO IDENTIFICADOR PUNTOCOMA .
 
-    $end            reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    EXCLAMACION     reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    AUTO            reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    CHAR            reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    INT             reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    FLOAT           reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    LONG            reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    ENTERO          reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    FLOTANTE        reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    CHARACTER       reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    STRING          reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    TRUE            reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    FALSE           reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    IDENTIFICADOR   reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    ELSE            reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    LLAVER          reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    WHILE           reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    IF              reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    FOR             reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    PRINT           reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    COUT            reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
-    RETURN          reduce using rule 40 (variable -> numerotipo IDENTIFICADOR PUNTOCOMA .)
+    $end            reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    AUTO            reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    CHAR            reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    INT             reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    FLOAT           reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    LONG            reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    ENTERO          reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    FLOTANTE        reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    CHARACTER       reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    STRING          reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    TRUE            reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    FALSE           reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    ELSE            reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    LLAVER          reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    WHILE           reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    IF              reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    FOR             reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    PRINT           reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    COUT            reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
+    RETURN          reduce using rule 40 (variable -> AUTO IDENTIFICADOR PUNTOCOMA .)
 
 
 state 64
@@ -1406,10 +1406,10 @@ state 82
     (74) statement -> . EXCLAMACION boolean
     (75) statement -> . EXCLAMACION LPAR expresion RPAR
     (76) statement -> . EXCLAMACION IDENTIFICADOR
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (55) expresion -> . expresion comparador expresion
     (79) expresion -> . valor
@@ -1441,8 +1441,8 @@ state 82
     statement                      shift and go to state 114
     variable                       shift and go to state 115
     expresion                      shift and go to state 66
+    numerotipo                     shift and go to state 14
     valor                          shift and go to state 40
-    numerotipo                     shift and go to state 16
 
 state 83
 
@@ -1624,12 +1624,26 @@ state 98
 
 state 99
 
-    (37) variable -> AUTO IDENTIFICADOR IGUAL valor . PUNTOCOMA
+    (37) variable -> numerotipo IDENTIFICADOR IGUAL numero . PUNTOCOMA
 
     PUNTOCOMA       shift and go to state 132
 
 
 state 100
+
+    (45) numero -> ENTERO .
+
+    PUNTOCOMA       reduce using rule 45 (numero -> ENTERO .)
+
+
+state 101
+
+    (46) numero -> FLOTANTE .
+
+    PUNTOCOMA       reduce using rule 46 (numero -> FLOTANTE .)
+
+
+state 102
 
     (120) asignarvalorobjeto -> IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL . valor
     (47) valor -> . ENTERO
@@ -1650,7 +1664,7 @@ state 100
 
     valor                          shift and go to state 133
 
-state 101
+state 103
 
     (124) usarfuncionobjeto -> IDENTIFICADOR PUNTO IDENTIFICADOR LPAR . parametrosfuncion RPAR PUNTOCOMA
     (113) parametrosfuncion -> . IDENTIFICADOR masparametrosfuncion
@@ -1661,25 +1675,11 @@ state 101
 
     parametrosfuncion              shift and go to state 135
 
-state 102
-
-    (39) variable -> numerotipo IDENTIFICADOR IGUAL numero . PUNTOCOMA
-
-    PUNTOCOMA       shift and go to state 136
-
-
-state 103
-
-    (45) numero -> ENTERO .
-
-    PUNTOCOMA       reduce using rule 45 (numero -> ENTERO .)
-
-
 state 104
 
-    (46) numero -> FLOTANTE .
+    (39) variable -> AUTO IDENTIFICADOR IGUAL valor . PUNTOCOMA
 
-    PUNTOCOMA       reduce using rule 46 (numero -> FLOTANTE .)
+    PUNTOCOMA       shift and go to state 136
 
 
 state 105
@@ -1803,10 +1803,10 @@ state 113
     (67) sinllaves -> . while
     (68) sinllaves -> . variable
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (42) numerotipo -> . INT
     (43) numerotipo -> . FLOAT
@@ -1824,7 +1824,7 @@ state 113
     sinllaves                      shift and go to state 141
     while                          shift and go to state 143
     variable                       shift and go to state 144
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 114
 
@@ -1855,10 +1855,10 @@ state 115
 
 state 116
 
-    (37) variable -> AUTO . IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> AUTO . IDENTIFICADOR PUNTOCOMA
+    (39) variable -> AUTO . IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> AUTO . IDENTIFICADOR PUNTOCOMA
 
-    IDENTIFICADOR   shift and go to state 32
+    IDENTIFICADOR   shift and go to state 35
 
 
 state 117
@@ -2004,10 +2004,10 @@ state 129
 
     (56) struct -> STRUCT IDENTIFICADOR LLAVEL varblock . LLAVER IDENTIFICADOR PUNTOCOMA
     (35) varblock -> varblock . variable
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (42) numerotipo -> . INT
     (43) numerotipo -> . FLOAT
@@ -2021,7 +2021,7 @@ state 129
     LONG            shift and go to state 120
 
     variable                       shift and go to state 115
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 130
 
@@ -2063,30 +2063,30 @@ state 131
 
 state 132
 
-    (37) variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .
+    (37) variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .
 
-    $end            reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    EXCLAMACION     reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    AUTO            reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    CHAR            reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    INT             reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    FLOAT           reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    LONG            reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    ENTERO          reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    FLOTANTE        reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    CHARACTER       reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    STRING          reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    TRUE            reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    FALSE           reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    IDENTIFICADOR   reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    ELSE            reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    LLAVER          reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    WHILE           reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    IF              reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    FOR             reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    PRINT           reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    COUT            reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
-    RETURN          reduce using rule 37 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    $end            reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    AUTO            reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    CHAR            reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    INT             reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    FLOAT           reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    LONG            reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    ENTERO          reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    FLOTANTE        reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    CHARACTER       reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    STRING          reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    TRUE            reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    FALSE           reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    ELSE            reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    LLAVER          reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    WHILE           reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    IF              reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    FOR             reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    PRINT           reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    COUT            reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    RETURN          reduce using rule 37 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
 
 
 state 133
@@ -2116,30 +2116,30 @@ state 135
 
 state 136
 
-    (39) variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .
+    (39) variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .
 
-    $end            reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    EXCLAMACION     reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    AUTO            reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    CHAR            reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    INT             reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    FLOAT           reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    LONG            reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    ENTERO          reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    FLOTANTE        reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    CHARACTER       reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    STRING          reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    TRUE            reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    FALSE           reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    IDENTIFICADOR   reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    ELSE            reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    LLAVER          reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    WHILE           reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    IF              reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    FOR             reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    PRINT           reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    COUT            reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
-    RETURN          reduce using rule 39 (variable -> numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA .)
+    $end            reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    EXCLAMACION     reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    AUTO            reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    CHAR            reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    INT             reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    FLOAT           reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    LONG            reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    ENTERO          reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    FLOTANTE        reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    CHARACTER       reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    STRING          reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    TRUE            reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    FALSE           reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    ELSE            reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    LLAVER          reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    WHILE           reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    IF              reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    FOR             reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    PRINT           reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    COUT            reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
+    RETURN          reduce using rule 39 (variable -> AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA .)
 
 
 state 137
@@ -2542,10 +2542,10 @@ state 160
     (24) bodyblock -> bodyblock . expresionif
     (25) bodyblock -> bodyblock . for
     (26) bodyblock -> bodyblock . imprimir
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
     (57) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
@@ -2574,7 +2574,7 @@ state 160
     expresionif                    shift and go to state 183
     for                            shift and go to state 184
     imprimir                       shift and go to state 185
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 161
 
@@ -2643,10 +2643,10 @@ state 164
     (67) sinllaves -> . while
     (68) sinllaves -> . variable
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (42) numerotipo -> . INT
     (43) numerotipo -> . FLOAT
@@ -2665,7 +2665,7 @@ state 164
     sinllaves                      shift and go to state 187
     while                          shift and go to state 143
     variable                       shift and go to state 144
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 165
 
@@ -2694,10 +2694,10 @@ state 166
     (24) bodyblock -> bodyblock . expresionif
     (25) bodyblock -> bodyblock . for
     (26) bodyblock -> bodyblock . imprimir
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
     (57) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
@@ -2726,7 +2726,7 @@ state 166
     expresionif                    shift and go to state 183
     for                            shift and go to state 184
     imprimir                       shift and go to state 185
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 167
 
@@ -3170,10 +3170,10 @@ state 198
     (24) bodyblock -> bodyblock . expresionif
     (25) bodyblock -> bodyblock . for
     (26) bodyblock -> bodyblock . imprimir
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
     (57) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
@@ -3202,7 +3202,7 @@ state 198
     expresionif                    shift and go to state 183
     for                            shift and go to state 184
     imprimir                       shift and go to state 185
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 199
 
@@ -3212,10 +3212,10 @@ state 199
     (24) bodyblock -> bodyblock . expresionif
     (25) bodyblock -> bodyblock . for
     (26) bodyblock -> bodyblock . imprimir
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
     (57) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
@@ -3244,7 +3244,7 @@ state 199
     expresionif                    shift and go to state 183
     for                            shift and go to state 184
     imprimir                       shift and go to state 185
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 200
 
@@ -3592,10 +3592,10 @@ state 224
     (67) sinllaves -> . while
     (68) sinllaves -> . variable
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (42) numerotipo -> . INT
     (43) numerotipo -> . FLOAT
@@ -3613,7 +3613,7 @@ state 224
     sinllaves                      shift and go to state 230
     while                          shift and go to state 143
     variable                       shift and go to state 144
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 225
 
@@ -3623,10 +3623,10 @@ state 225
     (24) bodyblock -> bodyblock . expresionif
     (25) bodyblock -> bodyblock . for
     (26) bodyblock -> bodyblock . imprimir
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
     (57) expresionif -> . IF LPAR condicionif RPAR conllaves expresionpos
@@ -3655,7 +3655,7 @@ state 225
     expresionif                    shift and go to state 183
     for                            shift and go to state 184
     imprimir                       shift and go to state 185
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 226
 
@@ -3740,10 +3740,10 @@ state 233
     (67) sinllaves -> . while
     (68) sinllaves -> . variable
     (54) while -> . WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER
-    (37) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-    (38) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
-    (39) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-    (40) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (37) variable -> . numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
+    (38) variable -> . numerotipo IDENTIFICADOR PUNTOCOMA
+    (39) variable -> . AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+    (40) variable -> . AUTO IDENTIFICADOR PUNTOCOMA
     (41) variable -> . CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA
     (42) numerotipo -> . INT
     (43) numerotipo -> . FLOAT
@@ -3761,7 +3761,7 @@ state 233
     sinllaves                      shift and go to state 187
     while                          shift and go to state 143
     variable                       shift and go to state 144
-    numerotipo                     shift and go to state 16
+    numerotipo                     shift and go to state 14
 
 state 234
 
@@ -3803,7 +3803,7 @@ state 235
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for IDENTIFICADOR in state 14 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFICADOR in state 16 resolved as shift
 WARNING: shift/reduce conflict for IDENTIFICADOR in state 17 resolved as shift
 WARNING: shift/reduce conflict for IDENTIFICADOR in state 24 resolved as shift
 WARNING: shift/reduce conflict for RPAR in state 38 resolved as shift
