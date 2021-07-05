@@ -17,7 +17,9 @@ def p_body(p):
             | imprimir
             |'''
 
-
+def p_id(p):
+  '''id : IDENTIFICADOR 
+  | IDENTIFICADOR CORCHETEL ENTERO CORCHETER'''
 
 def p_tipo(p):
     '''tipo : INT 
@@ -43,6 +45,7 @@ def p_bodyblock(p):
                     | bodyblock expresionif
                     | bodyblock for
                     | bodyblock imprimir
+                    | bodyblock arraydeclaration
                     | '''
 def p_funcionblock(p):
     ''' funcionblock : bodyblock variable
@@ -57,16 +60,16 @@ def p_varblock(p):
     '''varblock : varblock variable
                 | '''
 def p_variable_numero(p):
-    '''variable : numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-                | numerotipo IDENTIFICADOR PUNTOCOMA'''
+    '''variable : numerotipo id IGUAL numero PUNTOCOMA
+                | numerotipo id PUNTOCOMA'''
 
 def p_variable(p):
-    '''variable : AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-                | AUTO IDENTIFICADOR PUNTOCOMA'''
+    '''variable : AUTO id IGUAL valor PUNTOCOMA
+                | AUTO id PUNTOCOMA'''
 
 
 def p_variable_char(p):
-    '''variable : CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA'''
+    '''variable : CHAR id IGUAL CHARACTER PUNTOCOMA'''
 
 def p_numero_tipo(p):
     '''numerotipo : INT
@@ -183,9 +186,9 @@ def p_for(p):
 # ARRAY
 
 def p_array(p):
-    '''arraydeclaration : tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER PUNTOCOMA
-    | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL arraydata LLAVER PUNTOCOMA
-    | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL LLAVER PUNTOCOMA'''
+    '''arraydeclaration : tipo id PUNTOCOMA
+    | tipo id IGUAL LLAVEL arraydata LLAVER PUNTOCOMA
+    | tipo id IGUAL LLAVEL LLAVER PUNTOCOMA'''
 
 
 def p_arraydata(p):
@@ -232,17 +235,16 @@ def p_usarfuncionesobjeto(p):
 
 #errors
 def p_error(p):
-    print(p)
+    print("syntax error")
 parser = yacc.yacc()
 test = '''
     void main(){
        while(1){
-           int var = 1;
+           int var[2] = {1,2};
        }     
        for(int x = 0 ; x < 5 ; x++){
            auto s =  "hola";
        }
-       printf("Ejecucion")
     }
 '''
 parser.parse(test)

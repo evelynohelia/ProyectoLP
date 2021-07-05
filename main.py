@@ -17,7 +17,7 @@ opcion  = ""
 
 while opcion != "3":
     print('''Bienvenido a C++
-1.- Sintactico
+1.- Sintactico & Semantico
 2.- Lexico
 3.- Salir
     ''')
