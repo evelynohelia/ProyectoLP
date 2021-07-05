@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 
-from main import tokens
+from lexico import tokens
 
 def p_body(p):
     '''body : variable
