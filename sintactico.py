@@ -8,13 +8,14 @@ def p_body(p):
             | expresionif
             | claseimplementacion
             | for
-            | arraydeclaration
             | funcionclaseimpl
+            | arraydeclaration
             | creacionobjeto
             | asignarvalorobjeto
             | usarfuncionobjeto
             | struct
             | imprimir
+            | stringappend
             |'''
 
 def p_id(p):
@@ -26,13 +27,14 @@ def p_tipo(p):
             | FLOAT
             | LONG
             | AUTO
-            | CHAR
-            | VOID'''
+            | STRING
+            | CHAR'''
 
 
 def p_impirmir(p):
     '''imprimir : PRINT LPAR valor RPAR 
-                | COUT MENOR MENOR valor'''
+                | COUT MENOR MENOR valor
+                | COUT MENOR MENOR variable'''
     if p[1] == "printf":
         print(p[3])
     else:
@@ -45,7 +47,6 @@ def p_bodyblock(p):
                     | bodyblock expresionif
                     | bodyblock for
                     | bodyblock imprimir
-                    | bodyblock arraydeclaration
                     | '''
 def p_funcionblock(p):
     ''' funcionblock : bodyblock variable
@@ -59,34 +60,61 @@ def p_funcionblock(p):
 def p_varblock(p):
     '''varblock : varblock variable
                 | '''
-def p_variable_numero(p):
-    '''variable : numerotipo id IGUAL numero PUNTOCOMA
-                | numerotipo id PUNTOCOMA'''
-
-def p_variable(p):
-    '''variable : AUTO id IGUAL valor PUNTOCOMA
-                | AUTO id PUNTOCOMA'''
-
-
-def p_variable_char(p):
-    '''variable : CHAR id IGUAL CHARACTER PUNTOCOMA'''
 
 def p_numero_tipo(p):
     '''numerotipo : INT
               | FLOAT
               | LONG'''
-
 def p_numero(p):
     '''numero : ENTERO
               | FLOTANTE'''
+    p[0] = p[1]
+def p_variable_numero(p):
+    '''variable : tipo id IGUAL numero PUNTOCOMA
+                | tipo id PUNTOCOMA'''
 
+
+def p_variable(p):
+    '''variable : AUTO id IGUAL valor PUNTOCOMA
+                | AUTO id PUNTOCOMA'''
+    lista = list(p)
+    if len(lista) > 2:
+        p[0] = p[4]
+
+
+def p_variable_char(p):
+    '''variable : CHAR id IGUAL CHARACTER PUNTOCOMA
+                | STRING id IGUAL CADENA PUNTOCOMA
+                | STRING id IGUAL stringappend PUNTOCOMA
+                | STRING id IGUAL concat PUNTOCOMA'''
+    p[0] = p[4]
+
+def p_string_append(p):
+    '''stringappend : IDENTIFICADOR PUNTO APPEND LPAR stringdata RPAR'''
+    p[0] = p[5]
+
+def p_string_append_data(p):
+    '''stringdata : CADENA 
+                | IDENTIFICADOR'''
+    p[0] = p[1]
+
+def p_string_concat(p):
+    '''concat : concat MAS CADENA
+            | concat MAS IDENTIFICADOR
+            | CADENA'''
+    #string var = "kk" + "jj";
+    if p[1] != None:
+        p[0] = str(p[1]).replace('"','')
+    lista = list(p)
+    if len(lista) == 4:
+        p[0] += str(p[3]).replace('"','')
 
 
 def p_valor(p):
     '''valor : ENTERO 
             | FLOTANTE
             | CHARACTER
-            | STRING
+            | CADENA
             | TRUE
             | FALSE
             | IDENTIFICADOR'''
@@ -191,6 +219,7 @@ def p_array(p):
     | tipo id IGUAL LLAVEL LLAVER PUNTOCOMA'''
 
 
+
 def p_arraydata(p):
     '''arraydata : arraydata COMMA  valor 
         | valor'''
@@ -216,7 +245,8 @@ def p_parametrosimplementacion(p):
                                 | '''
 def p_parametrosfuncion(p):
     ''' parametrosfuncion : IDENTIFICADOR masparametrosfuncion
-                            | '''
+                            | valor masparametrosfuncion
+                            |'''
 def p_masparametrosimplementacion(p):
     '''masparametrosimplementacion :  COMMA parametrosimplementacion
                                     | '''
@@ -226,7 +256,7 @@ def p_masparametrosfuncion(p):
 def p_creacionobjeto(p):
     ''' creacionobjeto : IDENTIFICADOR IDENTIFICADOR PUNTOCOMA'''
 def p_asignarvalores(p):
-    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor
+    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor PUNTOCOMA
                             | LPAR expresion RPAR
                             | LPAR statement RPAR
                             | EXCLAMACION  LPAR statement RPAR'''
@@ -240,7 +270,7 @@ parser = yacc.yacc()
 test = '''
     void main(){
        while(1){
-           int var[2] = {1,2};
+          int var;
        }     
        for(int x = 0 ; x < 5 ; x++){
            auto s =  "hola";
@@ -258,17 +288,22 @@ test2 =  '''
 parser.parse(test2)
 
 
-test3 = "int var[2] = {1,2};"
+test3 = "int var = 1;"
 
 parser.parse(test3)
 
+test4 =  '''
+    class objeto1{int valor; int valor2;int funcs(int val){return 0;}}
+'''
+parser.parse(test4)
 
-test4 = '''
-    int main(){
-        int var =1;
+test5 = '''
+    int func(){
         return 0;
     }
 '''
+parser.parse(test5)
+
 
 def parsing(s):
     parser.parse(s)

@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','STRING','COMENTARIO','PUNTERO','EXCLAMACION','PORCENTAJE','CIRCUNFLEJO','AND','ASTERISCO','MENOS','MAS','IGUAL','LLAVEL','LLAVER','PIPE','VIRGUILA',
+tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','CADENA','COMENTARIO','PUNTERO','EXCLAMACION','PORCENTAJE','CIRCUNFLEJO','AND','ASTERISCO','MENOS','MAS','IGUAL','LLAVEL','LLAVER','PIPE','VIRGUILA',
          'CORCHETEL','CORCHETER','BACKSLASH','PUNTOCOMA','COMASIMPLE','DOBLEPUNTO','COMADOBLE','MENOR','MAYOR','INTERROGACION','COMMA','PUNTO','SLASH','NUMERAL','LPAR','RPAR']
 
 reserved = {
@@ -13,6 +13,7 @@ reserved = {
     'float': 'FLOAT',
     'long': 'LONG',
     'char': 'CHAR',
+    'string' : 'STRING',
     'void': 'VOID',
     'public': 'PUBLIC',
     'private':'PRIVATE',
@@ -28,12 +29,18 @@ reserved = {
     'class': 'CLASS',
     'return': 'RETURN',
     'printf' : 'PRINT',
-    'cout':'COUT'
+    'cout':'COUT',
+    'append' : 'APPEND'
 }
 
 tokens = tokens + list(reserved.values())
 
 #TOKENS
+def t_IDENTIFICADOR(t):
+    r'[a-zA-Z_][A-Za-z0-9_]*'
+    t.type = reserved.get(t.value,'IDENTIFICADOR') 
+    return t
+
 t_LPAR = r'\('
 t_RPAR = r'\)'
 t_EXCLAMACION = r'!'
@@ -64,12 +71,9 @@ t_PUNTO = r'\.'
 t_SLASH = r'/'
 t_NUMERAL = r'\#'
 
-def t_IDENTIFICADOR(t):
-    r'[a-zA-Z_][A-Za-z0-9_]*'
-    t.type = reserved.get(t.value,'IDENTIFICADOR') 
-    return t
+
 t_CHARACTER = r'\'[a-zA-z]\''
-t_STRING = r'\"[a-zA-z0-9\s]*\"'
+t_CADENA = r'\"[a-zA-z0-9\s]*\"'
 
 def t_FLOTANTE(t):
     r'-?\d+\.\d+'
