@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 
-from main import tokens
+from lexico import tokens,lexer
 
 def p_body(p):
     '''body : variable
@@ -8,56 +8,65 @@ def p_body(p):
             | expresionif
             | claseimplementacion
             | for
-            | arraydeclaration
             | funcionclaseimpl
+            | arraydeclaration
             | creacionobjeto
             | asignarvalorobjeto
             | usarfuncionobjeto
             | struct
             | asignarray
+            | imprimir
+            | stringappend
+            | mathoperation
+            | asignmathoperation
             |'''
 
+def p_id(p):
+  '''id : IDENTIFICADOR 
+        | idarray'''
 
+def p_idarray(p):
+  '''idarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER
+        | IDENTIFICADOR CORCHETEL CORCHETER'''
 
 def p_tipo(p):
     '''tipo : INT 
             | FLOAT
             | LONG
             | AUTO
-            | CHAR
-            | VOID'''
-
+            | STRING
+            | CHAR'''
+            
 
 def p_impirmir(p):
-    '''imprimir : PRINT LPAR valor RPAR'''
-    print(p[3])
+    '''imprimir : PRINT LPAR valor RPAR 
+                | COUT MENOR MENOR valor
+                | COUT MENOR MENOR variable'''
+    if p[1] == "printf":
+        print(p[3])
+    else:
+        print(p[4])
+    
+
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
                     | bodyblock while
                     | bodyblock expresionif
                     | bodyblock for
+                    | bodyblock imprimir
                     | '''
 def p_funcionblock(p):
     ''' funcionblock : bodyblock variable
                     |  bodyblock while
                     | bodyblock expresionif
                     | bodyblock for
+                    | bodyblock imprimir
                     | RETURN statement
                     | '''
 
 def p_varblock(p):
     '''varblock : varblock variable
                 | '''
-def p_variable(p):
-    '''variable : AUTO IDENTIFICADOR IGUAL valor PUNTOCOMA
-                | AUTO IDENTIFICADOR PUNTOCOMA'''
-
-def p_variable_numero(p):
-    '''variable : numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA
-                | numerotipo IDENTIFICADOR PUNTOCOMA'''
-
-def p_variable_char(p):
-    '''variable : CHAR IDENTIFICADOR IGUAL CHARACTER PUNTOCOMA'''
 
 def p_numero_tipo(p):
     '''numerotipo : INT
@@ -67,18 +76,75 @@ def p_numero_tipo(p):
 def p_numero(p):
     '''numero : ENTERO
               | FLOTANTE'''
+    p[0] = p[1]
+def p_variable_numero(p):
+    '''variable : tipo id IGUAL numero PUNTOCOMA
+                | tipo id PUNTOCOMA'''
 
+
+def p_variable(p):
+    '''variable : AUTO id IGUAL valor PUNTOCOMA
+                | AUTO id PUNTOCOMA'''
+    lista = list(p)
+    if len(lista) > 2:
+        p[0] = p[4]
+
+
+def p_variable_char(p):
+    '''variable : CHAR id IGUAL CHARACTER PUNTOCOMA
+                | STRING id IGUAL CADENA PUNTOCOMA
+                | STRING id IGUAL stringappend PUNTOCOMA
+                | STRING id IGUAL concat PUNTOCOMA'''
+    p[0] = p[4]
+
+def p_string_append(p):
+    '''stringappend : IDENTIFICADOR PUNTO APPEND LPAR stringdata RPAR'''
+    p[0] = p[5]
+
+def p_string_append_data(p):
+    '''stringdata : CADENA 
+                | IDENTIFICADOR'''
+    p[0] = p[1]
+
+def p_string_concat(p):
+    '''concat : concat MAS CADENA
+            | concat MAS IDENTIFICADOR
+            | CADENA'''
+    #string var = "kk" + "jj";
+    if p[1] != None:
+        p[0] = str(p[1]).replace('"','')
+    lista = list(p)
+    if len(lista) == 4:
+        p[0] += str(p[3]).replace('"','')
 
 
 def p_valor(p):
     '''valor : ENTERO 
             | FLOTANTE
             | CHARACTER
-            | STRING
+            | CADENA
             | TRUE
             | FALSE
             | IDENTIFICADOR'''
     p[0] = p[1]
+
+
+def p_asignmathoperation(p):
+    '''asignmathoperation : numerotipo IDENTIFICADOR IGUAL mathoperation'''
+        
+def p_mathoperation(p):
+    '''mathoperation : numero MAS operation PUNTOCOMA
+        | numero MENOS operation PUNTOCOMA
+        | numero ASTERISCO operation  PUNTOCOMA
+        | numero SLASH operation PUNTOCOMA
+        | operation PUNTOCOMA'''
+
+def p_operation(p):
+    '''operation : numero MAS numero
+        | numero MENOS numero
+        | numero ASTERISCO numero
+        | numero SLASH numero'''
+  
 
 
 def p_while(p):
@@ -174,16 +240,13 @@ def p_for(p):
 # ARRAY
 
 def p_array(p):
-    '''arraydeclaration : tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER PUNTOCOMA
-    | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL arraydata LLAVER PUNTOCOMA
-    | tipo IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL LLAVEL LLAVER PUNTOCOMA'''
-
-def p_asignarray(p):
-    '''asignarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL valor PUNTOCOMA''' 
+    '''arraydeclaration : tipo id PUNTOCOMA
+    | tipo id IGUAL LLAVEL arraydata LLAVER PUNTOCOMA
+    | tipo id IGUAL LLAVEL LLAVER PUNTOCOMA'''
 
 
 def p_asignarray(p):
-    '''asignarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER IGUAL valor PUNTOCOMA''' 
+    '''asignarray : idarray IGUAL arraydata PUNTOCOMA''' 
 
 def p_arraydata(p):
     '''arraydata : arraydata COMMA  valor 
@@ -202,7 +265,7 @@ def p_definicion(p):
                     | '''
 
 def p_funcionclaseimpl(p):
-    ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL funcionblock LLAVER
+    ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock RETURN valor PUNTOCOMA LLAVER
                         | VOID IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock LLAVER
                         |'''
 def p_parametrosimplementacion(p):
@@ -210,7 +273,8 @@ def p_parametrosimplementacion(p):
                                 | '''
 def p_parametrosfuncion(p):
     ''' parametrosfuncion : IDENTIFICADOR masparametrosfuncion
-                            | '''
+                            | valor masparametrosfuncion
+                            |'''
 def p_masparametrosimplementacion(p):
     '''masparametrosimplementacion :  COMMA parametrosimplementacion
                                     | '''
@@ -220,7 +284,7 @@ def p_masparametrosfuncion(p):
 def p_creacionobjeto(p):
     ''' creacionobjeto : IDENTIFICADOR IDENTIFICADOR PUNTOCOMA'''
 def p_asignarvalores(p):
-    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor
+    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor PUNTOCOMA
                             | LPAR expresion RPAR
                             | LPAR statement RPAR
                             | EXCLAMACION  LPAR statement RPAR'''
@@ -229,13 +293,12 @@ def p_usarfuncionesobjeto(p):
 
 #errors
 def p_error(p):
-    print('Syntax error')
-
+    print("syntax error")
 parser = yacc.yacc()
 test = '''
     void main(){
        while(1){
-           int var = 1;
+          int var;
        }     
        for(int x = 0 ; x < 5 ; x++){
            auto s =  "hola";
@@ -253,13 +316,31 @@ test2 =  '''
 parser.parse(test2)
 
 
-test3 = "int var[2];"
+test3 = "int var = 1;"
 
 parser.parse(test3)
 
-while True:
-    try:
-        s = input('C++ > ')
-    except EOFError:
-        break
+test4 =  '''
+    class objeto1{int valor; int valor2;int funcs(int val){return 0;}}
+'''
+parser.parse(test4)
+
+test5 = '''
+    int func(){
+        return 0;
+    }
+'''
+parser.parse(test5)
+
+
+def parsing(s):
     parser.parse(s)
+
+
+def inputLex(s):
+    lexer.input(s)
+    while True:
+        tok = lexer.token()
+        if not tok: 
+            break      # No more input
+        print(tok)  
