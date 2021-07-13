@@ -3,19 +3,19 @@ import ply.yacc as yacc
 from lexico import tokens,lexer
 
 def p_body(p):
-    '''body :  bodyblock variable
-            |  bodyblock while
-            |  bodyblock expresionif
-            | bodyblock claseimplementacion
-            | bodyblock for
-            | bodyblock funcionclaseimpl
-            | bodyblock arraydeclaration
-            | bodyblock creacionobjeto
-            | bodyblock asignarvalorobjeto
-            | bodyblock usarfuncionobjeto
-            | bodyblock struct
-            | bodyblock imprimir
-            | bodyblock stringappend
+    '''body : variable
+            | while
+            | expresionif
+            | claseimplementacion
+            | for
+            | funcionclaseimpl
+            | arraydeclaration
+            | creacionobjeto
+            | asignarvalorobjeto
+            | usarfuncionobjeto
+            | struct
+            | imprimir
+            | stringappend
             |'''
 
 def p_id(p):
@@ -43,19 +43,11 @@ def p_impirmir(p):
 
 def p_bodyblock(p):
     ''' bodyblock : bodyblock variable
-            |  bodyblock while
-            |  bodyblock expresionif
-            | bodyblock claseimplementacion
-            | bodyblock for
-            | bodyblock funcionclaseimpl
-            | bodyblock arraydeclaration
-            | bodyblock creacionobjeto
-            | bodyblock asignarvalorobjeto
-            | bodyblock usarfuncionobjeto
-            | bodyblock struct
-            | bodyblock imprimir
-            | bodyblock stringappend
-            |'''
+                    | bodyblock while
+                    | bodyblock expresionif
+                    | bodyblock for
+                    | bodyblock imprimir
+                    | '''
 def p_funcionblock(p):
     ''' funcionblock : bodyblock variable
                     |  bodyblock while
@@ -64,24 +56,6 @@ def p_funcionblock(p):
                     | bodyblock imprimir
                     | RETURN statement
                     | '''
-def p_operacionboolean(p):
-    ''' operacionbool : boolean comparador boolean '''
-def p_operacionbooleanfuera(p):
-    '''operacionbooleanfuera : booleanstring
-                    | booleanint'''
-
-def p_validabooleanstring(p):
-    '''booleanstring : boolean MAS CADENA
-                    | boolean MENOS CADENA
-                    | CADENA MAS boolean
-                    | CADENA MENOS boolean
-                     '''
-def p_validabooleanint(p):
-    '''booleanint : boolean MAS ENTERO
-                    | boolean MENOS ENTERO
-                    | ENTERO MAS boolean
-                    | ENTERO MENOS boolean
-                     '''
 
 def p_varblock(p):
     '''varblock : varblock variable
@@ -112,9 +86,7 @@ def p_variable_char(p):
     '''variable : CHAR id IGUAL CHARACTER PUNTOCOMA
                 | STRING id IGUAL CADENA PUNTOCOMA
                 | STRING id IGUAL stringappend PUNTOCOMA
-                | STRING id IGUAL concat PUNTOCOMA
-                | STRING id IGUAL booleanstring PUNTOCOMA
-                | BOOL id IGUAL operacionbool PUNTOCOMA'''
+                | STRING id IGUAL concat PUNTOCOMA'''
     p[0] = p[4]
 
 def p_string_append(p):
@@ -267,13 +239,9 @@ def p_definicion(p):
 def p_funcionclaseimpl(p):
     ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock RETURN valor PUNTOCOMA LLAVER
                         | VOID IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock LLAVER
-                        | tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR PUNTOCOMA
                         |'''
 def p_parametrosimplementacion(p):
     '''parametrosimplementacion :  tipo IDENTIFICADOR masparametrosimplementacion
-                                | tipo IDENTIFICADOR IGUAL valor masparametrosimplementacion
-                                | tipo IDENTIFICADOR CORCHETEL CORCHETER masparametrosimplementacion
-                                | tipo IDENTIFICADOR CORCHETEL CORCHETER IGUAL  masparametrosimplementacion
                                 | '''
 def p_parametrosfuncion(p):
     ''' parametrosfuncion : IDENTIFICADOR masparametrosfuncion
@@ -288,7 +256,10 @@ def p_masparametrosfuncion(p):
 def p_creacionobjeto(p):
     ''' creacionobjeto : IDENTIFICADOR IDENTIFICADOR PUNTOCOMA'''
 def p_asignarvalores(p):
-    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor PUNTOCOMA '''
+    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor PUNTOCOMA
+                            | LPAR expresion RPAR
+                            | LPAR statement RPAR
+                            | EXCLAMACION  LPAR statement RPAR'''
 def p_usarfuncionesobjeto(p):
     ''' usarfuncionobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR LPAR parametrosfuncion RPAR PUNTOCOMA '''
 
@@ -332,23 +303,6 @@ test5 = '''
     }
 '''
 parser.parse(test5)
-test6 = '''
-    obj1.funce(2);
-'''
-parser.parse(test6)
-
-test7 = '''
-    class objeto1{int funcs(int val=1){return 0;} void funcs2(){ int val=2;} void funcs3(){ int val=2; obj1.func(); }}
-'''
-parser.parse(test7)
-test8 = '''
-    bool valor=true<false; bool val=true<false;
-'''
-parser.parse(test8)
-test9 = '''
-    int findElement(int arr[], int n, int key);
-'''
-parser.parse(test9)
 
 
 def parsing(s):
