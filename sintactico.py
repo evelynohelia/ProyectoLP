@@ -3,215 +3,57 @@ import ply.yacc as yacc
 from lexico import tokens,lexer
 
 def p_body(p):
-    '''body :  bodyblock variable
-            |  bodyblock while
-            |  bodyblock expresionif
-            | bodyblock claseimplementacion
-            | bodyblock for
-            | bodyblock funcionclaseimpl
-            | bodyblock arraydeclaration
-            | bodyblock creacionobjeto
-            | bodyblock asignarvalorobjeto
-            | bodyblock usarfuncionobjeto
-            | bodyblock struct
-            | bodyblock imprimir
-            | bodyblock stringappend
-            | bodyblock asignarray
-            | bodyblock mathoperation
-            | bodyblock asignmathoperation
-            |'''
-
-def p_id(p):
-  '''id : IDENTIFICADOR 
-        | idarray'''
-
-def p_idarray(p):
-  '''idarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER
-        | IDENTIFICADOR CORCHETEL CORCHETER'''
-
-def p_tipo(p):
-    '''tipo : INT 
-            | FLOAT
-            | LONG
-            | AUTO
-            | STRING
-            | CHAR'''
-            
-
-def p_impirmir(p):
-    '''imprimir : PRINT LPAR valor RPAR 
-                | COUT MENOR MENOR valor
-                | COUT MENOR MENOR variable'''
-    if p[1] == "printf":
-        print(p[3])
-    else:
-        print(p[4])
-    
+    '''
+    body : comparar PUNTOCOMA
+         | variable
+         | imprimir
+         | while
+         | for
+         | struct
+         | claseimplementacion
+         | funcionclaseimpl
+         | expresionif
+         | mathoperation'''
+#Gramaticas
+def p_empty(p):
+  '''empty : '''
+  pass
 
 def p_bodyblock(p):
-    ''' bodyblock : bodyblock variable
-            |  bodyblock while
-            |  bodyblock expresionif
-            | bodyblock claseimplementacion
-            | bodyblock for
-            | bodyblock funcionclaseimpl
-            | bodyblock arraydeclaration
-            | bodyblock creacionobjeto
-            | bodyblock asignarvalorobjeto
-            | bodyblock usarfuncionobjeto
-            | bodyblock struct
-            | bodyblock imprimir
-            | bodyblock stringappend
-            | bodyblock asignarray
-            | bodyblock mathoperation
-            | bodyblock asignmathoperation
-            |'''
-def p_funcionblock(p):
-    ''' funcionblock : bodyblock variable
-                    |  bodyblock while
-                    | bodyblock expresionif
-                    | bodyblock for
-                    | bodyblock imprimir
-                    | RETURN statement
-                    | '''
-def p_operacionboolean(p):
-    ''' operacionbool : boolean comparador boolean '''
-def p_operacionbooleanfuera(p):
-    '''operacionbooleanfuera : booleanstring
-                    | booleanint'''
+  ''' bodyblock : empty
+      bodyblock : bodyblock while
+                | bodyblock variable
+                | bodyblock for
+                | bodyblock struct
+                | bodyblock imprimir
+                | bodyblock expresionif
+                | bodyblock mathoperation
+                | bodyblock operacionbool
 
-def p_validabooleanstring(p):
-    '''booleanstring : boolean MAS CADENA
-                    | boolean MENOS CADENA
-                    | CADENA MAS boolean
-                    | CADENA MENOS boolean
-                     '''
-def p_validabooleanint(p):
-    '''booleanint : boolean MAS ENTERO
-                    | boolean MENOS ENTERO
-                    | ENTERO MAS boolean
-                    | ENTERO MENOS boolean
-                     '''
-
-def p_varblock(p):
-    '''varblock : varblock variable
-                | '''
-
-def p_numero_tipo(p):
-    '''numerotipo : INT
-              | FLOAT
-              | LONG'''
-
-def p_numero(p):
-    '''numero : ENTERO
-              | FLOTANTE'''
-    p[0] = p[1]
-def p_variable_numero(p):
-    '''variable : tipo id IGUAL numero PUNTOCOMA
-                | tipo id PUNTOCOMA'''
-
-
-def p_variable(p):
-    '''variable : AUTO id IGUAL valor PUNTOCOMA
-                | AUTO id PUNTOCOMA'''
-    lista = list(p)
-    if len(lista) > 2:
-        p[0] = p[4]
-
-
-def p_variable_char(p):
-    '''variable : CHAR id IGUAL CHARACTER PUNTOCOMA
-                | STRING id IGUAL CADENA PUNTOCOMA
-                | STRING id IGUAL stringappend PUNTOCOMA
-                | STRING id IGUAL concat PUNTOCOMA
-                | STRING id IGUAL booleanstring PUNTOCOMA
-                | BOOL id IGUAL operacionbool PUNTOCOMA'''
-    p[0] = p[4]
-
-def p_string_append(p):
-    '''stringappend : IDENTIFICADOR PUNTO APPEND LPAR stringdata RPAR'''
-    p[0] = p[5]
-
-def p_string_append_data(p):
-    '''stringdata : CADENA 
-                | IDENTIFICADOR'''
-    p[0] = p[1]
-
-def p_string_concat(p):
-    '''concat : concat MAS CADENA
-            | concat MAS IDENTIFICADOR
-            | CADENA'''
-    #string var = "kk" + "jj";
-    if p[1] != None:
-        p[0] = str(p[1]).replace('"','')
-    lista = list(p)
-    if len(lista) == 4:
-        p[0] += str(p[3]).replace('"','')
-
-
-def p_valor(p):
-    '''valor : ENTERO 
-            | FLOTANTE
-            | CHARACTER
-            | CADENA
-            | TRUE
-            | FALSE
-            | IDENTIFICADOR'''
-    p[0] = p[1]
-
-
-def p_asignmathoperation(p):
-    '''asignmathoperation : numerotipo IDENTIFICADOR IGUAL mathoperation'''
-        
-def p_mathoperation(p):
-    '''mathoperation : numero MAS operation PUNTOCOMA
-        | numero MENOS operation PUNTOCOMA
-        | numero ASTERISCO operation  PUNTOCOMA
-        | numero SLASH operation PUNTOCOMA
-        | operation PUNTOCOMA'''
-
-def p_operation(p):
-    '''operation : numero MAS numero
-        | numero MENOS numero
-        | numero ASTERISCO numero
-        | numero SLASH numero'''
-  
-
-
-def p_while(p):
-    '''while : WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER'''
-
-
-def p_expresion_comparacion(p):
-    '''expresion : expresion comparador expresion'''
-
-def p_struct(p):
-    '''struct : STRUCT IDENTIFICADOR LLAVEL  LLAVER IDENTIFICADOR PUNTOCOMA'''
-
-def p_struct(p):
-    '''struct : STRUCT IDENTIFICADOR LLAVEL varblock LLAVER IDENTIFICADOR PUNTOCOMA'''
-
-
-#Ricardo Villacis IF
-
+  '''
+#IF
 def p_expresionif(p):
     '''expresionif : IF LPAR condicionif RPAR conllaves expresionpos
                     | IF LPAR condicionif RPAR sinllaves expresionpos
+                    | IF LPAR condicionif RPAR conllaves 
+                    | IF LPAR condicionif RPAR sinllaves PUNTOCOMA
                     '''
 def p_expresionpos(p):
     '''expresionpos : else
-                    | elseif
-                    | '''
+                    | elseif'''
 def p_elseif(p):
     ''' elseif : ELSE IF LPAR condicionif RPAR conllaves else
-                | ELSE IF LPAR condicionif RPAR sinllaves else
-                | '''
+                | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA else 
+                | ELSE IF LPAR condicionif RPAR conllaves 
+                | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA'''
 def p_else(p):
     '''else : ELSE conllaves
-            | ELSE sinllaves'''
+            | ELSE sinllaves PUNTOCOMA'''
+
 def p_sinLlaves(p):
     '''sinllaves : while
                 | variable'''
+
 def p_conLlaves(p):
     '''conllaves : LLAVEL bodyblock LLAVER'''
 def p_condicionif(p):
@@ -221,18 +63,223 @@ def p_condicionif(p):
 def p_initcondicion(p):
     '''initcondicion : varblock statement'''
 
+#CLASE
+def p_claseimplementacion(p):
+    ''' claseimplementacion : CLASS IDENTIFICADOR LLAVEL bloqueclase LLAVER PUNTOCOMA
+                            | CLASS IDENTIFICADOR LLAVEL  LLAVER PUNTOCOMA
+                            | CLASS IDENTIFICADOR LLAVEL acceso bloqueclase LLAVER PUNTOCOMA '''
+def p_claseacceso(p):
+  '''
+    acceso : PUBLIC DOBLEPUNTO
+          | PRIVATE DOBLEPUNTO
+          | PROTECTED DOBLEPUNTO
+  '''
+def p_bloqueclase(p):
+    ''' 
+    bloqueclase : bloqueclase atributoclase
+                    | atributoclase '''
+def p_atributoclase(p):
+  ''' 
+    atributoclase : definicion
+                  | funcionclaseimpl
+                  
+  '''
+
+def p_definicion(p):
+    '''definicion : numerotipo IDENTIFICADOR PUNTOCOMA
+                  | STRING IDENTIFICADOR PUNTOCOMA
+                  | CHAR IDENTIFICADOR PUNTOCOMA
+                  | BOOL IDENTIFICADOR PUNTOCOMA '''
+#FUNCION
+def p_funcionclaseimpl(p):
+    '''
+      funcionclaseimpl :  funcionimplvoid
+                        | funcionimplnumero
+                        | funcionimplstring
+                        | funcionimplbool
+    '''
+
+def p_funcionimplstring(p):
+  '''
+    funcionimplstring : STRING IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN concat PUNTOCOMA LLAVER
+                    | CHAR IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN CHARACTER PUNTOCOMA LLAVER
+                    | CHAR IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
+  '''
+
+def p_funcionimplvoid(p):
+  ''' funcionimplvoid : VOID IDENTIFICADOR parametrosimpl LLAVEL bodyblock LLAVER
+  '''
+def p_funcionimplnumero(p):
+  '''
+    funcionimplnumero : numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN numero PUNTOCOMA LLAVER 
+                      | numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
+                      | numerotipo IDENTIFICADOR parametrosimpl PUNTOCOMA
+  '''
+def p_funcionimplbool(p):
+  '''
+    funcionimplbool : BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN boolean PUNTOCOMA LLAVER 
+                      | BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
+                      | BOOL IDENTIFICADOR parametrosimpl PUNTOCOMA
+  '''
+def p_parametrosimpl(p):
+  '''
+    parametrosimpl : LPAR RPAR
+                  | LPAR parametros RPAR
+  '''
+
+def p_parametros(p):
+  ''' parametros : tipo IDENTIFICADOR
+                  | tipo IDENTIFICADOR masparametros 
+  '''
+def p_masparametros(p):
+  '''
+    masparametros : COMMA parametros 
+  '''
+
+def p_imprimir(p):
+    '''imprimir : PRINT LPAR concat RPAR PUNTOCOMA 
+                | COUT MENOR MENOR concat PUNTOCOMA'''
+    if p[1] == "printf":
+        print(p[3])
+    else:
+        print(p[4])
+
+def p_while(p):
+    '''while : WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER'''
+
+def p_for(p):
+    '''for : FOR LPAR numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA expresion PUNTOCOMA unaryexp RPAR LLAVEL bodyblock LLAVER'''
+
+def p_varblock(p):
+    '''varblock : varblock variable
+                | variable'''
+def p_struct(p):
+    '''struct : STRUCT IDENTIFICADOR LLAVEL  LLAVER IDENTIFICADOR PUNTOCOMA
+              | STRUCT IDENTIFICADOR LLAVEL varblock LLAVER IDENTIFICADOR PUNTOCOMA'''
+
+def p_unaryexp(p):
+    '''unaryexp : IDENTIFICADOR MAS MAS 
+        | IDENTIFICADOR MENOS MENOS'''    
+    
 def p_statement(p):
     '''statement : expresion
                 | EXCLAMACION boolean
                 | EXCLAMACION LPAR expresion RPAR
-                | EXCLAMACION IDENTIFICADOR'''
+                | EXCLAMACION IDENTIFICADOR
+                | boolean
+                | numero'''
+  
+def p_variable(p):
+    '''variable : variableauto 
+                | variablenumero
+                | variablechar
+                | variablestring
+                | variablearraynumero
+                | variablearraychar
+                | variableboolean
+                 '''
+    p[0] = p[1]
+
+
+#VARIABLESTIPO
+def p_variablenumero(p):
+    ''' variablenumero : numerotipo id IGUAL mathoperation PUNTOCOMA
+                        | numerotipo id PUNTOCOMA
+                        | numerotipo id IGUAL IDENTIFICADOR PUNTOCOMA'''
+def p_variableauto(p): 
+  ''' 
+    variableauto : AUTO id IGUAL valor PUNTOCOMA
+                | AUTO id PUNTOCOMA
+                
+  '''
+def p_variablechar(p):
+  ''' 
+    variablechar : CHAR id IGUAL CHARACTER PUNTOCOMA
+                  | CHAR id PUNTOCOMA
+                  | CHAR id IGUAL IDENTIFICADOR PUNTOCOMA
+  '''
+def p_variableboolean(p):
+  ''' 
+    variableboolean : BOOL id IGUAL operacionbool PUNTOCOMA
+                  | BOOL id PUNTOCOMA
+                  | BOOL id IGUAL IDENTIFICADOR PUNTOCOMA
+  '''
+def p_variablestring(p):
+  '''
+    variablestring : STRING id IGUAL stringappend PUNTOCOMA
+                | STRING id IGUAL concat PUNTOCOMA
+                | STRING id PUNTOCOMA
+  '''
+def p_variable_array_numero(p):
+  ''' variablearraynumero : numerotipo idarray PUNTOCOMA
+                    | numerotipo idarray IGUAL LLAVEL arraydatanumero LLAVER PUNTOCOMA
+                    | numerotipo idarray IGUAL LLAVEL LLAVER PUNTOCOMA'''
+
+def p_arraydata_numero(p):
+  '''arraydatanumero : arraydatanumero COMMA  numero
+                | numero'''
+
+def p_variable_array_char(p):
+  ''' variablearraychar : CHAR idarray PUNTOCOMA
+                        | CHAR idarray IGUAL LLAVEL LLAVER PUNTOCOMA
+                        | CHAR idarray IGUAL LLAVEL datachar LLAVER PUNTOCOMA
+                        | CHAR idarray IGUAL CADENA  PUNTOCOMA
+  '''
+def p_arraydata_char(p):
+  ''' datachar : CHARACTER
+                | datachar COMMA CHARACTER
+  
+  '''
+  lista = list(p)
+  if len(lista) > 2:
+    p[0] = p[4]
+#CONCAT Y APPEND
+def p_string_append(p):
+    '''stringappend : IDENTIFICADOR PUNTO APPEND LPAR stringdata RPAR'''
+    p[0] = p[5]
+def p_string_concat(p):
+    '''concat : stringdata MAS concat
+              | stringdata'''
+    #string var = "kk" + "jj";
+    if p[1] != None:
+        p[0] = str(p[1]).replace('"','')
+    lista = list(p)
+    if len(lista) == 4:
+        p[0] += str(p[3]).replace('"','')
+
+#COMPARACIONES
+def p_expresion_comparacion(p):
+    '''expresion : valor comparador valor
+                | LPAR valor comparador valor  RPAR '''
+#Se trabaja con esto
+def p_comparar(p):
+    '''
+    comparar : expresion
+            | expresion comparador comparar
+    '''
+
+#Operaciones
+
+
+def p_mathoperation(p):
+    '''mathoperation : numero operation 
+        | numero
+        '''
+
+def p_operation(p):
+    '''operation : MAS mathoperation
+        |  MENOS mathoperation
+        | ASTERISCO mathoperation
+        |  SLASH mathoperation'''
+
+def p_operacionboolean(p):
+    ''' operacionbool : boolean comparador boolean 
+                      | boolean'''
+
+#Solo tokens
 def p_boolean(p):
     '''boolean : TRUE
                 | FALSE'''
-
-def p_expresion(p):
-    '''expresion : valor'''
-
 def p_comparacion(p):
     '''comparador : IGUAL IGUAL
                 | MENOR
@@ -240,143 +287,178 @@ def p_comparacion(p):
                 | MENOR IGUAL
                 | MAYOR IGUAL
                 | EXCLAMACION IGUAL'''
+def p_id(p):
+  '''id : IDENTIFICADOR'''
 
-#Evelyn Mejia 
-# FOR
+def p_id_array(p):
+  ''' idarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER '''
 
+def p_numero(p):
+    '''numero : ENTERO
+              | FLOTANTE
+              '''
+    p[0] = p[1]
+def p_numero_tipo(p):
+    '''numerotipo : INT
+              | FLOAT
+              | LONG'''
+def p_string_append_data(p):
+    '''stringdata : CADENA
+                | IDENTIFICADOR'''
+    p[0] = p[1]
+def p_tipo(p):
+    '''tipo : numerotipo
+            | STRING
+            | CHAR'''
 
-def p_initfor(p):
-    '''initfor : tipo IDENTIFICADOR IGUAL valor'''
+def p_valor(p):
+    '''valor : numero
+            | CHARACTER
+            | boolean
+            | stringdata'''
+    p[0] = p[1]
 
-def p_condfor(p):
-    '''condfor : IDENTIFICADOR comparador valor'''
-
-def p_loopfor(p):
-    '''loopfor : asign 
-        | unaryexp'''
-
-def p_mathasign(p):
-    '''asign : IDENTIFICADOR MAS valor 
-        | IDENTIFICADOR MENOS valor 
-        | IDENTIFICADOR ASTERISCO valor 
-        | IDENTIFICADOR SLASH valor''' 
-
-def p_unaryexp(p):
-    '''unaryexp : IDENTIFICADOR MAS MAS 
-        | IDENTIFICADOR MENOS MENOS'''
-
-def p_for(p):
-    '''for : FOR LPAR initfor PUNTOCOMA condfor PUNTOCOMA loopfor RPAR LLAVEL bodyblock LLAVER'''
-
-# ARRAY
-
-def p_array(p):
-    '''arraydeclaration : tipo id PUNTOCOMA
-    | tipo id IGUAL LLAVEL arraydata LLAVER PUNTOCOMA
-    | tipo id IGUAL LLAVEL LLAVER PUNTOCOMA'''
-
-
-def p_asignarray(p):
-    '''asignarray : idarray IGUAL arraydata PUNTOCOMA''' 
-
-def p_arraydata(p):
-    '''arraydata : arraydata COMMA  valor 
-        | valor'''
-
-
-#Ricardo Villacis Clase
-def p_claseimplementacion(p):
-    ''' claseimplementacion : CLASS IDENTIFICADOR LLAVEL bloqueclase LLAVER'''
-def p_bloqueclase(p):
-    ''' bloqueclase : bloqueclase definicion
-                    |  bloqueclase funcionclaseimpl
-                    | '''
-def p_definicion(p):
-    '''definicion : tipo IDENTIFICADOR PUNTOCOMA
-                    | '''
-
-def p_funcionclaseimpl(p):
-    ''' funcionclaseimpl : tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock RETURN valor PUNTOCOMA LLAVER
-                        | VOID IDENTIFICADOR LPAR parametrosimplementacion RPAR LLAVEL bodyblock LLAVER
-                        | tipo IDENTIFICADOR LPAR parametrosimplementacion RPAR PUNTOCOMA
-                        |'''
-def p_parametrosimplementacion(p):
-    '''parametrosimplementacion :  tipo IDENTIFICADOR masparametrosimplementacion
-                                | tipo IDENTIFICADOR IGUAL valor masparametrosimplementacion
-                                | tipo IDENTIFICADOR CORCHETEL CORCHETER masparametrosimplementacion
-                                | tipo IDENTIFICADOR CORCHETEL CORCHETER IGUAL  masparametrosimplementacion
-                                | '''
-def p_parametrosfuncion(p):
-    ''' parametrosfuncion : IDENTIFICADOR masparametrosfuncion
-                            | valor masparametrosfuncion
-                            |'''
-def p_masparametrosimplementacion(p):
-    '''masparametrosimplementacion :  COMMA parametrosimplementacion
-                                    | '''
-def p_masparametrosfuncion(p):
-    ''' masparametrosfuncion : COMMA parametrosfuncion
-                            | '''
-def p_creacionobjeto(p):
-    ''' creacionobjeto : IDENTIFICADOR IDENTIFICADOR PUNTOCOMA'''
-def p_asignarvalores(p):
-    ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor PUNTOCOMA '''
-def p_usarfuncionesobjeto(p):
-    ''' usarfuncionobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR LPAR parametrosfuncion RPAR PUNTOCOMA '''
 
 #errors
 def p_error(p):
     print("syntax error")
 parser = yacc.yacc()
-test = '''
-    void main(){
-       while(1){
-          int var;
-       }     
-       for(int x = 0 ; x < 5 ; x++){
-           auto s =  "hola";
-       }
-    }
-'''
+test =''' 1<1<0<0<0<0; '''
 parser.parse(test)
 
-test2 =  '''
-    struct PERSONA{
-        int nombre;
-    } persona;
-'''
+test1 = '''int var = 1;'''
+parser.parse(test1)
 
+test2 = '''int var[2] = {1,2};'''
 parser.parse(test2)
 
+test3 = '''while(1){
+  int var;
+  while(true){
+    
+  }
+}'''
 
-test3 = "int var = 1;"
-
+test3 = '''for(int x = 0;x<1;x++){
+    while(true){
+    struct PERSONA{
+        int nombre;
+        int apellido;
+    } persona;
+    int n=1;
+  }
+}'''
 parser.parse(test3)
 
-test4 =  '''
-    class objeto1{int valor; int valor2;int funcs(int val){return 0;}}
-'''
+test4 = '''string var = "hola" + "jj"; '''
 parser.parse(test4)
 
-test5 = '''
-    int func(){
-        return 0;
-    }
-'''
+
+test5 = '''printf("test printf"); '''
 parser.parse(test5)
-test6 = '''
-    obj1.funce(2);
-'''
+
+testc = '''cout << "test cout";'''
+parser.parse(testc)
+
+test6 =  '''    
+struct PERSONA{
+        int nombre;
+        int apellido;
+    } persona;
+ '''
 parser.parse(test6)
 
 test7 = '''
-    class objeto1{int funcs(int val=1){return 0;} void funcs2(){ int val=2;} void funcs3(){ int val=2; obj1.func(); }}
+  int main() {
+    
+    return 0;
+  }
 '''
 parser.parse(test7)
 test8 = '''
-    bool valor=true<false; bool val=true<false;
+  class myclase{};
 '''
 parser.parse(test8)
+test9 = '''
+  class myclase{
+    public:
+      int hola;
+      char funct(string h,int numero){
+        return 'a';
+      }
+  };
+'''
+parser.parse(test9)
+test10 = '''
+  if(1<0){
 
+  }
+  else{
+    cout << "cout en else jeje";
+  }
+'''
+parser.parse(test10)
+test11 = '''
+  int var = 1 + 1 + 4 +3 / 10 ;
+'''
+parser.parse(test11)
+
+test12 = '''int var = n1;'''
+parser.parse(test12)
+
+test13 = '''bool var = true < false;'''
+parser.parse(test13)
+
+test14 = '''
+  bool var = n1;
+'''
+parser.parse(test14)
+
+test17 = '''
+  int main ();
+'''
+parser.parse(test17)
+
+
+testMain = '''
+  int main(){
+    cout << "Hello World";
+    return 0;
+  }
+'''
+
+parser.parse(testMain)
+
+
+#     void main(){
+#        while(1){
+#           int var;
+#        }
+#        for(int x = 0 ; x < 5 ; x++){
+#            auto s =  "hola";
+#        }
+#     }
+# '''
+# parser.parse(test)
+#
+
+#
+#
+# test3 = "int var = 1;"
+#
+# parser.parse(test3)
+#
+# test4 =  '''
+#     class objeto1{int valor; int valor2;int funcs(int val){return 0;}}
+# '''
+# parser.parse(test4)
+#
+# test5 = '''
+#     int func(){
+#         return 0;
+#     }
+# '''
+# parser.parse(test5)
 
 
 def parsing(s):
