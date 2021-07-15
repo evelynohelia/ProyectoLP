@@ -19,7 +19,7 @@ def p_body(p):
          | asignarvalorobjeto
          | usarfuncionobjeto
          | usarfuncion'''
-
+    return p
 
 # Gramaticas
 def p_empty(p):
@@ -454,6 +454,7 @@ def p_valor(p):
 # errors
 def p_error(p):
     print("syntax error")
+    return "syntax error"
 
 
 parser = yacc.yacc()
@@ -610,13 +611,16 @@ parser.parse(testMain)
 
 
 def parsing(s):
-    parser.parse(s)
+    return parser.parse(s)
+
 
 
 def inputLex(s):
     lexer.input(s)
+    listaTokens=[]
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
-        print(tok)  
+        listaTokens.append(tok)  
+    return listaTokens
