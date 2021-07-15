@@ -653,7 +653,7 @@ testMain = '''
 
 parser.parse(testMain)
 print("testMain")
-parser.restart()
+lexer.lineno = 1;
 printList.clear()
 #     void main(){
 #        while(1){
@@ -687,6 +687,7 @@ printList.clear()
 
 
 def parsing(s):
+    lexer.lineno = 1;
     parsing = parser.parse(s)
     print(parsing)
     if parsing == None:
