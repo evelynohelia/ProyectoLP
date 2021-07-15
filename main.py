@@ -62,7 +62,15 @@ class Interfaz:
         inp = self.pantalla.get(1.0, "end-1c")
         try:
             tokensintaxis = sintactico(inp)
-            self.mostrarEnPantalla("Compilado Exitosamente")
+            lista = tokensintaxis[1]
+            if len(lista) != 0:
+                for i in lista:
+                    self.mostrarEnPantalla(i)
+                tokensintaxis[1].clear()
+                self.mostrarEnPantalla("\nCompilado Exitosamente")
+            else:
+                self.mostrarEnPantalla("Compilado Exitosamente")
+            
         except SyntaxError as e:
             self.mostrarEnPantalla(e)
 

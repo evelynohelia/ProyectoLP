@@ -2,6 +2,7 @@ import ply.yacc as yacc
 
 from lexico import tokens,lexer
 
+printList = []
 def p_body(p):
     '''
     body : comparar PUNTOCOMA
@@ -217,10 +218,13 @@ def p_masparametros(p):
 
 def p_imprimir(p):
     '''imprimir : PRINT LPAR concat RPAR PUNTOCOMA 
-                | COUT MENOR MENOR concat PUNTOCOMA'''
+                | COUT MENOR MENOR concat PUNTOCOMA
+                | COUT MENOR MENOR numero PUNTOCOMA'''
     if p[1] == "printf":
+        printList.append(p[3])
         print(p[3])
     else:
+        printList.append(p[4])
         print(p[4])
     p[0] = list(p)
 
@@ -650,7 +654,7 @@ testMain = '''
 parser.parse(testMain)
 print("testMain")
 parser.restart()
-
+printList.clear()
 #     void main(){
 #        while(1){
 #           int var;
@@ -686,9 +690,9 @@ def parsing(s):
     parsing = parser.parse(s)
     print(parsing)
     if parsing == None:
-        return True
+        return [True,printList]
     else:
-        return False
+        return [False,printList]
 
 
 
