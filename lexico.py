@@ -1,11 +1,9 @@
 import ply.lex as lex
 
-tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','CADENA','COMENTARIO','PUNTERO','EXCLAMACION','PORCENTAJE','CIRCUNFLEJO','AND','ASTERISCO','MENOS','MAS','IGUAL','LLAVEL','LLAVER','PIPE','VIRGUILA',
-         'CORCHETEL','CORCHETER','BACKSLASH','PUNTOCOMA','COMASIMPLE','DOBLEPUNTO','COMADOBLE','MENOR','MAYOR','INTERROGACION','COMMA','PUNTO','SLASH','NUMERAL','LPAR','RPAR']
+tokens = ['IDENTIFICADOR','ENTERO','FLOTANTE','CHARACTER','CADENA','EXCLAMACION','AND','ASTERISCO','MENOS','MAS','IGUAL','LLAVEL','LLAVER','OR','CORCHETEL','CORCHETER','PUNTOCOMA','DOBLEPUNTO','MENOR','MAYOR','COMMA','PUNTO','SLASH','LPAR','RPAR']
 
 reserved = {
     'if' : 'IF',
-    'then' : 'THEN',
     'else' : 'ELSE',
     'while' : 'WHILE',
     'for': 'FOR',
@@ -18,20 +16,16 @@ reserved = {
     'public': 'PUBLIC',
     'private':'PRIVATE',
     'protected':'PROTECTED',
-    'static' :'STATIC',
     'struct': 'STRUCT',
     'true': 'TRUE',
     'false': 'FALSE', 
-    'nullptr' : 'NULLPOINTER',
     'auto' :'AUTO',
     'bool' : 'BOOL',
-    'new' : 'NEW',
     'class': 'CLASS',
     'return': 'RETURN',
     'printf' : 'PRINT',
     'cout':'COUT',
     'append' : 'APPEND',
-    'findElement' : 'FINDELEMENT'
 }
 
 tokens = tokens + list(reserved.values())
@@ -45,32 +39,23 @@ def t_IDENTIFICADOR(t):
 t_LPAR = r'\('
 t_RPAR = r'\)'
 t_EXCLAMACION = r'!'
-t_PORCENTAJE = r'%'
-t_CIRCUNFLEJO = r'\^'
-t_AND = r'&'
+t_AND = r'&&'
 t_ASTERISCO = r'\*'
 t_MENOS = r'\-'
 t_MAS = r'\+'
 t_IGUAL = r'='
 t_LLAVEL = r'\{'
 t_LLAVER = r'\}'
-t_PIPE = r'\|'
-t_VIRGUILA = r'~'
-t_PUNTERO = r'\*[a-zA-Z_][A-Za-z0-9_]*'
+t_OR = r'\|\|'
 t_CORCHETER = r'\]'
 t_CORCHETEL = r'\['
-t_BACKSLASH = r'\\'
 t_PUNTOCOMA = r';'
-t_COMASIMPLE= r'\''
 t_DOBLEPUNTO = r':'
-t_COMADOBLE = r'\"'
 t_MENOR = r'<'
 t_MAYOR = r'>'
-t_INTERROGACION = r'\?'
 t_COMMA = r','
 t_PUNTO = r'\.'
 t_SLASH = r'/'
-t_NUMERAL = r'\#'
 
 
 t_CHARACTER = r'\'[a-zA-z]\''
@@ -95,8 +80,9 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print("Token Ilegal en la linea: {linea} token: {t}".format(t=t,linea=t.lineno))
     t.lexer.skip(1)
 
 #BUILDER
 lexer = lex.lex()
+

@@ -1,4 +1,4 @@
-from tkinter import Entry, Tk,Text,Button,END,re
+from tkinter import Entry, Label, Tk,Text,Button,END,re
 from sintactico import *
 import sys
 
@@ -18,7 +18,6 @@ class Interfaz:
         self.ventana.geometry("700x400")
         self.ventana['bg'] = '#49A'
 
-
         #Pantalla de entrada
         self.pantalla=Text(ventana, width=60, height=8, background="white", foreground="black", font=("Helvetica",12))
 
@@ -26,7 +25,7 @@ class Interfaz:
         self.pantalla.grid(row=0, column=1, rowspan=3, columnspan=3,  padx=5, pady=5)
         
         botonLexico = Button(ventana, text='Léxico', width=9, height=1, font=("Helvetica",15), command = self.analizarLexico)      
-        botonSemantico = Button(ventana, text='Semántica', width=9, height=1, font=("Helvetica",15), command = self.analizarSemantico)
+        botonSemantico = Button(ventana, text='Semántica', width=9, height=1, font=("Helvetica",15), command = self.analizarSintaxis)
         botonSintaxis = Button(ventana, text='Sintaxis', width=9, height=1, font=("Helvetica",15) , command = self.analizarSintaxis)
 
         botones=[botonLexico, botonSintaxis, botonSemantico]
@@ -57,12 +56,7 @@ class Interfaz:
         tokensintaxis = sintactico(inp)
         self.mostrarEnPantalla(tokensintaxis)   
 
-
-    def analizarSemantico(self, escribir=True):
-        self.limpiarPantalla()
-        inp = self.pantalla.get(1.0, "end-1c")
-        tokensintaxis = sintactico(inp)
-        self.mostrarEnPantalla(tokensintaxis)    
+  
 
     def limpiarPantalla(self):
         self.consola.configure(state="normal")
