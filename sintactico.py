@@ -19,7 +19,6 @@ def p_body(p):
          | usarfuncionobjeto
          | usarfuncion'''
     p[0] = list(p)
-    print(list(p))
 #Gramaticas
 def p_empty(p):
   '''empty : '''
@@ -181,7 +180,7 @@ def p_funcionimplvoid(p):
 
 def p_funcionimplnumero(p):
   '''
-    funcionimplnumero : numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN numero PUNTOCOMA LLAVER 
+    funcionimplnumero : numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN mathoperation PUNTOCOMA LLAVER
                       | numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
                       | numerotipo IDENTIFICADOR parametrosimpl PUNTOCOMA
   '''
@@ -189,7 +188,7 @@ def p_funcionimplnumero(p):
 
 def p_funcionimplbool(p):
   '''
-    funcionimplbool : BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN boolean PUNTOCOMA LLAVER 
+    funcionimplbool : BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN operacionbool PUNTOCOMA LLAVER
                       | BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
                       | BOOL IDENTIFICADOR parametrosimpl PUNTOCOMA
   '''
@@ -488,7 +487,7 @@ def p_error(p):
           raise SyntaxError("Error sintactico en linea: {linea} col: {col} valor: {valor}".format(linea=p.lineno,col=p,valor=p.value))
           # Just discard the token and tell the parser it's okay.
      else:
-          print("Syntax error at EOF")
+          raise SyntaxError("Error sintactico, contenido vacio")
    #"Error sintactico en linea: {linea} col: {col} valor: {valor}".format(linea=p.lineno,col=p,valor=p.value)
    
 
@@ -498,7 +497,7 @@ def p_error(p):
 parser = yacc.yacc()
 print("test0")
 test =''' !((!(1<0)<(0<2))<(0<2)); '''
-print(parser.parse(test))
+parser.parse(test)
 print("test1")
 test1 = '''int var = 1;'''
 parser.parse(test1)
@@ -590,8 +589,19 @@ print("test13")
 test14 = '''
   bool var = n1;
 '''
+
 parser.parse(test14)
 print("test14")
+test15 = '''
+  if(int var=2+2;string var1="hola";1<0){
+
+  }
+  else{
+    cout << "cout en else jeje";
+  }
+'''
+parser.parse(test15)
+print("test15")
 test17 = '''
   int main ();
 '''
@@ -627,6 +637,7 @@ testMain = '''
 
 parser.parse(testMain)
 print("testMain")
+parser.restart()
 
 #     void main(){
 #        while(1){

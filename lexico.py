@@ -82,6 +82,7 @@ def t_newline(t):
 def t_error(t):
     print("Token Ilegal en la linea: {linea} token: {t}".format(t=t,linea=t.lineno))
     t.lexer.skip(1)
+    raise Exception("Token Ilegal en la linea: {linea} token: {t}".format(t=t,linea=t.lineno))
 
 #BUILDER
 lexer = lex.lex()

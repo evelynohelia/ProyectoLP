@@ -48,16 +48,21 @@ class Interfaz:
     def analizarLexico(self, escribir=True):
         self.limpiarPantalla()
         inp = self.pantalla.get(1.0, "end-1c")
-        tokenlexico = lexico(inp)
-        for i in tokenlexico:
-            self.mostrarEnPantalla(i)
-            self.mostrarEnPantalla('\n')
+        try:
+            tokenlexico = lexico(inp)
+            for i in tokenlexico:
+                self.mostrarEnPantalla(i)    
+                self.mostrarEnPantalla('\n')
+        except Exception as e:
+            self.mostrarEnPantalla(e)
+
 
     def analizarSintaxis(self, escribir=True):
         self.limpiarPantalla()
         inp = self.pantalla.get(1.0, "end-1c")
         try:
             tokensintaxis = sintactico(inp)
+            self.mostrarEnPantalla("Compilado Exitosamente")
         except SyntaxError as e:
             self.mostrarEnPantalla(e)
 
