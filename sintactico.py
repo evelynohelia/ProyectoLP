@@ -181,7 +181,7 @@ def p_funcionimplvoid(p):
 
 def p_funcionimplnumero(p):
   '''
-    funcionimplnumero : numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN numero PUNTOCOMA LLAVER 
+    funcionimplnumero : numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN mathoperation PUNTOCOMA LLAVER
                       | numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
                       | numerotipo IDENTIFICADOR parametrosimpl PUNTOCOMA
   '''
@@ -189,7 +189,7 @@ def p_funcionimplnumero(p):
 
 def p_funcionimplbool(p):
   '''
-    funcionimplbool : BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN boolean PUNTOCOMA LLAVER 
+    funcionimplbool : BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN operacionbool PUNTOCOMA LLAVER
                       | BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
                       | BOOL IDENTIFICADOR parametrosimpl PUNTOCOMA
   '''

@@ -19,7 +19,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
-  <component name="RunManager" selected="Python.sintactico">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ProyectoLP" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -64,8 +64,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.sintactico" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.sintactico" />
       </list>
     </recent_temporary>
   </component>
