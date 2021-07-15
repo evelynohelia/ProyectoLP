@@ -18,6 +18,7 @@ def p_body(p):
          | asignarvalorobjeto
          | usarfuncionobjeto
          | usarfuncion'''
+    p[0] = list(p)
 #Gramaticas
 def p_empty(p):
   '''empty : '''
@@ -39,6 +40,7 @@ def p_bodyblock(p):
                 | bodyblock usarfuncion
 
   '''
+  p[0] = list(p)
 #IF
 def p_expresionif(p):
     '''expresionif : IF LPAR condicionif RPAR conllaves expresionpos
@@ -46,35 +48,52 @@ def p_expresionif(p):
                     | IF LPAR condicionif RPAR conllaves 
                     | IF LPAR condicionif RPAR sinllaves PUNTOCOMA
                     '''
+    p[0] = list(p)
 def p_expresionpos(p):
     '''expresionpos : else
                     | elseif'''
+    p[0] = list(p)
+
 def p_elseif(p):
     ''' elseif : ELSE IF LPAR condicionif RPAR conllaves else
                 | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA else 
                 | ELSE IF LPAR condicionif RPAR conllaves 
                 | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA'''
+    p[0] = list(p)
+
 def p_else(p):
     '''else : ELSE conllaves
             | ELSE sinllaves PUNTOCOMA'''
+    p[0] = list(p)
 
 def p_sinLlaves(p):
     '''sinllaves : while
                 | variable'''
+    p[0] = list(p)
 
 def p_conLlaves(p):
     '''conllaves : LLAVEL bodyblock LLAVER'''
+    p[0] = list(p)
 def p_condicionif(p):
     '''condicionif : initcondicion
                 | statement'''
+    p[0] = list(p)
+
+
 def p_statement(p):
     '''statement : valorstatement
                 | valorstatement masstatement'''
+    p[0] = list(p)
+
+
 def p_masestatement(p):
   '''
     masstatement : OR statement
                   | AND statement
   '''
+  p[0] = list(p)
+
+
 def p_valorstatement(p):
   '''
     valorstatement : comparar
@@ -89,36 +108,53 @@ def p_valorstatement(p):
                 | LPAR numero RPAR
                 
   '''
+  p[0] = list(p)
+
 def p_initcondicion(p):
     '''initcondicion : varblock statement'''
+    p[0] = list(p)
 
 #CLASE
 def p_claseimplementacion(p):
     ''' claseimplementacion : CLASS IDENTIFICADOR LLAVEL bloqueclase LLAVER PUNTOCOMA
                             | CLASS IDENTIFICADOR LLAVEL  LLAVER PUNTOCOMA
                             | CLASS IDENTIFICADOR LLAVEL acceso bloqueclase LLAVER PUNTOCOMA '''
+    p[0] = list(p)
+
+
 def p_claseacceso(p):
   '''
     acceso : PUBLIC DOBLEPUNTO
           | PRIVATE DOBLEPUNTO
           | PROTECTED DOBLEPUNTO
   '''
+  p[0] = list(p)
+
+
 def p_bloqueclase(p):
     ''' 
     bloqueclase : bloqueclase atributoclase
                     | atributoclase '''
+    p[0] = list(p)
+
+
 def p_atributoclase(p):
   ''' 
     atributoclase : definicion
                   | funcionclaseimpl
                   
   '''
+  p[0] = list(p)
+
 
 def p_definicion(p):
     '''definicion : numerotipo IDENTIFICADOR PUNTOCOMA
                   | STRING IDENTIFICADOR PUNTOCOMA
                   | CHAR IDENTIFICADOR PUNTOCOMA
                   | BOOL IDENTIFICADOR PUNTOCOMA '''
+    p[0] = list(p)
+
+
 #FUNCION
 def p_funcionclaseimpl(p):
     '''
@@ -127,6 +163,7 @@ def p_funcionclaseimpl(p):
                         | funcionimplstring
                         | funcionimplbool
     '''
+    p[0] = list(p)
 
 def p_funcionimplstring(p):
   '''
@@ -134,36 +171,49 @@ def p_funcionimplstring(p):
                     | CHAR IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN CHARACTER PUNTOCOMA LLAVER
                     | CHAR IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
   '''
+  p[0] = list(p)
 
 def p_funcionimplvoid(p):
   ''' funcionimplvoid : VOID IDENTIFICADOR parametrosimpl LLAVEL bodyblock LLAVER
   '''
+  p[0] = list(p)
+
 def p_funcionimplnumero(p):
   '''
     funcionimplnumero : numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN numero PUNTOCOMA LLAVER 
                       | numerotipo IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
                       | numerotipo IDENTIFICADOR parametrosimpl PUNTOCOMA
   '''
+  p[0] = list(p)
+
 def p_funcionimplbool(p):
   '''
     funcionimplbool : BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN boolean PUNTOCOMA LLAVER 
                       | BOOL IDENTIFICADOR parametrosimpl LLAVEL bodyblock RETURN IDENTIFICADOR PUNTOCOMA LLAVER
                       | BOOL IDENTIFICADOR parametrosimpl PUNTOCOMA
   '''
+  p[0] = list(p)
+
 def p_parametrosimpl(p):
   '''
     parametrosimpl : LPAR RPAR
                   | LPAR parametros RPAR
   '''
+  p[0] = list(p)
+
 
 def p_parametros(p):
   ''' parametros : tipo IDENTIFICADOR
                   | tipo IDENTIFICADOR masparametros 
   '''
+  p[0] = list(p)
+
 def p_masparametros(p):
   '''
     masparametros : COMMA parametros 
   '''
+  p[0] = list(p)
+
 
 def p_imprimir(p):
     '''imprimir : PRINT LPAR concat RPAR PUNTOCOMA 
@@ -172,24 +222,31 @@ def p_imprimir(p):
         print(p[3])
     else:
         print(p[4])
+    p[0] = list(p)
 
 def p_while(p):
     '''while : WHILE LPAR statement RPAR LLAVEL bodyblock LLAVER'''
+    p[0] = list(p)
 
 def p_for(p):
     '''for : FOR LPAR numerotipo IDENTIFICADOR IGUAL numero PUNTOCOMA expresion PUNTOCOMA unaryexp RPAR LLAVEL bodyblock LLAVER'''
+    p[0] = list(p)
+
 
 def p_varblock(p):
     '''varblock : varblock variable
                 | variable'''
+    p[0] = list(p)
+
 def p_struct(p):
     '''struct : STRUCT IDENTIFICADOR LLAVEL  LLAVER IDENTIFICADOR PUNTOCOMA
               | STRUCT IDENTIFICADOR LLAVEL varblock LLAVER IDENTIFICADOR PUNTOCOMA'''
+    p[0] = list(p)
 
 def p_unaryexp(p):
     '''unaryexp : IDENTIFICADOR MAS MAS 
         | IDENTIFICADOR MENOS MENOS'''    
-    
+    p[0] = list(p)
 
   
 def p_variable(p):
@@ -209,38 +266,49 @@ def p_variablenumero(p):
     ''' variablenumero : numerotipo id IGUAL mathoperation PUNTOCOMA
                         | numerotipo id PUNTOCOMA
                         | numerotipo id IGUAL IDENTIFICADOR PUNTOCOMA'''
+    p[0] = list(p)
+
 def p_variableauto(p): 
   ''' 
     variableauto : AUTO id IGUAL valor PUNTOCOMA
                 | AUTO id PUNTOCOMA
                 
   '''
+  p[0] = list(p)
+
 def p_variablechar(p):
   ''' 
     variablechar : CHAR id IGUAL CHARACTER PUNTOCOMA
                   | CHAR id PUNTOCOMA
                   | CHAR id IGUAL IDENTIFICADOR PUNTOCOMA
   '''
+  p[0] = list(p)
+  
 def p_variableboolean(p):
   ''' 
     variableboolean : BOOL id IGUAL operacionbool PUNTOCOMA
                   | BOOL id PUNTOCOMA
                   | BOOL id IGUAL IDENTIFICADOR PUNTOCOMA
   '''
+  p[0] = list(p)
+
 def p_variablestring(p):
   '''
     variablestring : STRING id IGUAL stringappend PUNTOCOMA
                 | STRING id IGUAL concat PUNTOCOMA
                 | STRING id PUNTOCOMA
   '''
+  p[0] = list(p)
+
 def p_variable_array_numero(p):
   ''' variablearraynumero : numerotipo idarray PUNTOCOMA
                     | numerotipo idarray IGUAL LLAVEL arraydatanumero LLAVER PUNTOCOMA
                     | numerotipo idarray IGUAL LLAVEL LLAVER PUNTOCOMA'''
-
+  p[0] = list(p)  
 def p_arraydata_numero(p):
   '''arraydatanumero : arraydatanumero COMMA  numero
                 | numero'''
+  p[0] = list(p)
 
 def p_variable_array_char(p):
   ''' variablearraychar : CHAR idarray PUNTOCOMA
@@ -248,6 +316,8 @@ def p_variable_array_char(p):
                         | CHAR idarray IGUAL LLAVEL datachar LLAVER PUNTOCOMA
                         | CHAR idarray IGUAL CADENA  PUNTOCOMA
   '''
+  p[0] = list(p)
+
 def p_arraydata_char(p):
   ''' datachar : CHARACTER
                 | datachar COMMA CHARACTER
@@ -273,35 +343,50 @@ def p_string_concat(p):
 #OBJETOS
 def p_creacionobjeto(p):
     ''' creacionobjeto : IDENTIFICADOR IDENTIFICADOR PUNTOCOMA'''
+    p[0] = list(p)
+
 def p_asignarvalores(p):
     ''' asignarvalorobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR IGUAL valor PUNTOCOMA '''
+    p[0] = list(p)
+
 def p_usarfuncionesobjeto(p):
     ''' usarfuncionobjeto : IDENTIFICADOR PUNTO IDENTIFICADOR funcparentesis PUNTOCOMA '''
+    p[0] = list(p)
+
 #argumentos y funcion general
 def p_usarfuncion(p):
   '''
     usarfuncion : IDENTIFICADOR funcparentesis PUNTOCOMA
   '''
+  p[0] = list(p)
+
 def p_funcparentesis(p):
   '''
     funcparentesis : LPAR RPAR
                   | LPAR argumentosfuncion RPAR
   '''
+  p[0] = list(p)
+
 
 def p_argumentosfuncion(p):
   ''' argumentosfuncion : valor
                   | valor masargumentosfuncion 
   '''
+  p[0] = list(p)
+
 def p_masargumentosfuncion(p):
   '''
     masargumentosfuncion : COMMA argumentosfuncion 
   '''
+  p[0] = list(p)
+
 #COMPARACIONES
 def p_expresion_comparacion(p):
     '''expresion : valor comparador valor
                 | LPAR valor comparador valor  RPAR
                 | EXCLAMACION LPAR valor comparador valor  RPAR
                  '''
+    p[0] = list(p)             
 #Se trabaja con esto
 
 
@@ -315,12 +400,15 @@ def p_comparar(p):
             
             
     '''
+    p[0] = list(p)
+
 def p_mascomparaciones(p):
   '''
     mascomparaciones :   comparar comparador
                       |    comparar  LPAR comparador RPAR 
                       
   '''
+  p[0] = list(p)
 
 #Operaciones
 
@@ -329,21 +417,25 @@ def p_mathoperation(p):
     '''mathoperation : numero operation 
         | numero
         '''
+    p[0] = list(p)
 
 def p_operation(p):
     '''operation : MAS mathoperation
         |  MENOS mathoperation
         | ASTERISCO mathoperation
         |  SLASH mathoperation'''
+    p[0] = list(p)
 
 def p_operacionboolean(p):
     ''' operacionbool : boolean comparador boolean 
                       | boolean'''
-
+    p[0] = list(p)
 #Solo tokens
 def p_boolean(p):
     '''boolean : TRUE
                 | FALSE'''
+    p[0] = list(p)
+
 def p_comparacion(p):
     '''comparador : IGUAL IGUAL
                 | MENOR
@@ -351,11 +443,15 @@ def p_comparacion(p):
                 | MENOR IGUAL
                 | MAYOR IGUAL
                 | EXCLAMACION IGUAL'''
+    p[0] = list(p)
+
 def p_id(p):
   '''id : IDENTIFICADOR'''
+  p[0] = p[1]
 
 def p_id_array(p):
   ''' idarray : IDENTIFICADOR CORCHETEL ENTERO CORCHETER '''
+  p[0] = list(p)
 
 def p_numero(p):
     '''numero : ENTERO
@@ -366,6 +462,7 @@ def p_numero_tipo(p):
     '''numerotipo : INT
               | FLOAT
               | LONG'''
+    p[0] = p[1]
 def p_string_append_data(p):
     '''stringdata : CADENA
                 | IDENTIFICADOR'''
@@ -386,10 +483,12 @@ def p_valor(p):
 #errors
 def p_error(p):
     print("Error sintactico en linea: {linea} col: {col} valor: {valor}".format(linea=p.lineno,col=p,valor=p.value))
+    
+
 parser = yacc.yacc()
 print("test0")
 test =''' !((!(1<0)<(0<2))<(0<2)); '''
-parser.parse(test)
+print(parser.parse(test))
 print("test1")
 test1 = '''int var = 1;'''
 parser.parse(test1)
@@ -551,7 +650,12 @@ print("testMain")
 
 
 def parsing(s):
-    parser.parse(s)
+    parsing = parser.parse(s)
+    if parsing == None:
+        return False
+    else:
+        return True
+
 
 
 def inputLex(s):
