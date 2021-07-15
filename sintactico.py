@@ -19,6 +19,7 @@ def p_body(p):
          | usarfuncionobjeto
          | usarfuncion'''
     p[0] = list(p)
+    print(list(p))
 #Gramaticas
 def p_empty(p):
   '''empty : '''
@@ -482,7 +483,16 @@ def p_valor(p):
 
 #errors
 def p_error(p):
-    print("Error sintactico en linea: {linea} col: {col} valor: {valor}".format(linea=p.lineno,col=p,valor=p.value))
+     if p:
+          print("Syntax error at token", p.type)
+          raise SyntaxError("Error sintactico en linea: {linea} col: {col} valor: {valor}".format(linea=p.lineno,col=p,valor=p.value))
+          # Just discard the token and tell the parser it's okay.
+     else:
+          print("Syntax error at EOF")
+   #"Error sintactico en linea: {linea} col: {col} valor: {valor}".format(linea=p.lineno,col=p,valor=p.value)
+   
+
+        
     
 
 parser = yacc.yacc()
@@ -651,10 +661,11 @@ print("testMain")
 
 def parsing(s):
     parsing = parser.parse(s)
+    print(parsing)
     if parsing == None:
-        return False
-    else:
         return True
+    else:
+        return False
 
 
 

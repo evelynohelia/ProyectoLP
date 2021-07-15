@@ -56,16 +56,12 @@ class Interfaz:
     def analizarSintaxis(self, escribir=True):
         self.limpiarPantalla()
         inp = self.pantalla.get(1.0, "end-1c")
-        tokensintaxis = sintactico(inp)
-        tokenerror = error(inp)
-        if tokensintaxis == True:
-            self.mostrarEnPantalla("Error")
-            self.mostrarEnPantalla('\n')
-            self.mostrarEnPantalla(tokenerror)
-            self.mostrarEnPantalla('\n')
+        try:
+            tokensintaxis = sintactico(inp)
+        except SyntaxError as e:
+            self.mostrarEnPantalla(e)
 
-        else: 
-            self.mostrarEnPantalla("Correcto")
+            
 
   
 
