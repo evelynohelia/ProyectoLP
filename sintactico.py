@@ -47,18 +47,18 @@ def p_expresionif(p):
                     | IF LPAR condicionif RPAR sinllaves expresionpos
                     | IF LPAR condicionif RPAR conllaves 
                     | IF LPAR condicionif RPAR sinllaves PUNTOCOMA
+                    | IF LPAR condicionif RPAR PUNTOCOMA expresionpos
                     '''
     p[0] = list(p)
 def p_expresionpos(p):
     '''expresionpos : else
                     | elseif'''
-    p[0] = list(p)
-
 def p_elseif(p):
-    ''' elseif : ELSE IF LPAR condicionif RPAR conllaves else
-                | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA else 
+    ''' elseif : ELSE IF LPAR condicionif RPAR conllaves expresionpos
+                | ELSE IF LPAR condicionif RPAR sinllaves  expresionpos 
                 | ELSE IF LPAR condicionif RPAR conllaves 
-                | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA'''
+                | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA
+                | ELSE IF LPAR condicionif RPAR PUNTOCOMA expresionpos'''
     p[0] = list(p)
 
 def p_else(p):
@@ -602,6 +602,16 @@ test15 = '''
 '''
 parser.parse(test15)
 print("test15")
+test16 = '''
+  if(int var=2+2;string var1="hola";1<0);
+  else if (int var=2+2;string var1="hola";1<0) ;
+  else if (int var=2+2;string var1="hola";1<0) int var=2+2 ;
+  else{
+    cout << "cout en else jeje";
+  }
+'''
+parser.parse(test16)
+print("test16")
 test17 = '''
   int main ();
 '''
