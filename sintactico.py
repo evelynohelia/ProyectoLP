@@ -49,22 +49,22 @@ def p_expresionif(p):
                     | IF LPAR condicionif RPAR sinllaves PUNTOCOMA
                     | IF LPAR condicionif RPAR PUNTOCOMA expresionpos
                     '''
-    p[0] = list(p)
 def p_expresionpos(p):
     '''expresionpos : else
                     | elseif'''
 def p_elseif(p):
     ''' elseif : ELSE IF LPAR condicionif RPAR conllaves expresionpos
-                | ELSE IF LPAR condicionif RPAR sinllaves  expresionpos 
-                | ELSE IF LPAR condicionif RPAR conllaves 
+                | ELSE IF LPAR condicionif RPAR sinllaves  expresionpos
+                | ELSE IF LPAR condicionif RPAR conllaves
                 | ELSE IF LPAR condicionif RPAR sinllaves PUNTOCOMA
-                | ELSE IF LPAR condicionif RPAR PUNTOCOMA expresionpos'''
-    p[0] = list(p)
-
+                | ELSE IF LPAR condicionif RPAR PUNTOCOMA expresionpos
+                | ELSE IF LPAR condicionif RPAR sinllaves
+                | ELSE IF LPAR condicionif RPAR PUNTOCOMA
+                '''
 def p_else(p):
     '''else : ELSE conllaves
-            | ELSE sinllaves PUNTOCOMA'''
-    p[0] = list(p)
+            | ELSE sinllaves PUNTOCOMA
+            | ELSE PUNTOCOMA '''
 
 def p_sinLlaves(p):
     '''sinllaves : while
@@ -566,12 +566,14 @@ test9 = '''
 parser.parse(test9)
 print("test9")
 test10 = '''
-  if(1<0){
+  if(int var=2+2;string var1="hola";1<0){} else if (int var=2+2;string var1="hola";1<0) {} 
+  else if(int var=2+2;string var1="hola";1<3);
+  else if (int var=2+2;string var1="hola";1<3);
+  else {int var=2+2;}
 
-  }
-  else{
-    cout << "cout en else jeje";
-  }
+
+
+
 '''
 parser.parse(test10)
 print("test10")
